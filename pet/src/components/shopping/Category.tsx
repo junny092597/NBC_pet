@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 function Category() {
   // 강아지, 고양이, 그 외의 카테고리
-  const categories = ['강이지', '고양이', '그외'];
+  const categories: string[] = ['강이지', '고양이', '그외'];
 
   // 각 카테고리에 속하는 아이템
   const items: Record<string, string[]> = {
@@ -21,7 +21,6 @@ function Category() {
 
   return (
     <>
-      <div>'카테고리'</div>
       {/* 최상단 버튼 카테고리 */}
       <SCategoryContainer>
         {categories.map(category => (
