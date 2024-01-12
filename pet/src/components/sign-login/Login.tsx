@@ -2,38 +2,52 @@ import styled from 'styled-components';
 import Swal from 'sweetalert2';
 
 import { auth } from '../../Firebase';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword,  UserCredential as FirebaseAuthUserCredential } from 'firebase/auth';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { login } from '../../redux/modules/AuthSlice'
 
+interface UserCredential  {
+    user: {
+      email: string;
+      displayName: string | null;
+      uid: string;
+    };
+  }
 
 const Login = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
   
     const dispatch = useDispatch();
   
     const localLogin = async (e: { preventDefault: () => void; }) => {
       e.preventDefault();
       try {
-        const userCredential = await signInWithEmailAndPassword(
+        const userCredential: FirebaseAuthUserCredential = await signInWithEmailAndPassword(
           auth,
           email,
           password
         );
+
+        const user = userCredential.user;
+        
+        if (user) {
         setEmail("");
         setPassword("");
         dispatch(
           login({
-            email: userCredential.user.email,
-            displayName: userCredential.user.displayName,
-            uid: userCredential.user.uid,
-            photoURL: userCredential.user.photoURL,
+              email: userCredential.user.email,
+              displayName: userCredential.user.displayName || '',
+              uid: userCredential.user.uid,
+              isLogin: false,
+              photoURL: null
           })
         );
+
         Swal.fire({
           title: "로그인 성공",
-          text: userCredential.user.displayName + `님 환영합니다!`,
+          text: `${userCredential.user.displayName || "사용자" }님 환영합니다!`,
           confirmButtonColor: "#20b2aa",
           confirmButtonText: "확인",
         //   imageUrl: heart,
@@ -41,7 +55,8 @@ const Login = () => {
         //   imageHeight: 130,
         //   imageAlt: "Custom image",
         });
-      } catch (error) {
+        }
+      } catch (error: any) {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log("error with LogIn", errorCode, errorMessage);
