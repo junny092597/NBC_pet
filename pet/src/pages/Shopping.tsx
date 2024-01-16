@@ -1,14 +1,18 @@
-import React from 'react';
+// Shopping.tsx
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Category from '../components/shopping/Category';
 import Items from '../components/shopping/Items';
 
 function Shopping() {
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedItems, setSelectedItems] = useState<string[]>([]);
+
   return (
     <>
       <SComponentsContainer>
-        <Category />
-        <Items />
+        <Category selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
+        <Items selectedCategory={selectedCategory} selectedItems={selectedItems} />
       </SComponentsContainer>
     </>
   );

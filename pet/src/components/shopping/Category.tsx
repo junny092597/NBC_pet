@@ -1,39 +1,61 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
+import { collection, getDocs } from 'firebase/firestore/lite';
+import { db } from '../../firebase/firebase';
 
-function Category() {
-  // 강아지, 고양이, 그 외의 카테고리
-  const categories: string[] = ['강이지', '고양이', '그외'];
+interface Item {
+  id: string;
+  Price: number;
+  상품명: string;
+  이미지: string;
+}
 
-  // 각 카테고리에 속하는 아이템
+interface CategoryProps {
+  selectedCategory: string | null;
+  setSelectedCategory: React.Dispatch<React.SetStateAction<string | null>>;
+}
+
+function Category({ selectedCategory, setSelectedCategory }: CategoryProps): JSX.Element {
+  const categories: string[] = ['강아지', '고양이', '그외'];
   const items: Record<string, string[]> = {
-    강이지: ['사료', '간식', '놀이용품'],
+    강아지: ['사료', '간식', '놀이용품'],
     고양이: ['사료', '간식', '놀이용품'],
     그외: ['사료', '간식', '놀이용품'],
   };
 
-  // 현재 선택된 카테고리 상태
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-
-  const onClickCategory = (category: string) => {
+  const onClickCategory = async (category: string) => {
     setSelectedCategory(prevCategory => (prevCategory === category ? null : category));
+
+    if (category !== selectedCategory) {
+      try {
+        const itemsCollection = collection(db, 'DogsFood', category);
+        const itemsSnapshot = await getDocs(itemsCollection);
+        let itemsData: Item[] = itemsSnapshot.docs.map(doc => ({
+          id: doc.id,
+          Price: doc.data().Price,
+          상품명: doc.data().상품명,
+          이미지: doc.data().이미지,
+        }));
+
+        console.log(itemsData);
+      } catch (error) {
+        console.error('Firestore에서 아이템을 가져오는 중 에러 발생:', error);
+      }
+    }
   };
 
   return (
-    <>
-      {/* 최상단 버튼 카테고리 */}
-      <SCategoryContainer>
-        {categories.map(category => (
-          <div key={category}>
-            <SItemButton onClick={() => onClickCategory(category)} active={category === selectedCategory}>
-              {category}
-            </SItemButton>
-            {category === selectedCategory &&
-              items[selectedCategory].map(item => <SItemButton key={item}>{item}</SItemButton>)}
-          </div>
-        ))}
-      </SCategoryContainer>
-    </>
+    <SCategoryContainer>
+      {categories.map(category => (
+        <div key={category}>
+          <SItemButton onClick={() => onClickCategory(category)} active={category === selectedCategory}>
+            {category}
+          </SItemButton>
+          {category === selectedCategory &&
+            items[selectedCategory].map(item => <SItemButton key={item}>{item}</SItemButton>)}
+        </div>
+      ))}
+    </SCategoryContainer>
   );
 }
 
@@ -47,7 +69,7 @@ const SCategoryContainer = styled.div`
 `;
 
 const SItemButton = styled.button<{ active?: boolean }>`
-  margin-bottom: 5px; /* 각 버튼 사이의 간격 조절 */
-  background-color: ${({ active }) => (active ? 'lightblue' : 'white')};
+  margin-bottom: 5px;
+  background-color: ${({ active }) => (active ? 'gray' : 'white')};
   cursor: pointer;
 `;
