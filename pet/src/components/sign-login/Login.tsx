@@ -1,5 +1,7 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 import styled from 'styled-components';
 import Swal from 'sweetalert2';
+import leftimg from '../../assets/images/testlogin.jpg'
 
 import { auth } from '../../Firebase';
 import { signInWithEmailAndPassword,  UserCredential as FirebaseAuthUserCredential, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
@@ -112,9 +114,13 @@ const Login = () => {
         setPassword(value);
       }
     };
+
     return (
         <Container>
-          <Form onSubmit={localLogin}>
+      <LeftSection className="left-section">
+        <Loginimg src={leftimg} alt={"left image"}/>
+      </LeftSection>
+          <RightSection onSubmit={localLogin}>
             <Title>로그인</Title>
             <InputContainer>
               <Input
@@ -149,27 +155,46 @@ const Login = () => {
             Google 로그인
           </GoogleButton>
             </ButtonContainer>
-          </Form>
+          </RightSection>
         </Container>
+
       );
 }
 
 const Container = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 130px;
+  height: 100vh; 
 `;
 
-const Form = styled.form`
-  background-color: #ffffff;
-  border-radius: 12px;
-  padding: 22px;
+const Section = styled.div`
+  flex: 1;
+  padding: 100px; 
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  width: 380px;
+  align-items: center;
+  text-align: center;
+
 `;
+
+const LeftSection = styled(Section)`
+
+`
+
+const RightSection = styled(Section)`
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 380px;
+    align-items: center;
+    justify-content: center;
+`
+
+const Loginimg = styled.img`
+  width: 100%;
+  height: 100%;
+`
 
 const Title = styled.h1`
   color: #454545;
