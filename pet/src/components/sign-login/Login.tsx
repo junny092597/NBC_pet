@@ -2,18 +2,11 @@ import styled from 'styled-components';
 import Swal from 'sweetalert2';
 
 import { auth } from '../../Firebase';
-import { signInWithEmailAndPassword,  UserCredential as FirebaseAuthUserCredential } from 'firebase/auth';
+import { signInWithEmailAndPassword,  UserCredential as FirebaseAuthUserCredential, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '../../redux/modules/AuthSlice'
 
-interface UserCredential  {
-    user: {
-      email: string;
-      displayName: string | null;
-      uid: string;
-    };
-  }
 
 const Login = () => {
     const [email, setEmail] = useState<string>("");
@@ -30,7 +23,7 @@ const Login = () => {
           password
         );
 
-        const user = userCredential.user;
+        const user = userCredential.user
         
         if (user) {
         setEmail("");
@@ -70,6 +63,41 @@ const Login = () => {
         //   imageHeight: 130,
         //   imageAlt: "Custom image",
         });
+      }
+    };
+
+    const GoogleLogin = async (e: { preventDefault: () => void; }) => {
+      e.preventDefault();
+  
+      const Provider = new GoogleAuthProvider();
+      Provider.setCustomParameters({
+        prompt: "select_account",
+      });
+      try {
+        const result = await signInWithPopup(auth, Provider);
+        dispatch(
+          login({
+            email: result.user.email,
+            displayName: result.user.displayName || '',
+            uid: result.user.uid,
+            photoURL: null,
+            isLogin: false
+          })
+        );
+        Swal.fire({
+          title: "로그인 성공",
+          text: result.user.displayName + `님 환영합니다!`,
+          confirmButtonColor: "#20b2aa",
+          confirmButtonText: "확인",
+          // imageUrl: heart,
+          // imageWidth: 130,
+          // imageHeight: 130,
+          // imageAlt: "Custom image",
+        });
+      } catch (error: any) {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log("error with googleLogIn", errorCode, errorMessage);
       }
     };
     
@@ -117,6 +145,9 @@ const Login = () => {
               >
                 로그인
               </Button>
+              <GoogleButton type="button" onClick={GoogleLogin}>
+            Google 로그인
+          </GoogleButton>
             </ButtonContainer>
           </Form>
         </Container>
@@ -182,6 +213,20 @@ const Button = styled.button`
   padding: 12px 0;
   font-size: 18px;
   border-radius: 10px;
+`;
+
+const GoogleButton = styled.button`
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  margin-top: 4px;
+  margin-bottom: 2px;
+  padding: 12px 0;
+  font-size: 18px;
+  border-radius: 10px;
+  &:hover {
+    background-color: #ffc436;
+  }
 `;
 
 
