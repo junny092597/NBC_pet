@@ -7,7 +7,6 @@
       "esnext"
     ],
     "types": [
-    
       "kakao.maps.d.ts"
     ],
     "allowJs": true,

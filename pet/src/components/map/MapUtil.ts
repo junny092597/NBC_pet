@@ -32,28 +32,36 @@ const categoryKeywords: { [category: string]: string[] } = {
     }
   };
   
-  export const searchPlaces = (map: kakao.maps.Map, category: string, callback: (results: any[]) => void) => {
-    const keywords = categoryKeywords[category];
-    if (!Array.isArray(keywords)) {
-      console.error(`Invalid category: ${category}`);
-      return;
-    }
+  export const searchPlaces = (map: kakao.maps.Map, category: string, callback: (markers: any[]) => void) => {
+    getCurrentLocation(position => {
+      const { latitude, longitude } = position.coords;
+      const keywords = categoryKeywords[category];
+      if (!Array.isArray(keywords)) {
+        console.error(`Invalid category: ${category}`);
+        return;
+      }
   
-    Promise.all(keywords.map(keyword => {
-      return new Promise((resolve, reject) => {
-        ps.keywordSearch(keyword, (data, status) => {
-          if (status === kakao.maps.services.Status.OK) {
-            resolve(data);
-          } else {
-            reject(new Error(`Search failed for keyword: ${keyword}`));
-          }
+      Promise.all(keywords.map(keyword => {
+        return new Promise((resolve, reject) => {
+          ps.keywordSearch(keyword, (data, status) => {
+            if (status === kakao.maps.services.Status.OK) {
+              resolve(data);
+            } else {
+              reject(new Error(`Search failed for keyword: ${keyword}`));
+            }
+          }, {
+            location: new kakao.maps.LatLng(latitude, longitude),
+            radius: 500 // 검색 반경 설정 (예시)
+          });
         });
+      })).then(results => {
+        const combinedResults = results.flat();
+        callback(combinedResults);
+      }).catch(error => {
+        console.error(error);
       });
-    })).then(results => {
-      const combinedResults = results.flat();
-      callback(combinedResults);
-    }).catch(error => {
-      console.error(error);
+    }, error => {
+      console.error("Error getting current location:", error);
     });
   };
   
@@ -69,6 +77,6 @@ const categoryKeywords: { [category: string]: string[] } = {
         infowindow.setContent(`<div style="padding:5px;font-size:12px;">${place.place_name}</div>`);
         infowindow.open(map, marker);
       });
-    }); // forEach 루프 종료
+    });
   };
   

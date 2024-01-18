@@ -3,16 +3,22 @@ import { initMap, searchPlaces, createMarkers, getCurrentLocation } from './MapU
 import CategoryButton from './CategoryButton'; 
 
 const KakaoMapComponent: React.FC = () => {
-  const [map, setMap] = useState<kakao.maps.Map>();
+  const [map, setMap] = useState<kakao.maps.Map | null>(null);
 
   useEffect(() => {
-    getCurrentLocation(position => {
-      const { latitude, longitude } = position.coords;
-      const Map = initMap('map', latitude, longitude, 3);
-      setMap(map);
-    }, error => {
-      console.error("Error getting current location:", error);
-    });
+    // 카카오 맵 API 로드 상태 확인
+    if (window.kakao && window.kakao.maps) {
+      // 카카오 맵 API가 로드되었을 때 실행할 로직
+      getCurrentLocation(position => {
+        const { latitude, longitude } = position.coords;
+        const loadedMap = initMap('map', latitude, longitude, 3);
+        setMap(loadedMap);
+      }, error => {
+        console.error("현재 위치를 가져오는데 실패했습니다", error);
+      });
+    } else {
+      console.error("api 데이터 로딩 실패");
+    }
   }, []);
 
   const handleCategorySearch = (category: string) => {
