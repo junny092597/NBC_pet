@@ -6,7 +6,7 @@ import Items from '../components/shopping/Items';
 
 function Shopping() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [selectedItems, setSelectedItems] = useState<string[]>([]);
+  const [selectedItems, setSelectedItems] = useState<any>();
 
   return (
     <>
