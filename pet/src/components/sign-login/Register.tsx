@@ -6,7 +6,7 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function Signup() {
+export default function Register() {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [passwdCheck, setPasswdCheck] = useState<string>("");
@@ -81,13 +81,13 @@ export default function Signup() {
       <Container>
         <Form onSubmit={signUp}>
           <>
-            <Title>회원가입</Title>
+            <Title>SIGN UP</Title>
             <InputContainer>
               <Input
                 type="email"
                 value={email}
                 name="email"
-                placeholder="이메일 (6~30글자)"
+                placeholder="E-mail (6~30글자)"
                 minLength={6}
                 maxLength={30}
                 onChange={onChange}
@@ -97,7 +97,7 @@ export default function Signup() {
                 type="password"
                 value={password}
                 name="password"
-                placeholder="비밀번호 (6~10글자)"
+                placeholder="Password (6~10글자)"
                 minLength={6}
                 maxLength={10}
                 onChange={onChange}
@@ -107,7 +107,7 @@ export default function Signup() {
                 type="password"
                 value={passwdCheck}
                 name="passwdCheck"
-                placeholder="비밀번호 확인(6~10글자)"
+                placeholder="Confirm Password(6~10글자)"
                 minLength={6}
                 maxLength={10}
                 onChange={(e) => setPasswdCheck(e.target.value)}
@@ -120,7 +120,7 @@ export default function Signup() {
                 type="text"
                 value={nickName}
                 name="nickname"
-                placeholder="닉네임 (2~10글자)"
+                placeholder="Nickname (2~10글자)"
                 minLength={2}
                 maxLength={10}
                 onChange={onChange}

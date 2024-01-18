@@ -32,7 +32,10 @@ const AuthSlice = createSlice({
       state.uid = uid || null;
       state.photoURL = photoURL || null;
     },
-
+    logout: (state) => {
+      localStorage.clear();
+      return (state = initialState);
+    },
     updateNickname: (state, action: PayloadAction<string>) => {
       localStorage.setItem("displayName", action.payload);
       state.displayName = action.payload;
@@ -40,5 +43,5 @@ const AuthSlice = createSlice({
   },
 });
 
-export const { login, updateNickname } = AuthSlice.actions;
+export const { login, updateNickname, logout } = AuthSlice.actions;
 export default AuthSlice.reducer;
