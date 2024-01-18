@@ -152,7 +152,7 @@ const Login = () => {
                 SIGN IN
               </Button>
               <GoogleButton type="button" onClick={GoogleLogin}>
-            Google 로그인
+            Google Login
           </GoogleButton>
             </ButtonContainer>
            </>
