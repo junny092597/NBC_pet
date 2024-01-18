@@ -109,33 +109,33 @@ function Category({ selectedCategory, setSelectedCategory }: CategoryProps): JSX
           console.log({ allItemsData });
           setItemsData(allItemsData);
         } else if (category === '그외') {
-          // CatsFood 컬렉션 데이터 가져오기
-          const catsFoodCollection = collection(db, 'CatsFood');
-          const catsFoodQuery = query(catsFoodCollection);
-          const catsFoodSnapshot = await getDocs(catsFoodQuery);
-          const catsFoodData: Item[] = catsFoodSnapshot.docs.map(doc => ({
+          // OthersFood 컬렉션 데이터 가져오기
+          const othersFoodCollection = collection(db, 'OthersFood');
+          const othersFoodQuery = query(othersFoodCollection);
+          const othersFoodSnapshot = await getDocs(othersFoodQuery);
+          const othersFoodData: Item[] = othersFoodSnapshot.docs.map(doc => ({
             id: doc.data().id,
             가격: doc.data().가격,
             상품명: doc.data().상품명,
             이미지: doc.data().이미지,
           }));
 
-          // CatsSnack 컬렉션 데이터 가져오기
-          const catsSnackCollection = collection(db, 'CatsSnack');
-          const catsSnackQuery = query(catsSnackCollection);
-          const catsSnackSnapshot = await getDocs(catsSnackQuery);
-          const catsSnackData: Item[] = catsSnackSnapshot.docs.map(doc => ({
+          // OthersSnack 컬렉션 데이터 가져오기
+          const othersSnackCollection = collection(db, 'OthersSnack');
+          const othersSnackQuery = query(othersSnackCollection);
+          const othersSnackSnapshot = await getDocs(othersSnackQuery);
+          const othersSnackData: Item[] = othersSnackSnapshot.docs.map(doc => ({
             id: doc.data().id,
             가격: doc.data().가격,
             상품명: doc.data().상품명,
             이미지: doc.data().이미지,
           }));
 
-          // CatsPlay 컬렉션 데이터 가져오기
-          const catsPlayCollection = collection(db, 'CatsPlay');
-          const catsPlayQuery = query(catsPlayCollection);
-          const catsPlaySnapshot = await getDocs(catsPlayQuery);
-          const catsPlayData: Item[] = catsPlaySnapshot.docs.map(doc => ({
+          // OthersPlay 컬렉션 데이터 가져오기
+          const otehrsPlayCollection = collection(db, 'OthersPlay');
+          const otehrsPlayQuery = query(otehrsPlayCollection);
+          const otehrsPlaySnapshot = await getDocs(otehrsPlayQuery);
+          const otehrsPlayData: Item[] = otehrsPlaySnapshot.docs.map(doc => ({
             id: doc.data().id,
             가격: doc.data().가격,
             상품명: doc.data().상품명,
@@ -143,7 +143,7 @@ function Category({ selectedCategory, setSelectedCategory }: CategoryProps): JSX
           }));
 
           // 데이터 합치기
-          const allItemsData = [...catsFoodData, ...catsSnackData, ...catsPlayData];
+          const allItemsData = [...othersFoodData, ...othersSnackData, ...otehrsPlayData];
           console.log({ allItemsData });
           setItemsData(allItemsData);
         }
