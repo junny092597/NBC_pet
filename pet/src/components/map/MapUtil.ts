@@ -51,7 +51,7 @@ const categoryKeywords: { [category: string]: string[] } = {
             }
           }, {
             location: new kakao.maps.LatLng(latitude, longitude),
-            radius: 500 // 검색 반경 설정 (예시)
+            radius: 3000 // 검색 반경 설정 (예시)
           });
         });
       })).then(results => {
