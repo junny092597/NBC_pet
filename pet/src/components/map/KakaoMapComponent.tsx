@@ -1,7 +1,24 @@
 // KakaoMapComponent.tsx
 import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import { initMap, searchPlaces, createMarkers } from './MapUtil';
 import CategoryButton from './CategoryButton';
+
+const ButtonContainer = styled.div`
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+`;
+
+const StyledCategoryButton = styled(CategoryButton)`
+  margin-bottom: 10px; 
+  &:last-child {
+    margin-bottom: 0; /
+  }
+`;
 
 const KakaoMapComponent: React.FC = () => {
     const [map, setMap] = useState<kakao.maps.Map | null>(null);
@@ -60,16 +77,17 @@ const KakaoMapComponent: React.FC = () => {
         }
     };
 
+
     return (
-        <div>
-            <div id="map" style={{ width: '100%', height: '400px' }}></div>
-            <div>
-                <CategoryButton onClick={() => handleCategorySearch('반려동물 병원')} label="반려동물 병원" />
-                <CategoryButton onClick={() => handleCategorySearch('반려동물 샵')} label="반려동물 샵" />
-                <CategoryButton onClick={() => handleCategorySearch('산책로')} label="산책로" />
-            </div>
-        </div>
-    );
+      <div style={{ position: 'relative', width: '100%', height: '400px' }}>
+          <div id="map" style={{ width: '100%', height: '100%' }}></div>
+          <ButtonContainer>
+          <CategoryButton onClick={() => handleCategorySearch('반려동물 병원')} label="반려동물 병원" highlightColor="#F4BA3E" />
+  <CategoryButton onClick={() => handleCategorySearch('반려동물 샵')} label="반려동물 샵" highlightColor="#D247E6" />
+  <CategoryButton onClick={() => handleCategorySearch('산책로')} label="산책로" highlightColor="#AD7969" />
+          </ButtonContainer>
+      </div>
+  );
 };
 
 export default KakaoMapComponent;
