@@ -2,13 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface CategoryProps {
-  key: number;
   title: string;
   imageSrc: string;
   onClick: () => void;
 }
 
-const Category: React.FC<CategoryProps> = ({ key, title, imageSrc, onClick }) => {
+const MainCategory: React.FC<CategoryProps> = ({ title, imageSrc }) => {
   const handleCategoryClick = (event: React.MouseEvent<HTMLDivElement>) => {
     event.preventDefault(); // 기본 동작 방지
     // 클릭한 카테고리에 따라 페이지 이동
@@ -20,7 +19,7 @@ const Category: React.FC<CategoryProps> = ({ key, title, imageSrc, onClick }) =>
         window.location.href = '/shopping';
         break;
       case '맵':
-        window.location.href = '/';
+        window.location.href = '/map';
         break;
       case '가족찾기':
         window.location.href = '/';
@@ -70,4 +69,4 @@ const TitleBox = styled.div`
   }
 `;
 
-export default Category;
+export default MainCategory;

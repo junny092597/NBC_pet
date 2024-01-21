@@ -43,7 +43,7 @@ const Header: React.FC = () => {
             <a href="/Shopping">쇼핑</a>
           </li>
           <li>
-            <a href="/">맵</a>
+            <a href="/map">맵</a>
           </li>
           <li>
             <a href="/">가족찾기</a>
