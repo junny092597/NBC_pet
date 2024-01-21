@@ -3,12 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../../redux/modules/AuthSlice';
  
-import logo from '../../assets/images/testlogo.png';
+import logo from '../../assets/images/logo.png';
 import styled from 'styled-components';
 import { BsSearchHeart } from 'react-icons/bs';
 import Swal from 'sweetalert2';
 import Shopping from '../../pages/Shopping';
 import { RootState } from '../../redux/Store';
+import { Link } from 'react-router-dom';
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
@@ -27,24 +28,32 @@ const Header: React.FC = () => {
 
   return (
     <HeaderContainer>
-      <Logo>
+      <Link to={'/'}>
         <Image src={logo} alt={'logo image'} />
-        '금쪽이'를 부탁해
-      </Logo>
+      </Link>
       <Navigation>
         <ul>
           <li>
             <a href="/">Home</a>
           </li>
           <li>
+            <a href="/">커뮤니티</a>
+          </li>
+          <li>
             <a href="/Shopping">쇼핑</a>
+          </li>
+          <li>
+            <a href="/">맵</a>
+          </li>
+          <li>
+            <a href="/">가족찾기</a>
           </li>
         </ul>
       </Navigation>
       <Headerbtn>
       {isLogin ? (
               <>
-                <Nickname>{displayName} 님 안녕하세요 !</Nickname>
+                <Nickname>{displayName}님 환영합니다😍</Nickname>
                 <button
                   onClick={() => {
                     Swal.fire({
@@ -63,7 +72,7 @@ const Header: React.FC = () => {
                 >
                   로그아웃
                 </button>
-                <button>마이페이지</button>
+                {/* <button>마이페이지</button> */}
               </>
             ) : (
               <>
@@ -84,15 +93,16 @@ const Header: React.FC = () => {
 };
 
 const Nickname = styled.div`
-  color: white;
-  font-size: 16px;
-`
+  color: #312B2B;
+  font-size: 15px;
+  font-family: npfont;
+  `
 const Headerbtn = styled.button`
-    display: flex;
+  display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 5px;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -101,8 +111,9 @@ const Headerbtn = styled.button`
     cursor: pointer;
     width: 120px;
     height: 40px;
+    font-family: GmarketSansMedium;
     font-size: 18px;
-    background-color: #DD74EC;
+    background-color: #618F71;
     color: white;
     border: none;
     border-radius: 10px;
@@ -114,45 +125,47 @@ const Headerbtn = styled.button`
 `
 
 const HeaderContainer = styled.header`
-  background-color: #333;
-  color: white;
+  background-color: #F6D6D6;
+  color: #312B2B;
   padding: 1em;
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
 
-const Logo = styled.h1`
-  font-size: 15px;
-  margin: 0;
-  align-items: center;
-  display: flex;
-`;
-
 const Image = styled.img`
-  width: 5%;
-  height: 5%;
-  margin-right: 10px;
+  width: 70%;
+  height: 70%;
+  margin-right: 0px;
 `;
 
 const Navigation = styled.nav`
   ul {
-    list-style: none;
     padding: 0;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin: 0;
+    
   }
 
   li {
-    margin-right: 1em;
+    margin-right: 60px;
+
+    &:hover {
+      transform: scale(1.05);
+    }
   }
 
   a {
     text-decoration: none;
-    color: white;
+    font-size: 21px;
+    font-family: GmarketSansMedium;
+    gap: 20px;
+    color: #312B2B;
 
     &:hover {
-      text-decoration: underline;
+      transform: scale(1.05);
     }
   }
 `;
