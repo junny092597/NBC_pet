@@ -1,44 +1,75 @@
+// KakaoMapComponent.tsx
 import React, { useEffect, useState } from 'react';
-import { initMap, searchPlaces, createMarkers, getCurrentLocation } from './MapUtil';
-import CategoryButton from './CategoryButton'; 
+import { initMap, searchPlaces, createMarkers } from './MapUtil';
+import CategoryButton from './CategoryButton';
 
 const KakaoMapComponent: React.FC = () => {
-  const [map, setMap] = useState<kakao.maps.Map | null>(null);
+    const [map, setMap] = useState<kakao.maps.Map | null>(null);
+    const [markers, setMarkers] = useState<kakao.maps.Marker[]>([]);
+    const [locationPermission, setLocationPermission] = useState<boolean | null>(null);
 
-  useEffect(() => {
-    // 카카오 맵 API 로드 상태 확인
-    if (window.kakao && window.kakao.maps) {
-      // 카카오 맵 API가 로드되었을 때 실행할 로직
-      getCurrentLocation(position => {
-        const { latitude, longitude } = position.coords;
-        const loadedMap = initMap('map', latitude, longitude, 3);
-        setMap(loadedMap);
-      }, error => {
-        console.error("현재 위치를 가져오는데 실패했습니다", error);
-      });
-    } else {
-      console.error("api 데이터 로딩 실패");
-    }
-  }, []);
+    useEffect(() => {
+        if (window.kakao && window.kakao.maps) {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    position => {
+                        const { latitude, longitude } = position.coords;
+                        const loadedMap = initMap('map', latitude, longitude, 3);
+                        if (loadedMap) {
+                            setMap(loadedMap);
+                        }
+                        setLocationPermission(true);
+                    },
+                    error => {
+                        console.error("현재 위치를 가져오는데 실패했습니다", error);
+                        setLocationPermission(false);
+                    }
+                );
+            } else {
+                console.error("Geolocation is not supported by this browser.");
+                setLocationPermission(false);
+            }
+        } else {
+            console.error("Kakao API 데이터 로딩 실패");
+            setLocationPermission(false);
+        }
+    }, []);
 
-  const handleCategorySearch = (category: string) => {
-    if (map) {
-      searchPlaces(map, category, (markers) => {
-        createMarkers(map, markers);
-      });
-    }
-  };
+    useEffect(() => {
+        if (locationPermission === false) {
+            alert("지도를 사용하려면 위치 정보 제공에 동의해야 합니다.");
+        }
+    }, [locationPermission]);
 
-  return (
-    <div>
-      <div id="map" style={{ width: '100%', height: '400px' }}></div>
-      <div>
-        <CategoryButton onClick={() => handleCategorySearch('반려동물 병원')} label="반려동물 병원" />
-        <CategoryButton onClick={() => handleCategorySearch('반려동물 샵')} label="반려동물 샵" />
-        <CategoryButton onClick={() => handleCategorySearch('산책로')} label="산책로" />
-      </div>
-    </div>
-  );
+    const handleMarkerClick = (marker: kakao.maps.Marker, infowindow: kakao.maps.InfoWindow) => {
+        if (map) {
+            if (infowindow.getMap()) {
+                infowindow.close();
+            } else {
+                infowindow.open(map, marker);
+            }
+        }
+    };
+
+    const handleCategorySearch = (category: string) => {
+        if (map && locationPermission === true) {
+            markers.forEach(marker => marker.setMap(null)); // 기존 마커 제거
+            searchPlaces(map, category).then(newMarkers => {
+                setMarkers(newMarkers);
+            }).catch(error => console.error(error));
+        }
+    };
+
+    return (
+        <div>
+            <div id="map" style={{ width: '100%', height: '400px' }}></div>
+            <div>
+                <CategoryButton onClick={() => handleCategorySearch('반려동물 병원')} label="반려동물 병원" />
+                <CategoryButton onClick={() => handleCategorySearch('반려동물 샵')} label="반려동물 샵" />
+                <CategoryButton onClick={() => handleCategorySearch('산책로')} label="산책로" />
+            </div>
+        </div>
+    );
 };
 
 export default KakaoMapComponent;
