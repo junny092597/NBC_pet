@@ -1,3 +1,4 @@
+// MapUtil.ts
 import { SetStateAction } from "react";
 
 // 카테고리별 마커 이미지 경로
@@ -57,7 +58,7 @@ export const searchPlaces = (
         return new Promise<kakao.maps.Marker[]>((resolve, reject) => {
           ps.keywordSearch(keyword, (data, status) => {
             if (status === kakao.maps.services.Status.OK) {
-              const markers = createMarkers(map, data, category, handleMarkerClick); // 카테고리 인자 추가
+              const markers = createMarkers(map, data, category, handleMarkerClick);
               resolve(markers);
             } else {
               reject(new Error(`Search failed for keyword: ${keyword}`));
@@ -84,7 +85,7 @@ export const searchPlaces = (
 export const createMarkers = (
   map: kakao.maps.Map | null,
   places: any[],
-  category: string, // 카테고리 인자 추가
+  category: string,
   handleMarkerClick: (
     marker: kakao.maps.Marker,
     infowindow: kakao.maps.InfoWindow
@@ -96,11 +97,11 @@ export const createMarkers = (
 
   const markers: kakao.maps.Marker[] = [];
 
-  const imageSrc = markerImagePaths[category]; // 카테고리에 따른 이미지 경로
-  const imageSize = new kakao.maps.Size(24, 35); // 마커 이미지 크기 설정
-  const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); // 마커 이미지 생성
-
   places.forEach((place) => {
+    const imageSrc = markerImagePaths[category]; // 카테고리에 맞는 이미지 경로
+    const imageSize = new kakao.maps.Size(24, 35); // 마커 이미지 크기 설정
+    const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); // 마커 이미지 생성
+
     const marker = new kakao.maps.Marker({
       map: map,
       position: new kakao.maps.LatLng(place.y, place.x),
@@ -126,13 +127,13 @@ export const createMarkers = (
   return markers;
 };
 
-// searchOnGoogle 함수
+// searchOnGoogle 함수 전역 스코프로 내보내기
 (window as any).searchOnGoogle = (query: string) => {
   const googleSearchUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
   window.open(googleSearchUrl, "_blank");
 };
 
-// handleMarkerClick 함수
+// handleMarkerClick 함수 구현
 function handleMarkerClick(marker: kakao.maps.Marker, infowindow: kakao.maps.InfoWindow) {
-  // handleMarkerClick 함수 로직 구현
+  // handleMarkerClick 함수의 로직을 여기에 구현합니다.
 }
