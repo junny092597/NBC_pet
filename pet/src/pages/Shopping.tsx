@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Category from '../components/shopping/Category';
-import Items from '../components/shopping/Items';
 import Products from '../components/shopping/products';
-import { collection, getDocs, query } from 'firebase/firestore';
+import { collection, query, getDocs } from '@firebase/firestore';
 import { db } from '../Firebase';
 
 interface Item {
@@ -40,6 +39,7 @@ function Shopping() {
             가격: doc.data().가격,
             상품명: doc.data().상품명,
             이미지: doc.data().이미지,
+            category: doc.data().categories,
           }));
 
           // DogsSnack 컬렉션 데이터 가져오기
@@ -51,6 +51,7 @@ function Shopping() {
             가격: doc.data().가격,
             상품명: doc.data().상품명,
             이미지: doc.data().이미지,
+            category: doc.data().categories,
           }));
 
           // DogsPlay 컬렉션 데이터 가져오기
@@ -62,6 +63,7 @@ function Shopping() {
             가격: doc.data().가격,
             상품명: doc.data().상품명,
             이미지: doc.data().이미지,
+            category: doc.data().categories,
           }));
 
           // 데이터 합치기
@@ -78,6 +80,7 @@ function Shopping() {
             가격: doc.data().가격,
             상품명: doc.data().상품명,
             이미지: doc.data().이미지,
+            category: doc.data().categories,
           }));
 
           // CatsSnack 컬렉션 데이터 가져오기
@@ -89,6 +92,7 @@ function Shopping() {
             가격: doc.data().가격,
             상품명: doc.data().상품명,
             이미지: doc.data().이미지,
+            category: doc.data().categories,
           }));
 
           // CatsPlay 컬렉션 데이터 가져오기
@@ -100,6 +104,7 @@ function Shopping() {
             가격: doc.data().가격,
             상품명: doc.data().상품명,
             이미지: doc.data().이미지,
+            category: doc.data().categories,
           }));
 
           // 데이터 합치기
@@ -116,6 +121,7 @@ function Shopping() {
             가격: doc.data().가격,
             상품명: doc.data().상품명,
             이미지: doc.data().이미지,
+            category: doc.data().categories,
           }));
 
           // OthersSnack 컬렉션 데이터 가져오기
@@ -127,6 +133,7 @@ function Shopping() {
             가격: doc.data().가격,
             상품명: doc.data().상품명,
             이미지: doc.data().이미지,
+            category: doc.data().categories,
           }));
 
           // OthersPlay 컬렉션 데이터 가져오기
@@ -138,6 +145,7 @@ function Shopping() {
             가격: doc.data().가격,
             상품명: doc.data().상품명,
             이미지: doc.data().이미지,
+            category: doc.data().categories,
           }));
 
           // 데이터 합치기
@@ -168,7 +176,6 @@ function Shopping() {
           selectedItems={selectedItems}
           itemsData={itemsData}
         />
-        <Items selectedCategory={selectedCategory} selectedItems={selectedItems} />
       </SComponentsContainer>
       <Products
         selectedCategory={selectedCategory}
