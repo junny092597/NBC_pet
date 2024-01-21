@@ -1,6 +1,13 @@
 // MapUtil.ts
 import { SetStateAction } from "react";
 
+// 카테고리별 마커 이미지 경로
+const markerImagePaths: { [key: string]: string } = {
+  '반려동물 병원': 'src/assets/images/HospitalCat.png',
+  '반려동물 샵': 'src/assets/images/ShopCat.png',
+  '산책로': 'src/assets/images/ParkCat.png'
+};
+
 const categoryKeywords: { [category: string]: string[] } = {
   '반려동물 병원': ['동물 병원'],
   '반려동물 샵': ['애견 용품'],
@@ -51,7 +58,7 @@ export const searchPlaces = (
         return new Promise<kakao.maps.Marker[]>((resolve, reject) => {
           ps.keywordSearch(keyword, (data, status) => {
             if (status === kakao.maps.services.Status.OK) {
-              const markers = createMarkers(map, data, handleMarkerClick);
+              const markers = createMarkers(map, data, category, handleMarkerClick);
               resolve(markers);
             } else {
               reject(new Error(`Search failed for keyword: ${keyword}`));
@@ -78,6 +85,7 @@ export const searchPlaces = (
 export const createMarkers = (
   map: kakao.maps.Map | null,
   places: any[],
+  category: string,
   handleMarkerClick: (
     marker: kakao.maps.Marker,
     infowindow: kakao.maps.InfoWindow
@@ -90,9 +98,14 @@ export const createMarkers = (
   const markers: kakao.maps.Marker[] = [];
 
   places.forEach((place) => {
+    const imageSrc = markerImagePaths[category]; // 카테고리에 맞는 이미지 경로
+    const imageSize = new kakao.maps.Size(24, 35); // 마커 이미지 크기 설정
+    const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); // 마커 이미지 생성
+
     const marker = new kakao.maps.Marker({
       map: map,
-      position: new kakao.maps.LatLng(place.y, place.x)
+      position: new kakao.maps.LatLng(place.y, place.x),
+      image: markerImage // 마커에 이미지 설정
     });
 
     const infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
