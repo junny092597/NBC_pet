@@ -38,7 +38,7 @@ function Category({
         return prevItems;
       } else {
         // 선택되지 않은 아이템이면 추가
-        return [...prevItems, item];
+        return [item];
       }
     });
   };

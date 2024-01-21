@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Category from '../components/shopping/Category';
+import OrderButton from '../components/shopping/OrderButton';
 import Products from '../components/shopping/products';
 import { collection, query, getDocs } from '@firebase/firestore';
 import { db } from '../Firebase';
@@ -68,7 +69,7 @@ function Shopping() {
 
           // 데이터 합치기
           const allItemsData = [...dogsFoodData, ...dogsSnackData, ...dogsPlayData];
-          console.log({ allItemsData });
+
           setItemsData(allItemsData);
         } else if (category === '고양이') {
           // CatsFood 컬렉션 데이터 가져오기
@@ -176,6 +177,7 @@ function Shopping() {
           selectedItems={selectedItems}
           itemsData={itemsData}
         />
+        <OrderButton />
       </SComponentsContainer>
       <Products
         selectedCategory={selectedCategory}
