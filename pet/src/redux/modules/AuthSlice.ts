@@ -32,13 +32,55 @@ const AuthSlice = createSlice({
       state.uid = uid || null;
       state.photoURL = photoURL || null;
     },
-
-    updateNickname: (state, action: PayloadAction<string>) => {
-      localStorage.setItem("displayName", action.payload);
-      state.displayName = action.payload;
+    logout: (state) => {
+      localStorage.clear();
+      return (state = initialState);
     },
   },
 });
 
-export const { login, updateNickname } = AuthSlice.actions;
+export const { login, logout } = AuthSlice.actions;
 export default AuthSlice.reducer;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // updateNickname: (state, action: PayloadAction<string>) => {
+    //   localStorage.setItem("displayName", action.payload);
+    //   state.displayName = action.payload;
+    // },

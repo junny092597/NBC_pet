@@ -1,12 +1,10 @@
-import React from 'react';
-import Login from '../components/sign-login/Login';
-import Signup from '../components/sign-login/Signup';
+import Main from '../components/home/Main';
+
 
 function HomePage() {
   return (
     <>
-    <Login />
-    <Signup/>
+    <Main />
     </>
   );
 }

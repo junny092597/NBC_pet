@@ -1,53 +1,98 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
-function Category() {
-  // 강아지, 고양이, 그 외의 카테고리
-  const categories: string[] = ['강이지', '고양이', '그외'];
+interface Item {
+  id: number;
+  가격: number;
+  상품명: string;
+  이미지: string;
+}
 
-  // 각 카테고리에 속하는 아이템
-  const items: Record<string, string[]> = {
-    강이지: ['사료', '간식', '놀이용품'],
-    고양이: ['사료', '간식', '놀이용품'],
-    그외: ['사료', '간식', '놀이용품'],
-  };
+interface CategoryProps {
+  selectedCategory: string | null;
+  setSelectedCategory: React.Dispatch<React.SetStateAction<string | null>>;
+  setSelectedItems: React.Dispatch<React.SetStateAction<string[]>>;
+  categories: string[];
+  categoryItems: Record<string, string[]>;
+  selectedItems: string[];
+  itemsData: Item[];
+}
 
-  // 현재 선택된 카테고리 상태
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-
+function Category({
+  selectedCategory,
+  setSelectedCategory,
+  setSelectedItems,
+  categories,
+  categoryItems,
+  selectedItems,
+  itemsData,
+}: CategoryProps): JSX.Element {
   const onClickCategory = (category: string) => {
     setSelectedCategory(prevCategory => (prevCategory === category ? null : category));
   };
 
+  const onClickItem = (item: any) => {
+    setSelectedItems(prevItems => {
+      if (prevItems.includes(item)) {
+        // 이미 선택된 아이템이면 무시
+        return prevItems;
+      } else {
+        // 선택되지 않은 아이템이면 추가
+        return [...prevItems, item];
+      }
+    });
+  };
   return (
-    <>
-      {/* 최상단 버튼 카테고리 */}
-      <SCategoryContainer>
-        {categories.map(category => (
-          <div key={category}>
-            <SItemButton onClick={() => onClickCategory(category)} active={category === selectedCategory}>
+    <SCategoryContainer>
+      {categories.map(category => (
+        <div key={category}>
+          <SButtonContainer>
+            <SCatagoryButton onClick={() => onClickCategory(category)} active={category === selectedCategory}>
               {category}
-            </SItemButton>
+            </SCatagoryButton>
             {category === selectedCategory &&
-              items[selectedCategory].map(item => <SItemButton key={item}>{item}</SItemButton>)}
-          </div>
-        ))}
-      </SCategoryContainer>
-    </>
+              selectedItems.map(item => (
+                <SItemButton key={item} onClick={() => onClickItem(item)}>
+                  {item}
+                </SItemButton>
+              ))}
+          </SButtonContainer>
+        </div>
+      ))}
+    </SCategoryContainer>
   );
 }
 
 export default Category;
 
 const SCategoryContainer = styled.div`
+  font-size: 20px;
+  margin-top: 2%;
   width: 5vw;
   height: 5vh;
   display: flex;
   flex-direction: column;
 `;
 
-const SItemButton = styled.button<{ active?: boolean }>`
-  margin-bottom: 5px; /* 각 버튼 사이의 간격 조절 */
-  background-color: ${({ active }) => (active ? 'lightblue' : 'white')};
+const SCatagoryButton = styled.button<{ active?: boolean }>`
+  margin-bottom: 5px;
+
+  font-size: 20px;
+  background-color: ${({ active }) => (active ? 'gray' : 'white')};
   cursor: pointer;
+`;
+
+const SButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: space-between; // 버튼 간 여백을 최대화
+  gap: 0.3vh;
+`;
+
+const SItemButton = styled.button<{ active?: boolean }>`
+  margin-bottom: 5px;
+  font-size: 15px;
+  background-color: ${({ active }) => (active ? 'gray' : 'white')};
+  cursor: blue;
 `;
