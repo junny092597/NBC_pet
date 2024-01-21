@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import MapCatIcon from '../../images/MapCat.png'
+import MapCatIcon from '../../assets/images/MapCat.png';
 
 interface CategoryButtonProps {
   label: string;

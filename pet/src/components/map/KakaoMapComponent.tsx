@@ -79,7 +79,7 @@ const KakaoMapComponent: React.FC = () => {
 
 
     return (
-      <div style={{ position: 'relative', width: '100%', height: '400px' }}>
+      <div style={{ position: 'relative', width: '100%', height: '700px' }}>
           <div id="map" style={{ width: '100%', height: '100%' }}></div>
           <ButtonContainer>
           <CategoryButton onClick={() => handleCategorySearch('반려동물 병원')} label="반려동물 병원" highlightColor="#F4BA3E" />
