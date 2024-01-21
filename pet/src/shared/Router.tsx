@@ -1,5 +1,4 @@
-import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import HomePage from '../pages/HomPage';
 import Shopping from '../pages/Shopping';
 
@@ -8,12 +7,12 @@ import KakaoMapPage from '../pages/KakaoMapPage';
 import Profile from '../pages/Profile';
 import Signin from '../pages/Signin';
 import Signup from '../pages/Signup';
-
+import Layout from '../components/home/Layout';
 
 const Router = () => {
   return (
-    <BrowserRouter>
       <Routes>
+       <Route element={<Layout children={undefined} />} >
         <Route path="/" element={<HomePage />} />
         <Route path="/shopping" element={<Shopping />} />
 
@@ -21,9 +20,8 @@ const Router = () => {
         <Route path="/profile" element={<Profile />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
-
+        </Route>
       </Routes>
-    </BrowserRouter>
   );
 };
 

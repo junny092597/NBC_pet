@@ -36,12 +36,51 @@ const AuthSlice = createSlice({
       localStorage.clear();
       return (state = initialState);
     },
-    updateNickname: (state, action: PayloadAction<string>) => {
-      localStorage.setItem("displayName", action.payload);
-      state.displayName = action.payload;
-    },
   },
 });
 
-export const { login, updateNickname, logout } = AuthSlice.actions;
+export const { login, logout } = AuthSlice.actions;
 export default AuthSlice.reducer;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // updateNickname: (state, action: PayloadAction<string>) => {
+    //   localStorage.setItem("displayName", action.payload);
+    //   state.displayName = action.payload;
+    // },

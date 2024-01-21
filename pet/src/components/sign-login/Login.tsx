@@ -119,7 +119,7 @@ const Login = () => {
 
     return (
         <Container>
-          <Form onSubmit={localLogin}>
+          <form onSubmit={localLogin}>
           <>
             <Title>LOG IN</Title>
             <InputContainer>
@@ -156,31 +156,26 @@ const Login = () => {
           </GoogleButton>
             </ButtonContainer>
            </>
-          </Form>
+          </form>
         </Container>
 
       );
 }
 
 const Container = styled.div`
-  margin-top: 130px;
   display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Form = styled.form`
-  /* background-color: #ffffff;
-  border-radius: 12px;
-  padding: 22px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  width: 380px; */
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: flex-start;
+  /* max-width: 200%; */
+  margin: 10px;
+  margin-top: 200px;
+  margin-bottom: 200px;
+  font-family: GmarketSansMedium;
 `;
 
 const Title = styled.h1`
-  color: #454545;
+  color: #312B2B;
   font-size: 60px;
   margin-bottom: 7px;
   align-items: center;
@@ -191,12 +186,12 @@ const Title = styled.h1`
 const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 15px 0px;
+  padding: 30px 0px;
 `;
 
 const Inputcat = styled.input`
-  width: 200px; /* 입력란 너비 설정 */
-  height: 30px; /* 입력란 높이 설정 */
+  width: 250px; /* 입력란 너비 설정 */
+  height: 40px; /* 입력란 높이 설정 */
   display: block;
   border-radius: 20px;
   margin-top: 5px;
@@ -210,14 +205,15 @@ const Inputcat = styled.input`
   background-repeat: no-repeat;
 
   &::placeholder {
-    font-size: 10px; 
-    transform: translateX(2px);
+    font-size: 12px; 
+    color: #949393;
+    transform: translateX(17px)
   }
 `;
 
 const Inputdog = styled.input`
-  width: 200px; /* 입력란 너비 설정 */
-  height: 30px; /* 입력란 높이 설정 */
+width: 250px; /* 입력란 너비 설정 */
+  height: 40px; /* 입력란 높이 설정 */
   display: block;
   border-radius: 20px;
   margin-top: 5px;
@@ -232,8 +228,9 @@ const Inputdog = styled.input`
   background-repeat: no-repeat;
 
   &::placeholder {
-    font-size: 10px; 
-    transform: translateX(2px)
+    font-size: 12px; 
+    color: #949393;
+    transform: translateX(17px)
   }
 `
 
@@ -243,14 +240,13 @@ const ButtonContainer = styled.div`
 `;
 
 const Button = styled.button`
-  background-color: ${(props) => (props.disabled ? "lightgray" : "#DD74EC")};
+  background-color: ${(props) => (props.disabled ? "lightgray" : "#81BE97")};
   cursor: ${(props) => (props.disabled ? "default" : "pointer")};
   color: #ffffff;
   border: none;
-  /* margin-top: 4px; */
-  margin-bottom: 2px;
-  width: 200px;
-  height: 30px;
+  margin-bottom: 5px;
+  width: 250px; /* 입력란 너비 설정 */
+  height: 40px; /* 입력란 높이 설정 */
   border-radius: 30px;
 `;
 
@@ -258,14 +254,14 @@ const GoogleButton = styled.button`
   color: #ffffff;
   border: none;
   cursor: pointer;
-  margin-top: 4px;
+  margin-top: 5px;
   margin-bottom: 2px;
-  width: 200px;
-  height: 30px;
+  width: 250px; /* 입력란 너비 설정 */
+  height: 40px; /* 입력란 높이 설정 */
   border-radius: 30px;
 
   &:hover {
-    background-color: #EDB7F5;
+    background-color: #618F71;
   }
 `;
 

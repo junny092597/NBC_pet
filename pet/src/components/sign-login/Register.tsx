@@ -156,68 +156,78 @@ export default function Register() {
   }
   
   const Container = styled.div`
-    margin-top: 130px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: flex-start;
+  max-width: 200%;
+  margin: 10px;
+  margin-top: 200px;
+  margin-bottom: 200px;
+  font-family: GmarketSansMedium;
   `;
   
   const Form = styled.form`
-    background-color: #ffffff;
-    outline-color: #ffffff;
     border-radius: 12px;
-    padding: 22px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    width: 380px;
   `;
   
   const Title = styled.h1`
-    color: #454545;
-    font-size: 36px;
-    margin-bottom: 10px;
-    align-items: center;
-    justify-content: center;
-    display: flex;
+  color: #312B2B;
+  font-size: 56px;
+  margin-bottom: 7px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
   `;
   
   const InputContainer = styled.div`
     display: flex;
     flex-direction: column;
-    padding: 20px 0;
+    align-items: center;
+    padding: 30px 0;
+    
   `;
   
   const Input = styled.input`
-    border: none;
-    border-bottom: 1px solid #999;
-    width: 100%;
-    display: block;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    padding: 20px 0;
-    outline: none;
-    padding: 10px;
+  width: 250px; /* 입력란 너비 설정 */
+  height: 40px; /* 입력란 높이 설정 */
+  display: block;
+  border-radius: 20px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  text-indent: 10px;
+  padding: 15px;
+  margin: 6px 0;
+
+  &::placeholder {
+    font-size: 12px; 
+    color: #949393;
+    transform: translateX(3px)
+  }
   `;
   
   const ButtonContainer = styled.div`
     display: flex;
     flex-direction: column;
+    align-items: center;
   `;
   
   const Button = styled.button`
-    background-color: ${(props) => (props.disabled ? "lightgray" : "#20b2aa")};
-    cursor: ${(props) => (props.disabled ? "default" : "pointer")};
-    color: #ffffff;
-    border: none;
-    margin-top: 4px;
-    margin-bottom: 2px;
-    padding: 12px 0;
-    font-size: 18px;
-    border-radius: 10px;
+  background-color: ${(props) => (props.disabled ? "lightgray" : "#81BE97")};
+  cursor: ${(props) => (props.disabled ? "default" : "pointer")};
+  color: #ffffff;
+  border: none;
+  width: 250px; /* 입력란 너비 설정 */
+  height: 40px; /* 입력란 높이 설정 */
+  border-radius: 30px;
+  font-family: GmarketSansMedium;
   `;
   
   const P = styled.p`
-    font-size: 14px;
-    color: #ffc436;
+    font-size: 13px;
+    color: #ecd3d3;
+    margin-top: 3px;
   `;
