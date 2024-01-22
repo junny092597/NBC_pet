@@ -69,7 +69,7 @@ const SCategoryContainer = styled.div`
   font-size: 20px;
   margin-top: 2%;
   width: 5vw;
-  height: 5vh;
+  height: 15vh;
   display: flex;
   flex-direction: column;
 `;

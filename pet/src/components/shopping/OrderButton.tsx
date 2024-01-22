@@ -40,5 +40,5 @@ const SProductsButtonContainer = styled.div`
 
 const SProductsButton = styled.button`
   width: 15vh;
-  height: 8vh;
+  height: 3vh;
 `;
