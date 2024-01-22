@@ -1,46 +1,28 @@
 import React from 'react';
 import styled from 'styled-components';
 
-interface Item {
-  id: number;
-  가격: number;
-  상품명: string;
-  이미지: string;
-}
-
 interface CategoryProps {
   selectedCategory: string | null;
   setSelectedCategory: React.Dispatch<React.SetStateAction<string | null>>;
-  setSelectedItems: React.Dispatch<React.SetStateAction<string[]>>;
-  categories: string[];
-  categoryItems: Record<string, string[]>;
-  selectedItems: string[];
-  itemsData: Item[];
+  setSelectedType: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function Category({
-  selectedCategory,
-  setSelectedCategory,
-  setSelectedItems,
-  categories,
-  categoryItems,
-  selectedItems,
-  itemsData,
-}: CategoryProps): JSX.Element {
+const categories: string[] = ['강아지', '고양이', '그외'];
+const Types: Record<string, string[]> = {
+  강아지: ['사료', '간식', '놀이용품'],
+  고양이: ['사료', '간식', '놀이용품'],
+  그외: ['사료', '간식', '놀이용품'],
+};
+
+function Category({ selectedCategory, setSelectedCategory, setSelectedType }: CategoryProps): JSX.Element {
   const onClickCategory = (category: string) => {
     setSelectedCategory(prevCategory => (prevCategory === category ? null : category));
   };
 
-  const onClickItem = (item: any) => {
-    setSelectedItems(prevItems => {
-      if (prevItems.includes(item)) {
-        // 이미 선택된 아이템이면 무시
-        return prevItems;
-      } else {
-        return [item];
-      }
-    });
+  const onClickItem = (item: string) => {
+    setSelectedType(item);
   };
+
   return (
     <SCategoryContainer>
       {categories.map(category => (
@@ -50,7 +32,7 @@ function Category({
               {category}
             </SCatagoryButton>
             {category === selectedCategory &&
-              selectedItems.map(item => (
+              Types[category].map(item => (
                 <SItemButton key={item} onClick={() => onClickItem(item)}>
                   {item}
                 </SItemButton>
