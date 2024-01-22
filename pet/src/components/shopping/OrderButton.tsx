@@ -29,13 +29,13 @@ function OrderButton() {
 }
 
 export default OrderButton;
-const SProductsButtonContainer = styled.div`
+const SProductsButtonContainer = styled.span`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin-bottom: 5vh;
   margin-left: 20vw;
   gap: 10vw;
+  height: 3vh;
 `;
 
 const SProductsButton = styled.button`

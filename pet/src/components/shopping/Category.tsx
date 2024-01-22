@@ -37,7 +37,6 @@ function Category({
         // 이미 선택된 아이템이면 무시
         return prevItems;
       } else {
-        // 선택되지 않은 아이템이면 추가
         return [item];
       }
     });

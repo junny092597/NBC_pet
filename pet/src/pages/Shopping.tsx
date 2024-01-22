@@ -192,6 +192,7 @@ function Shopping() {
 const SComponentsContainer = styled.div`
   display: flex;
   flex-direction: row;
+  height: 3vw;
 `;
 
 export default Shopping;
