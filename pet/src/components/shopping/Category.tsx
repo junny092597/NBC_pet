@@ -28,19 +28,27 @@ function Category({
     setSelectedCategory(prevCategory => (prevCategory === category ? null : category));
     setSelectedType('');
     // 카테고리로 url경로 구분하기
-    if (selectedCategory !== null) {
-      navigate(`/shopping`);
-    } else {
+    if (category !== null) {
       navigate(`/shopping/${category}`);
+    } else {
+      //같은 버튼을 누르면 shopping URL로 가야하는데 작동하지 않는다.
+      navigate('/shopping');
     }
-
     //카테고리는 url경로를 갖고 구분시키고, type은 querystring으로 해결하기.
   };
 
   const onClickItem = (item: string) => {
     setSelectedType(item);
+    if (item !== '') {
+      navigate(`/shopping/${selectedCategory}?type=${item}`);
+    } else {
+      navigate(`/shopping/${selectedCategory}`);
+    }
   };
-
+  console.log('selectedCategory');
+  console.log(selectedCategory);
+  console.log('selectedType');
+  console.log(selectedType);
   return (
     <SCategoryContainer>
       {CATEGORIES.map(category => (

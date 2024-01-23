@@ -36,8 +36,6 @@ function Products({ selectedCategory, selectedType, itemsData, filteredItems }: 
       setRenderData(itemsData);
     }
   }, [selectedCategory, filteredItems, itemsData]);
-  console.log('renderData');
-  console.log(renderData);
 
   return (
     <>

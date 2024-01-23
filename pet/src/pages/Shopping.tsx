@@ -56,14 +56,9 @@ function Shopping() {
   const filteredItmes = itemsData
     .filter(item => item.category === selectedCategory)
     .filter(item => {
-      console.log(item);
       if (selectedType === '') return true;
       return item.type === selectedType;
     });
-
-  console.log({ filteredItmes });
-  console.log({ itemsData });
-
   return (
     <>
       <SComponentsContainer>
