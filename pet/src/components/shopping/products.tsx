@@ -1,74 +1,44 @@
 import React from 'react';
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 interface Item {
   id: number;
-  가격: number;
-  상품명: string;
-  이미지: string;
+  price: number;
+  name: string;
+  img: string;
   category: string;
+  type: string;
 }
-
 interface ProductsProps {
-  selectedCategory: any;
-  selectedItems: string[];
-  categories: string[];
-  itemsData: any;
+  selectedCategory: string | null;
+  selectedType: string;
+  itemsData: Item[];
 }
 
-function Products({ selectedCategory, selectedItems, categories, itemsData }: ProductsProps): JSX.Element {
-  if (selectedCategory) {
-    let filteredItems: Item[] = [];
-
-    // selectedCategory가 categories 배열에 있는 경우
-    if (categories[selectedCategory]) {
-      filteredItems = itemsData.filter((item: { category: string }) =>
-        categories[selectedCategory].includes(item.category)
-      );
-    } else {
-      // selectedCategory가 categories 배열에 없는 경우 (전체 제품 보여주기)
-      filteredItems = itemsData;
-    }
-
-    return (
-      <>
-        <SItemBoxContainer>
-          {filteredItems.length > 0 && // 빈 배열인 경우 map 함수 호출하지 않음
-            filteredItems.map(item => (
-              <SItemBox key={item.id}>
-                <img src={item.이미지} alt={item.상품명} />
-                <STextBox>
-                  <div>{item.상품명}</div>
-                  <div>가격 : {item.가격}원</div>
-                  <SBuyButton>구매하기</SBuyButton>
-                </STextBox>
-              </SItemBox>
-            ))}
-        </SItemBoxContainer>
-      </>
-    );
-  } else if (selectedItems.length > 0) {
-    // selectedItems 배열이 비어 있지 않은 경우
-    const filteredItems = itemsData.filter((item: Item) => selectedItems.includes(item.category));
-
-    return (
+function Products({ selectedCategory, selectedType, itemsData }: ProductsProps): JSX.Element {
+  return (
+    <>
       <SItemBoxContainer>
-        {filteredItems.length > 0 &&
-          filteredItems.map((item: Item) => (
-            <SItemBox key={item.id}>
-              <img src={item.이미지} alt={item.상품명} />
+        {/* //UI에 제품이 보이게 해주는 코드 */}
+        {itemsData.map(Product => {
+          return (
+            <SItemBox>
+              <SImgBox>
+                <img src={Product.img} alt="Product Image" />
+              </SImgBox>
               <STextBox>
-                <div>{item.상품명}</div>
-                <div>가격 : {item.가격}원</div>
-                <SBuyButton>구매하기</SBuyButton>
+                <div>제품명 : {Product.name}</div>
+                <div> 가격 : {Product.price}</div>
+                <button>구매하기</button>
               </STextBox>
             </SItemBox>
-          ))}
+          );
+        })}
       </SItemBoxContainer>
-    );
-  }
-  return <></>;
+    </>
+  );
 }
 
 export default Products;
@@ -85,7 +55,7 @@ const SItemBox = styled.div`
   }
 
   img {
-    max-width: 15vw;
+    max-width: 100%;
     max-height: 30vh;
     object-fit: cover;
   }
@@ -98,15 +68,23 @@ const SItemBoxContainer = styled.div`
   gap: 5vw;
 `;
 
+const SImgBox = styled.div`
+  display: flex;
+  width: 50%;
+  padding: 0.5rem;
+  // 텍스트 박스에 여백 추가
+`;
+
 const STextBox = styled.div`
   display: flex;
   flex-direction: column;
-  width: 15vw; // 텍스트 박스의 너비를 50%로 조절
+  width: 50%; // 텍스트 박스의 너비를 50%로 조절
   padding: 0.5rem; // 텍스트 박스에 여백 추가
+  margin-left: 0.5vw;
   box-sizing: border-box;
   justify-content: space-between;
   white-space: pre-line;
-  font-size: 16px;
+  font-size: 15px;
 `;
 
 const SBuyButton = styled.button`

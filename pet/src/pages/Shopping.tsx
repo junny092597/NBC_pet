@@ -8,7 +8,7 @@ import { db } from '../Firebase';
 
 interface Item {
   id: number;
-  pirce: number;
+  price: number;
   name: string;
   img: string;
   category: string;
@@ -45,6 +45,7 @@ function Shopping() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   //선택한 타입 정보
   const [selectedType, setSelectedType] = useState<string>('');
+  //DB데이터 정보 저장
   const [itemsData, setItemsData] = useState<Item[]>([]);
 
   useEffect(() => {
@@ -57,6 +58,8 @@ function Shopping() {
       if (selectedType === '') return true;
       return item.type === selectedType;
     });
+  console.log({ itemsData });
+  console.log(`데이터필터링 : ${filteredItmes}`);
 
   return (
     <>
@@ -64,11 +67,12 @@ function Shopping() {
         <Category
           selectedCategory={selectedCategory}
           setSelectedCategory={setSelectedCategory}
+          selectedType={selectedType}
           setSelectedType={setSelectedType}
         />
         <OrderButton />
       </SComponentsContainer>
-      {/* <Products itemsData={filteredItmes} /> */}
+      <Products selectedCategory={selectedCategory} selectedType={selectedType} itemsData={itemsData} />
     </>
   );
 }
