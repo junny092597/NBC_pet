@@ -8,7 +8,7 @@ import { db } from '../Firebase';
 
 interface Item {
   id: number;
-  pirce: number;
+  price: number;
   name: string;
   img: string;
   category: string;
@@ -42,21 +42,27 @@ const fetchData = async () => {
 
 function Shopping() {
   //선택한 카테고리 정보
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>('');
   //선택한 타입 정보
   const [selectedType, setSelectedType] = useState<string>('');
+  //DB데이터 정보 저장
   const [itemsData, setItemsData] = useState<Item[]>([]);
 
   useEffect(() => {
     fetchData().then(setItemsData);
-  }, []);
+  }, [selectedCategory, selectedType]);
 
+  //데이터 카테고리 및 타입별 필터링
   const filteredItmes = itemsData
     .filter(item => item.category === selectedCategory)
     .filter(item => {
+      console.log(item);
       if (selectedType === '') return true;
       return item.type === selectedType;
     });
+
+  console.log({ filteredItmes });
+  console.log({ itemsData });
 
   return (
     <>
@@ -64,11 +70,17 @@ function Shopping() {
         <Category
           selectedCategory={selectedCategory}
           setSelectedCategory={setSelectedCategory}
+          selectedType={selectedType}
           setSelectedType={setSelectedType}
         />
-        <OrderButton />
+
+        <Products
+          selectedCategory={selectedCategory}
+          selectedType={selectedType}
+          itemsData={itemsData}
+          filteredItems={filteredItmes}
+        />
       </SComponentsContainer>
-      {/* <Products itemsData={filteredItmes} /> */}
     </>
   );
 }
@@ -76,7 +88,6 @@ function Shopping() {
 const SComponentsContainer = styled.div`
   display: flex;
   flex-direction: row;
-  height: 3vw;
 `;
 
 export default Shopping;

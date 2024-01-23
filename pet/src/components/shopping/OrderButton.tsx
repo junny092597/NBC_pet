@@ -1,28 +1,39 @@
 import React from 'react';
-import { useState } from 'react';
 import styled from 'styled-components';
 
 interface Item {
   id: number;
-  가격: number;
-  상품명: string;
-  이미지: string;
+  price: number;
+  name: string;
+  img: string;
   category: string;
+  type: string;
+}
+interface OrderButtonProps {
+  renderData: Item[];
+  setRenderData: React.Dispatch<React.SetStateAction<Item[]>>;
 }
 
-interface OrderButtonProps {}
+function OrderButton({ renderData, setRenderData }: OrderButtonProps): JSX.Element {
+  const handleSortClick = (sortOrder: 'higePrice' | 'lowPrice' | 'new') => {
+    const sorted = [...renderData];
 
-type SortOrder = 'new' | 'low' | 'high';
-
-function OrderButton() {
-  const handleSortClick = () => {};
-
+    if (sortOrder === 'higePrice') {
+      sorted.sort((a, b) => a.price - b.price);
+    } else if (sortOrder === 'lowPrice') {
+      sorted.sort((a, b) => b.price - a.price);
+    } else if (sortOrder === 'new') {
+      sorted.sort((a, b) => a.id - b.id);
+    }
+    setRenderData(sorted);
+  };
+  console.log();
   return (
     <>
       <SProductsButtonContainer>
-        <SProductsButton onClick={() => handleSortClick()}>최신순</SProductsButton>
-        <SProductsButton onClick={() => handleSortClick()}>낮은가격순</SProductsButton>
-        <SProductsButton onClick={() => handleSortClick()}>높은가격순</SProductsButton>
+        <SProductsButton onClick={() => handleSortClick('new')}>최신순</SProductsButton>
+        <SProductsButton onClick={() => handleSortClick('higePrice')}>낮은가격순</SProductsButton>
+        <SProductsButton onClick={() => handleSortClick('lowPrice')}>높은가격순</SProductsButton>
       </SProductsButtonContainer>
     </>
   );
@@ -32,7 +43,6 @@ export default OrderButton;
 const SProductsButtonContainer = styled.span`
   display: flex;
   flex-direction: row;
-  justify-content: center;
   margin-left: 20vw;
   gap: 10vw;
   height: 3vh;
