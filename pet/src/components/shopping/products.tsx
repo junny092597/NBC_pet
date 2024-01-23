@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 interface Item {
@@ -13,28 +13,45 @@ interface ProductsProps {
   selectedCategory: string | null;
   selectedType: string;
   itemsData: Item[];
-  filteredItmes: Item[];
+  filteredItems: Item[];
 }
 
-function Products({ selectedCategory, selectedType, itemsData }: ProductsProps): JSX.Element {
+function Products({ selectedCategory, selectedType, itemsData, filteredItems }: ProductsProps): JSX.Element {
+  // 렌더링에 사용할 데이터를 저장할 상태
+  const [renderData, setRenderData] = useState<Item[]>([]);
+
+  // 컴포넌트가 처음 마운트될 때와 selectedCategory가 변경될 때 실행되는 useEffect
+  useEffect(() => {
+    // 첫 렌더링 시에는 itemsData 사용
+    setRenderData(itemsData);
+  }, [itemsData]);
+
+  // selectedCategory가 변경될 때마다 실행되는 useEffect
+  useEffect(() => {
+    // selectedCategory에 따라 적절한 데이터 설정
+    if (selectedCategory) {
+      setRenderData(filteredItems);
+    } else {
+      setRenderData(itemsData);
+    }
+  }, [selectedCategory, filteredItems, itemsData]);
+
   return (
     <>
       <SItemBoxContainer>
-        {/* //UI에 제품이 보이게 해주는 코드 */}
-        {itemsData.map(Product => {
-          return (
-            <SItemBox>
-              <SImgBox>
-                <img src={Product.img} alt="Product Image" />
-              </SImgBox>
-              <STextBox>
-                <div>제품명 : {Product.name}</div>
-                <div> 가격 : {Product.price}</div>
-                <button>구매하기</button>
-              </STextBox>
-            </SItemBox>
-          );
-        })}
+        {/* UI에 제품이 보이게 해주는 코드 */}
+        {renderData.map(Product => (
+          <SItemBox key={Product.id}>
+            <SImgBox>
+              <img src={Product.img} alt="Product Image" />
+            </SImgBox>
+            <STextBox>
+              <div>{Product.name}</div>
+              <div> 가격 : {Product.price}원</div>
+              <button>구매하기</button>
+            </STextBox>
+          </SItemBox>
+        ))}
       </SItemBoxContainer>
     </>
   );

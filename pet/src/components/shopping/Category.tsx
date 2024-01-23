@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 interface CategoryProps {
@@ -21,11 +22,21 @@ function Category({
   selectedType,
   setSelectedType,
 }: CategoryProps): JSX.Element {
+  const navigate = useNavigate();
+
   const onClickCategory = (category: string) => {
     setSelectedCategory(prevCategory => (prevCategory === category ? null : category));
-    //null일 경우 하위 버튼이 사라지는 로직도 구현하기
+    setSelectedType('');
+    // 카테고리로 url경로 구분하기
+    if (selectedCategory !== null) {
+      navigate(`/shopping`);
+    } else {
+      navigate(`/shopping/${category}`);
+    }
+
+    //카테고리는 url경로를 갖고 구분시키고, type은 querystring으로 해결하기.
   };
-  console.log(selectedCategory);
+
   const onClickItem = (item: string) => {
     setSelectedType(item);
   };
@@ -82,5 +93,5 @@ const SItemButton = styled.button<{ active?: boolean }>`
   margin-bottom: 5px;
   font-size: 15px;
   background-color: ${({ active }) => (active ? 'gray' : 'white')};
-  cursor: blue;
+  cursor: pointer;
 `;

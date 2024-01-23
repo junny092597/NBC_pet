@@ -15,12 +15,6 @@ interface Item {
   type: string;
 }
 
-const CATEGORIES: string[] = ['강아지', '고양이', '그외'];
-const TYPES: Record<string, string[]> = {
-  강아지: ['사료', '간식', '놀이용품'],
-  고양이: ['사료', '간식', '놀이용품'],
-  그외: ['사료', '간식', '놀이용품'],
-};
 // filter
 // const FirebseQuery = query(FirebaseCollection, where('category', '==', category));
 // const FirebseQuery = query(FirebaseCollection, where('type', '==', type));
@@ -48,7 +42,7 @@ const fetchData = async () => {
 
 function Shopping() {
   //선택한 카테고리 정보
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>('');
   //선택한 타입 정보
   const [selectedType, setSelectedType] = useState<string>('');
   //DB데이터 정보 저장
@@ -62,12 +56,13 @@ function Shopping() {
   const filteredItmes = itemsData
     .filter(item => item.category === selectedCategory)
     .filter(item => {
+      console.log(item);
       if (selectedType === '') return true;
       return item.type === selectedType;
     });
 
-  console.log({ itemsData });
   console.log({ filteredItmes });
+  console.log({ itemsData });
 
   return (
     <>
@@ -78,13 +73,13 @@ function Shopping() {
           selectedType={selectedType}
           setSelectedType={setSelectedType}
         />
-        <OrderButton />
+        {/* <OrderButton /> */}
       </SComponentsContainer>
       <Products
         selectedCategory={selectedCategory}
         selectedType={selectedType}
         itemsData={itemsData}
-        filteredItmes={filteredItmes}
+        filteredItems={filteredItmes}
       />
     </>
   );
