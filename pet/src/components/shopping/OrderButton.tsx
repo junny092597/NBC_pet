@@ -43,7 +43,6 @@ export default OrderButton;
 const SProductsButtonContainer = styled.span`
   display: flex;
   flex-direction: row;
-  justify-content: center;
   margin-left: 20vw;
   gap: 10vw;
   height: 3vh;
