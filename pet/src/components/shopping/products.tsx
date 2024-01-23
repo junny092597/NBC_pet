@@ -113,8 +113,8 @@ const STextBox = styled.div`
   font-size: 15px;
 `;
 
-const SBuyButton = styled.button`
-  width: 5vw;
-  height: 4vh;
-  margin-left: 3vw;
-`;
+// const SBuyButton = styled.button`
+//   width: 5vw;
+//   height: 4vh;
+//   margin-left: 3vw;
+// `;

@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Category from '../components/shopping/Category';
-import OrderButton from '../components/shopping/OrderButton';
 import Products from '../components/shopping/products';
-import { collection, query, getDocs, where } from '@firebase/firestore';
+import { collection, query, getDocs } from '@firebase/firestore';
 import { db } from '../Firebase';
 
 interface Item {
