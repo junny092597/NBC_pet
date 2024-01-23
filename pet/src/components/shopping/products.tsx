@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import OrderButton from './OrderButton';
 
 interface Item {
   id: number;
@@ -35,11 +36,14 @@ function Products({ selectedCategory, selectedType, itemsData, filteredItems }: 
       setRenderData(itemsData);
     }
   }, [selectedCategory, filteredItems, itemsData]);
+  console.log('renderData');
+  console.log(renderData);
 
   return (
     <>
       <SItemBoxContainer>
         {/* UI에 제품이 보이게 해주는 코드 */}
+        <OrderButton renderData={renderData} setRenderData={setRenderData} />
         {renderData.map(Product => (
           <SItemBox key={Product.id}>
             <SImgBox>

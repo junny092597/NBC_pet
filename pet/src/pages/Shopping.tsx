@@ -73,14 +73,14 @@ function Shopping() {
           selectedType={selectedType}
           setSelectedType={setSelectedType}
         />
-        {/* <OrderButton /> */}
+
+        <Products
+          selectedCategory={selectedCategory}
+          selectedType={selectedType}
+          itemsData={itemsData}
+          filteredItems={filteredItmes}
+        />
       </SComponentsContainer>
-      <Products
-        selectedCategory={selectedCategory}
-        selectedType={selectedType}
-        itemsData={itemsData}
-        filteredItems={filteredItmes}
-      />
     </>
   );
 }
@@ -88,7 +88,6 @@ function Shopping() {
 const SComponentsContainer = styled.div`
   display: flex;
   flex-direction: row;
-  height: 3vw;
 `;
 
 export default Shopping;
