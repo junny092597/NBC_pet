@@ -1,4 +1,3 @@
-// MapUtil.ts
 import { SetStateAction } from "react";
 
 // 카테고리별 마커 이미지 경로
@@ -9,9 +8,9 @@ const markerImagePaths: { [key: string]: string } = {
 };
 
 const categoryKeywords: { [category: string]: string[] } = {
-  '반려동물 병원': ['동물 병원'],
-  '반려동물 샵': ['애견 용품'],
-  '산책로': ['공원']
+  '반려동물 병원': ['동물 병원', '반려 동물 병원','애완동물 병원','수의사'],
+  '반려동물 샵': ['애견 용품','반려 동물 샵','애완동물 샵'],
+  '산책로': ['공원','산책']
 };
 
 let ps: kakao.maps.services.Places;
@@ -54,21 +53,24 @@ export const searchPlaces = (
         return;
       }
 
-      Promise.all(keywords.map(keyword => {
+      const searchPromises = keywords.map(keyword => {
         return new Promise<kakao.maps.Marker[]>((resolve, reject) => {
           ps.keywordSearch(keyword, (data, status) => {
             if (status === kakao.maps.services.Status.OK) {
               const markers = createMarkers(map, data, category, handleMarkerClick);
               resolve(markers);
             } else {
-              reject(new Error(`Search failed for keyword: ${keyword}`));
+              console.error(`Search failed for keyword: ${keyword}`);
+              resolve([]); // 오류 발생 시 빈 배열 반환
             }
           }, {
             location: new kakao.maps.LatLng(latitude, longitude),
             radius: 3000
           });
         });
-      })).then(results => {
+      });
+
+      Promise.all(searchPromises).then(results => {
         const combinedMarkers = results.flat();
         resolve(combinedMarkers);
       }).catch(error => {

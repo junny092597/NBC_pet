@@ -38,7 +38,7 @@ function Category({
         return prevItems;
       } else {
         // 선택되지 않은 아이템이면 추가
-        return [...prevItems, item];
+        return [item];
       }
     });
   };
@@ -69,7 +69,7 @@ const SCategoryContainer = styled.div`
   font-size: 20px;
   margin-top: 2%;
   width: 5vw;
-  height: 5vh;
+  height: 15vh;
   display: flex;
   flex-direction: column;
 `;
