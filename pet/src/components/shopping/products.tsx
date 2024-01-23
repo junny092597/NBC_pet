@@ -1,6 +1,4 @@
 import React from 'react';
-import { useState } from 'react';
-import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 interface Item {
@@ -15,6 +13,7 @@ interface ProductsProps {
   selectedCategory: string | null;
   selectedType: string;
   itemsData: Item[];
+  filteredItmes: Item[];
 }
 
 function Products({ selectedCategory, selectedType, itemsData }: ProductsProps): JSX.Element {

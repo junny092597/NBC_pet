@@ -15,6 +15,12 @@ interface Item {
   type: string;
 }
 
+const CATEGORIES: string[] = ['강아지', '고양이', '그외'];
+const TYPES: Record<string, string[]> = {
+  강아지: ['사료', '간식', '놀이용품'],
+  고양이: ['사료', '간식', '놀이용품'],
+  그외: ['사료', '간식', '놀이용품'],
+};
 // filter
 // const FirebseQuery = query(FirebaseCollection, where('category', '==', category));
 // const FirebseQuery = query(FirebaseCollection, where('type', '==', type));
@@ -50,16 +56,18 @@ function Shopping() {
 
   useEffect(() => {
     fetchData().then(setItemsData);
-  }, []);
+  }, [selectedCategory, selectedType]);
 
+  //데이터 카테고리 및 타입별 필터링
   const filteredItmes = itemsData
     .filter(item => item.category === selectedCategory)
     .filter(item => {
       if (selectedType === '') return true;
       return item.type === selectedType;
     });
+
   console.log({ itemsData });
-  console.log(`데이터필터링 : ${filteredItmes}`);
+  console.log({ filteredItmes });
 
   return (
     <>
@@ -72,7 +80,12 @@ function Shopping() {
         />
         <OrderButton />
       </SComponentsContainer>
-      <Products selectedCategory={selectedCategory} selectedType={selectedType} itemsData={itemsData} />
+      <Products
+        selectedCategory={selectedCategory}
+        selectedType={selectedType}
+        itemsData={itemsData}
+        filteredItmes={filteredItmes}
+      />
     </>
   );
 }
