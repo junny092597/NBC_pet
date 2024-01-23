@@ -1,57 +1,64 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-
-interface Item {
-  id: number;
-  가격: number;
-  상품명: string;
-  이미지: string;
-}
 
 interface CategoryProps {
   selectedCategory: string | null;
   setSelectedCategory: React.Dispatch<React.SetStateAction<string | null>>;
-  setSelectedItems: React.Dispatch<React.SetStateAction<string[]>>;
-  categories: string[];
-  categoryItems: Record<string, string[]>;
-  selectedItems: string[];
-  itemsData: Item[];
+  selectedType: string;
+  setSelectedType: React.Dispatch<React.SetStateAction<string>>;
 }
+
+const CATEGORIES: string[] = ['강아지', '고양이', '그외'];
+const TYPES: Record<string, string[]> = {
+  강아지: ['사료', '간식', '놀이용품'],
+  고양이: ['사료', '간식', '놀이용품'],
+  그외: ['사료', '간식', '놀이용품'],
+};
 
 function Category({
   selectedCategory,
   setSelectedCategory,
-  setSelectedItems,
-  categories,
-  categoryItems,
-  selectedItems,
-  itemsData,
+  selectedType,
+  setSelectedType,
 }: CategoryProps): JSX.Element {
+  const navigate = useNavigate();
+
   const onClickCategory = (category: string) => {
     setSelectedCategory(prevCategory => (prevCategory === category ? null : category));
+    setSelectedType('');
+    // 카테고리로 url경로 구분하기
+    if (category !== null) {
+      navigate(`/shopping/${category}`);
+    } else {
+      //같은 버튼을 누르면 shopping URL로 가야하는데 작동하지 않는다.
+      navigate('/shopping');
+    }
+    //카테고리는 url경로를 갖고 구분시키고, type은 querystring으로 해결하기.
   };
 
-  const onClickItem = (item: any) => {
-    setSelectedItems(prevItems => {
-      if (prevItems.includes(item)) {
-        // 이미 선택된 아이템이면 무시
-        return prevItems;
-      } else {
-        // 선택되지 않은 아이템이면 추가
-        return [item];
-      }
-    });
+  const onClickItem = (item: string) => {
+    setSelectedType(item);
+    if (item !== '') {
+      navigate(`/shopping/${selectedCategory}?type=${item}`);
+    } else {
+      navigate(`/shopping/${selectedCategory}`);
+    }
   };
+  console.log('selectedCategory');
+  console.log(selectedCategory);
+  console.log('selectedType');
+  console.log(selectedType);
   return (
     <SCategoryContainer>
-      {categories.map(category => (
+      {CATEGORIES.map(category => (
         <div key={category}>
           <SButtonContainer>
             <SCatagoryButton onClick={() => onClickCategory(category)} active={category === selectedCategory}>
               {category}
             </SCatagoryButton>
             {category === selectedCategory &&
-              selectedItems.map(item => (
+              TYPES[category].map(item => (
                 <SItemButton key={item} onClick={() => onClickItem(item)}>
                   {item}
                 </SItemButton>
@@ -69,7 +76,7 @@ const SCategoryContainer = styled.div`
   font-size: 20px;
   margin-top: 2%;
   width: 5vw;
-  height: 15vh;
+  height: 35vh;
   display: flex;
   flex-direction: column;
 `;
@@ -94,5 +101,5 @@ const SItemButton = styled.button<{ active?: boolean }>`
   margin-bottom: 5px;
   font-size: 15px;
   background-color: ${({ active }) => (active ? 'gray' : 'white')};
-  cursor: blue;
+  cursor: pointer;
 `;
