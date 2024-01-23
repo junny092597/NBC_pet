@@ -15,7 +15,6 @@ const Router = () => {
        <Route element={<Layout children={undefined} />} >
         <Route path="/" element={<HomePage />} />
         <Route path="/shopping" element={<Shopping />} />
-
         <Route path="/map" element={<KakaoMapPage/>} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/signin" element={<Signin />} />

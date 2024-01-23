@@ -7,7 +7,6 @@ import logo from '../../assets/images/logo.png';
 import styled from 'styled-components';
 import { BsSearchHeart } from 'react-icons/bs';
 import Swal from 'sweetalert2';
-import Shopping from '../../pages/Shopping';
 import { RootState } from '../../redux/Store';
 import { Link } from 'react-router-dom';
 
@@ -18,12 +17,17 @@ const Header: React.FC = () => {
   const isLogin = useSelector((state: RootState) => state.auth.isLogin )
   const displayName = useSelector((state: RootState) => state.auth?.displayName);
 
-  const navigateLogin = () => {
+  const navlogin = () => {
     navigate("/Signin");
   };
 
-  const navigateregister = () => {
+  const navregister = () => {
     navigate("/Signup");
+  };
+
+  
+  const navprofile = () => {
+    navigate("/Profile");
   };
 
   return (
@@ -72,16 +76,16 @@ const Header: React.FC = () => {
                 >
                   로그아웃
                 </button>
-                {/* <button>마이페이지</button> */}
+                <button onClick={navprofile}>마이페이지</button>
               </>
             ) : (
               <>
                 <button 
-                 onClick={navigateregister}>
+                 onClick={navregister}>
                   회원가입
                 </button>
                 <button
-                 onClick={navigateLogin}>
+                 onClick={navlogin}>
                   로그인
                 </button>
               </>
@@ -113,7 +117,7 @@ const Headerbtn = styled.button`
     height: 40px;
     font-family: GmarketSansMedium;
     font-size: 18px;
-    background-color: #618F71;
+    background-color: #C5ABAB;
     color: white;
     border: none;
     border-radius: 10px;

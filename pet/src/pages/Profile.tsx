@@ -1,7 +1,10 @@
+import MyPages from "../components/mypage/MyPages";
 
 function Profile() {
   return (
-    <div>Profile</div>
+    <>
+    <MyPages />
+    </>
   );
 }
 
