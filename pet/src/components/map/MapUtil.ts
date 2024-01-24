@@ -2,9 +2,9 @@ import { SetStateAction } from "react";
 
 // 카테고리별 마커 이미지 경로
 const markerImagePaths: { [key: string]: string } = {
-  '반려동물 병원': 'src/assets/images/HospitalCat.png',
-  '반려동물 샵': 'src/assets/images/ShopCat.png',
-  '산책로': 'src/assets/images/ParkCat.png'
+  '반려동물 병원': process.env.PUBLIC_URL + 'HospitalCat.png',
+  '반려동물 샵': process.env.PUBLIC_URL + 'ShopCat.png',
+  '산책로': process.env.PUBLIC_URL + 'ParkCat.png'
 };
 
 const categoryKeywords: { [category: string]: string[] } = {
@@ -101,7 +101,7 @@ export const createMarkers = (
 
   places.forEach((place) => {
     const imageSrc = markerImagePaths[category]; // 카테고리에 맞는 이미지 경로
-    const imageSize = new kakao.maps.Size(24, 35); // 마커 이미지 크기 설정
+    const imageSize = new kakao.maps.Size(35, 35); // 마커 이미지 크기 설정
     const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); // 마커 이미지 생성
 
     const marker = new kakao.maps.Marker({
