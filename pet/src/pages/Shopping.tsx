@@ -14,15 +14,6 @@ interface Item {
   type: string;
 }
 
-// filter
-// const FirebseQuery = query(FirebaseCollection, where('category', '==', category));
-// const FirebseQuery = query(FirebaseCollection, where('type', '==', type));
-// const FirebseQuery = query(FirebaseCollection, where('type', '==', type), where('category', '==', category));
-
-// paging
-// const nextQuery = query(myCollection, orderBy("id"), startAfter(11), limit(5));
-// let nextSnapshot = await getDocs(nextQuery);
-
 const fetchData = async () => {
   const FirebaseCollection = collection(db, 'shopping');
   const FirebseQuery = query(FirebaseCollection);
