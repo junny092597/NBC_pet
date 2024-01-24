@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import OrderButton from './OrderButton';
+import Paging from './Paging';
+import { useNavigate } from 'react-router-dom';
 
 interface Item {
   id: number;
@@ -37,6 +39,10 @@ function Products({ selectedCategory, selectedType, itemsData, filteredItems }: 
     }
   }, [selectedCategory, filteredItems, itemsData]);
 
+  const navigate = useNavigate();
+  const moveToDeatailPageHandler = (item: any) => {
+    if (renderData) navigate(`/ShoppingDetail/${item.name}`, { state: { item } });
+  };
   return (
     <>
       <SItemBoxContainer>
@@ -52,10 +58,11 @@ function Products({ selectedCategory, selectedType, itemsData, filteredItems }: 
             <STextBox>
               <div>{Product.name}</div>
               <div> 가격 : {Product.price}원</div>
-              <button>구매하기</button>
+              <button onClick={() => moveToDeatailPageHandler(Product)}>구매하기</button>
             </STextBox>
           </SItemBox>
         ))}
+        <Paging />
       </SItemBoxContainer>
     </>
   );

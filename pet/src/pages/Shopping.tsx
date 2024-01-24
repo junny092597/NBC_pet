@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Category from '../components/shopping/Category';
 import Products from '../components/shopping/products';
 import { collection, query, getDocs } from '@firebase/firestore';
-import { db } from '../Firebase';
+import { auth, db } from '../Firebase';
 
 interface Item {
   id: number;
@@ -13,15 +13,6 @@ interface Item {
   category: string;
   type: string;
 }
-
-// filter
-// const FirebseQuery = query(FirebaseCollection, where('category', '==', category));
-// const FirebseQuery = query(FirebaseCollection, where('type', '==', type));
-// const FirebseQuery = query(FirebaseCollection, where('type', '==', type), where('category', '==', category));
-
-// paging
-// const nextQuery = query(myCollection, orderBy("id"), startAfter(11), limit(5));
-// let nextSnapshot = await getDocs(nextQuery);
 
 const fetchData = async () => {
   const FirebaseCollection = collection(db, 'shopping');
@@ -46,6 +37,9 @@ function Shopping() {
   const [selectedType, setSelectedType] = useState<string>('');
   //DB데이터 정보 저장
   const [itemsData, setItemsData] = useState<Item[]>([]);
+
+  //유저정보 갖고오기
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     fetchData().then(setItemsData);
