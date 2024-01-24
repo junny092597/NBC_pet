@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import OrderButton from './OrderButton';
+import Paging from './Paging';
 
 interface Item {
   id: number;
@@ -56,6 +57,7 @@ function Products({ selectedCategory, selectedType, itemsData, filteredItems }: 
             </STextBox>
           </SItemBox>
         ))}
+        <Paging />
       </SItemBoxContainer>
     </>
   );
