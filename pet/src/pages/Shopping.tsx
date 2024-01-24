@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Category from '../components/shopping/Category';
 import Products from '../components/shopping/products';
 import { collection, query, getDocs } from '@firebase/firestore';
-import { auth, db } from '../Firebase';
+import { db } from '../Firebase';
 
 interface Item {
   id: number;
@@ -37,9 +37,6 @@ function Shopping() {
   const [selectedType, setSelectedType] = useState<string>('');
   //DB데이터 정보 저장
   const [itemsData, setItemsData] = useState<Item[]>([]);
-
-  //유저정보 갖고오기
-  const [user, setUser] = useState(null);
 
   useEffect(() => {
     fetchData().then(setItemsData);

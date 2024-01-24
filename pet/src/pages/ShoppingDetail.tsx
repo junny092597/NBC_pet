@@ -1,8 +1,12 @@
 import { useState } from 'react';
+import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import Review from '../components/shoppingDetail/Review';
 import QuantityInput from '../components/shoppingDetail/QuantityInput';
 import styled from 'styled-components';
+import { auth } from '../Firebase';
+import QuestionAndAnswer from '../components/shoppingDetail/QuestionAndAnswer';
 
 interface Item {
   id: number;
@@ -11,6 +15,10 @@ interface Item {
   img: string;
   category: string;
   type: string;
+}
+
+interface user {
+  email: string;
 }
 function ShoppingDetail() {
   //받아온 renderData
@@ -25,13 +33,33 @@ function ShoppingDetail() {
   const toggleLike = () => {
     setLiked(prevLiked => !prevLiked);
   };
-
+  //수량 +,-기능
   const onclickQuantityHandler = (num: number) => {
     if (quantity + num >= 1) {
       setQuantity((prev: number) => prev + num);
       setTotalPrice((prev: number) => prev + item.price * num);
     }
   };
+
+  //유저이메일 담기
+  const [data, setData] = useState<{ userEmail: string; itemName?: string }>({
+    userEmail: '',
+    itemName: item?.name || undefined,
+  });
+
+  useEffect(() => {
+    const userData = auth.onAuthStateChanged((currentUser: any) => {
+      if (currentUser) {
+        const userEmail = currentUser.email;
+        setData(prev => ({ ...prev, userEmail }));
+      } else {
+        setData({ userEmail: '' });
+      }
+    });
+    return () => userData();
+  }, []);
+  console.log('data');
+  console.log(data);
 
   //데이터가 안받아와졌을경우 다시 돌아가기위한 navigate
   const navigate = useNavigate();
@@ -78,8 +106,8 @@ function ShoppingDetail() {
             <button>Buy Now</button>
           </div>
           <div>
-            <button>REViEW</button>
-            <button>Q&A</button>
+            <Review data={data} />
+            <QuestionAndAnswer data={data} />
           </div>
         </STextContainer>
       </SProductContainer>
