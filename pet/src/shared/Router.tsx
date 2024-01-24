@@ -1,9 +1,8 @@
 import { Route, Routes } from 'react-router-dom';
 import HomePage from '../pages/HomPage';
 import Shopping from '../pages/Shopping';
-
+import ShoppingDetail from '../pages/ShoppingDetail';
 import KakaoMapPage from '../pages/KakaoMapPage';
-
 import Profile from '../pages/Profile';
 import Signin from '../pages/Signin';
 import Signup from '../pages/Signup';
@@ -17,6 +16,7 @@ const Router = () => {
         <Route path="/shopping" element={<Shopping />}>
           <Route path="/shopping/:category" element={<Shopping />} />
         </Route>
+        <Route path="/ShoppingDetail/:name" element={<ShoppingDetail />} />
         <Route path="/map" element={<KakaoMapPage />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/signin" element={<Signin />} />
