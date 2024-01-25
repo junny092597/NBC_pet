@@ -40,7 +40,7 @@ const Header: React.FC = () => {
             <a href="/">Home</a>
           </li>
           <li>
-            <a href="/">커뮤니티</a>
+            <a href="/Community">커뮤니티</a>
           </li>
           <li>
             <a href="/Shopping">쇼핑</a>

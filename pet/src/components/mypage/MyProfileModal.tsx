@@ -52,7 +52,7 @@ const MyProfileEditModal = () => {
     setNickname(e.target.value);
   };
 
-  // 수정확인 시 유효성 검사.
+  // 수정 확인 시 유효성 검사.
   const nicknameChangeOnClick: any = async () => {
     if (nickname.length < 2 || nickname.length > 8) {
       alert('2글자 이상 5글자 이하로 입력해주세요.');

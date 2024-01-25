@@ -27,7 +27,7 @@ function OrderButton({ renderData, setRenderData }: OrderButtonProps): JSX.Eleme
     }
     setRenderData(sorted);
   };
-  console.log();
+
   return (
     <>
       <SProductsButtonContainer>

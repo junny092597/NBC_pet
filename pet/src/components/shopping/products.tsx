@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import OrderButton from './OrderButton';
+import Pagination from 'react-js-pagination';
+import { useNavigate } from 'react-router-dom';
 
 interface Item {
   id: number;
@@ -11,32 +13,20 @@ interface Item {
   type: string;
 }
 interface ProductsProps {
-  selectedCategory: string | null;
-  selectedType: string;
-  itemsData: Item[];
-  filteredItems: Item[];
+  renderData: Item[];
+  setRenderData: React.Dispatch<React.SetStateAction<Item[]>>;
+  page: number;
 }
 
-function Products({ selectedCategory, selectedType, itemsData, filteredItems }: ProductsProps): JSX.Element {
-  // 렌더링에 사용할 데이터를 저장할 상태
-  const [renderData, setRenderData] = useState<Item[]>([]);
+function Products({ renderData, setRenderData, page }: ProductsProps): JSX.Element {
+  const handlePageChange = (page: React.SetStateAction<number>) => {
+    // setPage(page);
+  };
 
-  // 컴포넌트가 처음 마운트될 때와 selectedCategory가 변경될 때 실행되는 useEffect
-  useEffect(() => {
-    // 첫 렌더링 시에는 itemsData 사용
-    setRenderData(itemsData);
-  }, [itemsData]);
-
-  // selectedCategory가 변경될 때마다 실행되는 useEffect
-  useEffect(() => {
-    // selectedCategory에 따라 적절한 데이터 설정
-    if (selectedCategory) {
-      setRenderData(filteredItems);
-    } else {
-      setRenderData(itemsData);
-    }
-  }, [selectedCategory, filteredItems, itemsData]);
-
+  const navigate = useNavigate();
+  const moveToDeatailPageHandler = (item: any) => {
+    if (renderData) navigate(`/ShoppingDetail/${item.name}`, { state: { item } });
+  };
   return (
     <>
       <SItemBoxContainer>
@@ -52,10 +42,20 @@ function Products({ selectedCategory, selectedType, itemsData, filteredItems }: 
             <STextBox>
               <div>{Product.name}</div>
               <div> 가격 : {Product.price}원</div>
-              <button>구매하기</button>
+              <button onClick={() => moveToDeatailPageHandler(Product)}>구매하기</button>
             </STextBox>
           </SItemBox>
         ))}
+        {/* 페이지네이션 기능 추가중 */}
+        {/* <Pagination
+          activePage={page}
+          itemsCountPerPage={6}
+          totalItemsCount={27}
+          pageRangeDisplayed={5}
+          prevPageText={'‹'}
+          nextPageText={'›'}
+          onChange={handlePageChange}
+        /> */}
       </SItemBoxContainer>
     </>
   );
