@@ -16,7 +16,6 @@ interface ReviewProps {
 }
 
 function Review({ data }: ReviewProps): JSX.Element {
-  const [reviewDisplay, setReviewDisplay] = useState<boolean>(false);
   const [index, setIndex] = useState('');
   const [reviews, setReviews] = useState<User[]>([]);
 
@@ -81,23 +80,18 @@ function Review({ data }: ReviewProps): JSX.Element {
 
   return (
     <>
-      <button onClick={() => setReviewDisplay(!reviewDisplay)}>REVIEW</button>
-      {reviewDisplay && (
-        <>
-          <h2>Review 게시판</h2>
-          <STextArea placeholder="게시글을 작성해주세요" onChange={e => setIndex(e.target.value)} />
-          <button onClick={textPushHandler}>작성하기</button>
+      <h2>Review 게시판</h2>
+      <STextArea placeholder="게시글을 작성해주세요" onChange={e => setIndex(e.target.value)} />
+      <button onClick={textPushHandler}>작성하기</button>
 
-          <ul>
-            {reviews.map(review => (
-              <li key={review.index}>
-                <span>{review.index}</span>
-                <button onClick={() => deleteReviewHandler(review.index)}>삭제하기</button>
-              </li>
-            ))}
-          </ul>
-        </>
-      )}
+      <ul>
+        {reviews.map(review => (
+          <li key={review.index}>
+            <span>{review.index}</span>
+            <button onClick={() => deleteReviewHandler(review.index)}>삭제하기</button>
+          </li>
+        ))}
+      </ul>
     </>
   );
 }

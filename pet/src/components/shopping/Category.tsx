@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 interface CategoryProps {
-  selectedCategory: string | null;
-  setSelectedCategory: React.Dispatch<React.SetStateAction<string | null>>;
+  selectedCategory: string;
+  setSelectedCategory: React.Dispatch<React.SetStateAction<string>>;
   selectedType: string;
   setSelectedType: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -25,10 +25,10 @@ function Category({
   const navigate = useNavigate();
 
   const onClickCategory = (category: string) => {
-    setSelectedCategory(prevCategory => (prevCategory === category ? null : category));
+    setSelectedCategory(prevCategory => (prevCategory === category ? '' : category));
     setSelectedType('');
     // 카테고리로 url경로 구분하기
-    if (category !== null) {
+    if (category !== selectedCategory) {
       navigate(`/shopping/${category}`);
     } else {
       //같은 버튼을 누르면 shopping URL로 가야하는데 작동하지 않는다.
@@ -45,10 +45,7 @@ function Category({
       navigate(`/shopping/${selectedCategory}`);
     }
   };
-  console.log('selectedCategory');
-  console.log(selectedCategory);
-  console.log('selectedType');
-  console.log(selectedType);
+
   return (
     <SCategoryContainer>
       {CATEGORIES.map(category => (

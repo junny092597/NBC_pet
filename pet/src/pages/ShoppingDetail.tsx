@@ -45,6 +45,13 @@ function ShoppingDetail() {
     itemName: item?.name || undefined,
   });
 
+  //리뷰 & QnA tab기능
+  const [tab, setTab] = useState<string | null>(null);
+
+  const swithTab = (tab: string | null) => {
+    setTab(tab);
+  };
+
   useEffect(() => {
     const userData = auth.onAuthStateChanged((currentUser: any) => {
       if (currentUser) {
@@ -151,8 +158,25 @@ function ShoppingDetail() {
             <button>Buy Now</button>
           </div>
           <div>
-            <Review data={data} />
-            <QuestionAndAnswer data={data} />
+            <button
+              onClick={() => {
+                swithTab('REVIEW');
+              }}>
+              REVIEW
+            </button>
+            <button
+              onClick={() => {
+                swithTab('Q&A');
+              }}>
+              Q&A
+            </button>
+            {tab === 'REVIEW' && <Review data={data} />}
+            {tab === 'Q&A' && <QuestionAndAnswer data={data} />}
+            {tab === null && (
+              <div>
+                <img src="src/assets/images/logo.png" alt="강아지 사진" />
+              </div>
+            )}
           </div>
         </STextContainer>
       </SProductContainer>
