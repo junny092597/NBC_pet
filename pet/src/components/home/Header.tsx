@@ -18,8 +18,6 @@ const Header: React.FC = () => {
   const isLogin = useSelector((state: RootState) => state.auth.isLogin);
   const displayName = useSelector((state: RootState) => state.auth?.displayName);
 
-  console.log('isLogin:', isLogin);
-  console.log('displayName:', displayName);
   const navigateLogin = () => {
     navigate('/Signin');
   };
