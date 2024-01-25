@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import Slider from 'react-slick';
 import Category from './MainCategory';
-import maintest from '../../assets/images/testmain.png';
 import banner1 from '../../assets/images/banner1.png'
-
+import banner2 from '../../assets/images/banner2.png'
+import banner3 from '../../assets/images/banner3.png'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -70,21 +70,21 @@ const Main: React.FC = () => {
           </BannerText>
         </BannerSlide>
         <BannerSlide>
-          <BannerImage src="/banner2.jpg" alt="Banner 2" />
+          <BannerImage src={banner2} alt="Banner 2" />
           <BannerText>
-            <BannerTitle>큰 제목 2</BannerTitle>
-            <BannerDescription>내용 2</BannerDescription>
+            <BannerTitle>귀여운거 + 귀여운거 = 왕귀여운거</BannerTitle>
+            <BannerDescription>다른 친구들의 일상을 만나보세요!</BannerDescription>
           </BannerText>
         </BannerSlide>
         <BannerSlide>
-          <BannerImage src="/banner3.jpg" alt="Banner 3" />
+          <BannerImage src={banner3} alt="Banner 3" />
           <BannerText>
-            <BannerTitle>큰 제목 3</BannerTitle>
-            <BannerDescription>내용 3</BannerDescription>
+            <BannerTitle>우리 아이, 뭘 먹여야 할까?</BannerTitle>
+            <BannerDescription>아이들의 '최애픽'만 담았습니다</BannerDescription>
           </BannerText>
         </BannerSlide>
         <BannerSlide>
-          <BannerImage src="/banner4.jpg" alt="Banner 4" />
+          <BannerImage src={banner2} alt="Banner 4" />
           <BannerText>
             <BannerTitle>큰 제목 4</BannerTitle>
             <BannerDescription>내용 4</BannerDescription>
@@ -110,11 +110,6 @@ const MainContainer = styled.main`
   font-family: GmarketSansMedium;
 `;
 
-const Image = styled.img`
-  max-width: 100%;
-  height: auto;
-  margin-bottom: 100px;
-`;
 
 const Title = styled.p`
   font-size: 30px;
