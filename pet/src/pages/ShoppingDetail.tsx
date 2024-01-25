@@ -93,30 +93,42 @@ function ShoppingDetail() {
   }, [data]); // data가 변경될 때마다 fetchHeart를 호출
 
   const handleButtonClick = async () => {
-    if (like === null) {
-      // like 상태가 아직 초기화되지 않았다면, 새로운 문서를 생성하고 liked 필드를 true로 설정합니다.
-      await addDoc(collection(db, 'like'), { email: data.userEmail, liked: true });
-      setLike(true);
-      setHeartColor('red');
+    if (data.userEmail === '') {
+      alert('로그인을 해야 사용가능한 기능입니다');
+      navigate('/signin');
     } else {
-      // 이미 문서가 있는 경우, 해당 문서의 liked 필드 값을 토글합니다.
-      // 문서가 없을 때는 setDoc 함수를 사용하여 새로운 문서를 생성합니다.
-      const docRef = doc(db, 'like', data.userEmail);
+      const likeCollectionRef = collection(db, 'like');
+      const randomDocId = generateRandomDocId(); // Assuming you have a function to generate a random ID
+
+      const docRef = doc(likeCollectionRef, randomDocId);
+
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
         // 문서가 존재하면 업데이트
-        await updateDoc(docRef, { liked: !like });
+        await updateDoc(docRef, { userEmail: data.userEmail, itemName: data.itemName, liked: !like });
         setLike(!like);
         setHeartColor(like ? 'black' : 'red');
       } else {
         // 문서가 존재하지 않으면 새로 생성
-        await setDoc(docRef, { liked: true });
+        await setDoc(docRef, { userEmail: data.userEmail, itemName: data.itemName, liked: true });
         setLike(true);
         setHeartColor('red');
       }
     }
   };
+
+  // 예시로 사용할 랜덤 ID 생성 함수
+  function generateRandomDocId() {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const length = 20;
+    let randomId = '';
+    for (let i = 0; i < length; i++) {
+      randomId += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return randomId;
+  }
+
   const handleHeartIconClick = () => {
     handleButtonClick();
   };
@@ -157,7 +169,12 @@ function ShoppingDetail() {
             <button>ADD Tod Cart</button>
             <button
               onClick={() => {
-                navigate('/CheckoutPage');
+                if (data.userEmail !== '') {
+                  navigate('/CheckoutPage');
+                } else {
+                  alert('로그인을 해야 사용가능한 페이지입니다');
+                  navigate('/signin');
+                }
               }}>
               Buy Now
             </button>
