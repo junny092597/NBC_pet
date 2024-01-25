@@ -2,7 +2,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import Sidebar from './Sidebar'; // Sidebar 컴포넌트를 임포트합니다.
-import DailyBoard from './DailyBoard';
 
 const LayoutContainer = styled.div`
   display: flex;
