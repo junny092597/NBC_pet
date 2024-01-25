@@ -1,0 +1,75 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.carousel-container {
+  max-height: 100px;
+  overflow: hidden;
+}
+
+.slick-slide img {
+  height: 100px;     /* 고정 높이 설정 */
+  width: 100%;       /* 너비를 100%로 설정 */
+  object-fit: cover; /* 이미지가 컨테이너에 맞춰서 조정됨 */
+}
+
+@media (max-width: 768px) {
+  .slick-slide img {
+    max-height: 100px;
+  }
+}
+
+.slick-prev, .slick-next {
+  z-index: 2;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.slick-prev {
+  left: 20px;
+}
+
+.slick-next {
+  right: 20px;
+}
+
+.slick-prev, .slick-next {
+  width: 50px;       /* 버튼의 크기 */
+  height: 50px;      /* 버튼의 크기 */
+  background: white; /* 버튼의 배경색 */
+}
