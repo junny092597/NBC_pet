@@ -4,7 +4,7 @@ export interface UserInfoState {
 }
 
 export interface UserInfomation {
-    nickName: string | null;
+    displayName: string | null;
     emil: string | null;
     photoURL: string | null;
     uid: string | null;

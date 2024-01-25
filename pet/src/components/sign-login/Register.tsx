@@ -118,7 +118,7 @@ export default function Register() {
                 name="nickname"
                 placeholder="Nickname (2~5글자)"
                 minLength={2}
-                maxLength={5}
+                maxLength={8}
                 onChange={onChange}
                 required
               />
@@ -138,7 +138,7 @@ export default function Register() {
                   passwdCheck.length > 10 ||
                   nickName === "" ||
                   nickName.length < 2 ||
-                  nickName.length > 5 ||
+                  nickName.length > 8 ||
                   password !== passwdCheck
                 }
               >

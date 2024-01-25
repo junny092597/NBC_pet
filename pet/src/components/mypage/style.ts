@@ -1,57 +1,64 @@
 import styled from 'styled-components';
 
+// MyPages
 export const MyPageAll = styled.div`
   display: flex;
-  flex-direction: row;
   justify-content: center;
-  padding-top: 50px;
-  @media screen and (max-width: 750px) {
-    flex-direction: column;
-    gap: 20px;
-    padding-top: 30px;
-    align-items: center;
-  }
+  align-items: center;
 `;
 
-export const MyProfileBox = styled.div`
-  width: 352px;
-  border: 2px solid;
-  border-radius: 8px 0px 0px 8px;
-  background: yellow;
+export const ProfileContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
 `;
 
-export const TabContainer = styled.div`
-  width: 688px;
-  @media screen and (max-width: 1060px) {
-    width: 370px;
-  }
-`;
-
-export const ProfileImgLabelInputWrapper = styled.div`
+export const ProfileImgWrapper = styled.div`
   margin-top: 48px;
-  display: flex;
-  justify-content: center;
 `;
 
-export const MyProfileNickname = styled.h3`
-  font-family: 'Apple SD Gothic Neo';
-  font-weight: 700;
+export const ProfileImgShow = styled.img`
+  width: 200px;
+  height: 200px;
+  border-radius: 20%;
+  border: none;
+  cursor: pointer;
+`;
+
+export const ProfileNickname = styled.h3`
+  font-family: GmarketSansMedium;
   font-size: 28px;
   color: black;
   margin: 20px 0 10px;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  order: 1;
 `;
 
-export const WelcomeText = styled.div`
+export const ModifyCompleteButton = styled.button`
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+`;
+
+// export const TabContainer = styled.div`
+//   width: 688px;
+//   @media screen and (max-width: 1060px) {
+//     width: 370px;
+//   }
+// `;
+
+
+// MyProfileModal
+export const Text = styled.div`
   font-size: 20px;
 `;
 
 export const InfoTitle = styled.p`
-  font-family: 'Apple SD Gothic Neo';
+  font-family: GmarketSansMedium;
   font-size: 16px;
   margin-bottom: 0.2rem;
   color: black;
@@ -91,18 +98,6 @@ export const ButtonContainer = styled.div`
   }
 `;
 
-export const ModifyCompleteButton = styled.button`
-  cursor: pointer;
-  padding: 8px;
-  width: 122px;
-  height: 44px;
-  border: 1px solid ;
-  border-radius: 8px;
-  font-size: 16px;
-  color: black;
-  background-color: black;
-`;
-
 export const ModifyDeleteButton = styled.button``;
 
 // 이미지 수정, 업로드 관련 스타일링
@@ -122,13 +117,7 @@ export const ProfileImgLabel = styled.label`
   cursor: pointer;
 `;
 
-export const ProfileImgShow = styled.img`
-  width: 200px;
-  height: 200px;
-  border-radius: 70%;
-  border: 1px solid black;
-  cursor: pointer;
-`;
+
 export const ProfileImgInput = styled.input``;
 
 export const InfoWrapper = styled.div`
@@ -160,17 +149,18 @@ export const EditModalAll = styled.div``;
 
 export const EditModalBtnText = styled.div`
   cursor: pointer;
-  color: white;
+  color: black;
+  font-size: 25px;
 `;
 
 export const EditModalTitle = styled.div`
-  font-family: 'Apple SD Gothic Neo';
+  font-family: GmarketSansMedium;
   font-weight: 800;
   font-size: 23px;
   color: black;
 `;
 
-export const EditModalImgLabelInputWrapper = styled.div`
+export const EditModalImgInputWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -204,7 +194,7 @@ export const EditModalNicknameInputWrapper = styled.div`
 `;
 
 export const EditModalText = styled.p`
-  font-family: 'Apple SD Gothic Neo';
+  font-family: GmarketSansMedium;
   font-size: 16px;
   margin-bottom: 0.3rem;
   color: black;
@@ -229,7 +219,7 @@ export const EditModalEmailInputWrpper = styled.div`
 `;
 
 export const EditModalEmailText = styled.p`
-  font-family: 'Apple SD Gothic Neo';
+  font-family: GmarketSansMedium;
   font-style: normal;
   font-weight: 700;
   font-size: 16px;
@@ -259,7 +249,7 @@ export const EditModalCanceleButton = styled.button`
   border: 1px solid ;
   border-radius: 8px;
   /* Title Text */
-  font-family: 'Apple SD Gothic Neo';
+  font-family: GmarketSansMedium;
   font-size: 16px;
   text-align: center;
   color: white;
@@ -278,7 +268,7 @@ export const EditModalCompleteButton = styled.button`
   background-color: black;
   border: 1px solid ;
   border-radius: 8px;
-  font-family: 'Apple SD Gothic Neo';
+  font-family: GmarketSansMedium;
   font-size: 16px;
   text-align: center;
   color: white;
@@ -302,9 +292,6 @@ export const EditModalEmailInput = styled.input`
 `;
 
 // Modal Tab
-export const MyBookmarkReportWraps = styled.div``;
-export const MyBookmarkReportContainer = styled.div``;
-export const MyBookmarkReportBox = styled.div``;
 export const MyBookmarkReportTabMenu = styled.ul`
   padding: 0;
   height: 50px;
@@ -316,7 +303,6 @@ export const MyBookmarkReportTabMenu = styled.ul`
   border-bottom: 2px solid;
 `;
 
-export const MyTitleTabTitleBox = styled.div``;
 export const MyTitleTabBtn = styled.button`
   background-color: transparent;
   font-weight: bold;

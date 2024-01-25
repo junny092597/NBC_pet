@@ -10,7 +10,7 @@ import * as S from './style';
 
 import basicProfileImg from '../../assets/images/logo.png';
 import { User } from 'firebase/auth';
-import MyProfileEditModal from './MyProfileEditModal';
+import MyProfileModal from './MyProfileModal';
 
 type CurrentUserProfile = User | null;
 
@@ -24,7 +24,7 @@ const MyProfile = () => {
   const [imgProfileUrl, setImgProfileUrl] = useRecoilState(profileState);
   const currentUserInfos: User | null = auth.currentUser;
 
-  // 현재 로그인한 사용자 가져오기
+  // 현재 로그인한 사용자 정보 가져오기
   useEffect(() => {
     auth.onAuthStateChanged(user => {
       if (user) {
@@ -38,28 +38,28 @@ const MyProfile = () => {
 
   useEffect(() => {
     if (currentUserInfos?.photoURL !== undefined) {
+      // setImgProfileUrl 함수를 호출하여 이미지 프로필 URL을 업데이트
       setImgProfileUrl(currentUserInfos?.photoURL || '');
     }
   }, [currentUserInfos?.photoURL, setImgProfileUrl]);
 
   return (
     <S.MyPageAll>
-      <S.MyProfileBox>
-        <S.ProfileImgLabelInputWrapper>
+      <S.ProfileContainer>
+        <S.ProfileImgWrapper>
           <S.ProfileImgShow
             src={currentUserProfile?.photoURL ? currentUserProfile?.photoURL : basicProfileImg}
             onClick={handleOpen}
           />
-        </S.ProfileImgLabelInputWrapper>
-        <S.MyProfileNickname>
-          {currentUser.displayName ? currentUser.displayName : user.userInfomation.nickName}님
-        </S.MyProfileNickname>
-        <S.WelcomeText>환영합니다</S.WelcomeText>
-        <S.ModifyCompleteButton type="button">
-          <MyProfileEditModal />
-        </S.ModifyCompleteButton>
-      </S.MyProfileBox>
-      <S.TabContainer></S.TabContainer>
+        </S.ProfileImgWrapper>
+      <S.ProfileNickname>
+          {currentUser.displayName ? currentUser.displayName : user.userInfomation.displayName}
+          <S.ModifyCompleteButton type="button">
+            <MyProfileModal />
+          </S.ModifyCompleteButton>
+        </S.ProfileNickname>
+        </S.ProfileContainer>
+      {/* <S.TabContainer></S.TabContainer> */}
     </S.MyPageAll>
   );
 };

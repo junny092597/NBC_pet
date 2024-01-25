@@ -9,29 +9,31 @@ import { updateProfile } from 'firebase/auth';
 import { auth, storage } from '../../Firebase';
 import { getDownloadURL, ref, uploadString } from 'firebase/storage';
 
+import { v4 as uuidv4 } from 'uuid'
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import * as S from './style';
 import testimg from '../../assets/images/logo.png';
+import { PiPencilLineFill } from "react-icons/pi";
 
 const MyProfileEditModal = () => {
   const [profileUrl, setProfileUrl] = useRecoilState(profileState);
-  const [isActive, setIsActive] = useState<boolean>(true);
 
-  // 모달 관련
+  // 모달
   const [open, setOpen] = useRecoilState(editModal);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  // 닉네임 관련
+  // 닉네임
   const currentUserInfos = auth.currentUser; // 현재 로그인한 사용자의 정보들(파이어베이스)
   const [nickname, setNickname] = useState<any>(auth.currentUser?.displayName); // 현재 닉네임 상태변경
   const [currentUser, setCurrentUser] = useState<any>(''); // 현재 로그인한 사용자 가져오기
 
-  // 이미지 관련
+  // 이미지
   const [imgProfileUrl, setImgProfileUrl] = useRecoilState(profileState);
   const [imgFile, setImgFile] = useState<string>(imgProfileUrl); // 이미지 파일 엄청 긴 이름
   const [imgUploadUrl, setImgUploadUrl] = useRecoilState<string>(userUrl); // 변경된 이미지 url
+
 
   // 현재 로그인한 사용자 가져오기
   useEffect(() => {
@@ -46,13 +48,13 @@ const MyProfileEditModal = () => {
   }, [currentUserInfos]);
 
   // 변경할 닉네임 받아오는 함수
-  const ToChangeNicknameInput = (event: any) => {
-    setNickname(event.target.value);
+  const ToChangeNicknameInput = (e: any) => {
+    setNickname(e.target.value);
   };
 
   // 수정확인 시 유효성 검사.
   const nicknameChangeOnClick: any = async () => {
-    if (nickname.length < 2 || nickname.length > 5) {
+    if (nickname.length < 2 || nickname.length > 8) {
       alert('2글자 이상 5글자 이하로 입력해주세요.');
       return;
     }
@@ -69,7 +71,7 @@ const MyProfileEditModal = () => {
       }
     } else {
       try {
-        const imgRef = ref(storage, `profileUploadImg`);
+        const imgRef = ref(storage, `profileUploadImg.${uuidv4()}`);
         // Storage에 이미지 업로드
         const response = await uploadString(imgRef, imgFile, 'data_url');
         // 업로드한 이미지의 url 가져오기
@@ -90,9 +92,9 @@ const MyProfileEditModal = () => {
     }
   };
 
-  // 이미지 업로드 시 이미지 미리보기 바로 반영됨
-  const saveNewProfileImg = (event: any) => {
-    const target = event.currentTarget;
+  // 이미지 업로드 시 이미지 미리보기 바로 반영
+  const saveNewProfileImg = (e: any) => {
+    const target = e.currentTarget;
     const theFile = (target.files as FileList)[0]; // 이미지 인풋창에서 클릭하면 이미지
     setImgFile(theFile.name);
     const reader = new FileReader();
@@ -105,7 +107,8 @@ const MyProfileEditModal = () => {
 
   return (
     <>
-      <S.EditModalBtnText onClick={handleOpen}>회원정보수정</S.EditModalBtnText>
+      <S.EditModalBtnText onClick={handleOpen}><PiPencilLineFill />
+</S.EditModalBtnText>
       <Modal
         open={open}
         onClose={handleClose}
@@ -114,19 +117,12 @@ const MyProfileEditModal = () => {
       >
         <S.EditModalAll>
           <Box sx={style}>
-            <S.MyBookmarkReportWraps>
-              <S.MyBookmarkReportContainer>
-                <S.MyBookmarkReportBox>
-                  <S.MyBookmarkReportTabMenu>
-                    <S.MyTitleTabBtn
-                      className={isActive ? 'active' : ''}
-                      onClick={() => setIsActive(true)}
-                    >
+            <>
+                    <S.MyTitleTabBtn>
                       회원정보 수정
                     </S.MyTitleTabBtn>
-                  </S.MyBookmarkReportTabMenu>
                     <S.MyContentBox>
-                      <S.EditModalImgLabelInputWrapper>
+                      <S.EditModalImgInputWrapper>
                         <S.EditModalProfileImgLabel htmlFor="modalProfileUploadImg">
                           {imgProfileUrl ? (
                             <S.EditModalProfileImgShow src={imgProfileUrl} />
@@ -141,7 +137,7 @@ const MyProfileEditModal = () => {
                             style={{ display: 'none' }}
                           />
                         </S.EditModalProfileImgLabel>
-                      </S.EditModalImgLabelInputWrapper>
+                      </S.EditModalImgInputWrapper>
                       <S.EditModalNicknameInputWrapper>
                         <S.EditModalEmailText>닉네임</S.EditModalEmailText>
                         <S.EditModalNicknameInput
@@ -173,9 +169,7 @@ const MyProfileEditModal = () => {
                         </S.EditModalCompleteButton>
                       </S.EditModalBtnWrapper>
                     </S.MyContentBox>              
-                </S.MyBookmarkReportBox>
-              </S.MyBookmarkReportContainer>
-            </S.MyBookmarkReportWraps>
+              </>
           </Box>
         </S.EditModalAll>
       </Modal>

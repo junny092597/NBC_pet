@@ -15,7 +15,6 @@ const Header: React.FC = () => {
 
   const dispatch = useDispatch();
   const isLogin = useSelector((state: RootState) => state.auth.isLogin )
-  const displayName = useSelector((state: RootState) => state.auth?.displayName);
 
   const navlogin = () => {
     navigate("/Signin");
@@ -57,7 +56,6 @@ const Header: React.FC = () => {
       <Headerbtn>
       {isLogin ? (
               <>
-                <Nickname>{displayName}님 환영합니다😍</Nickname>
                 <button
                   onClick={() => {
                     Swal.fire({
@@ -96,11 +94,6 @@ const Header: React.FC = () => {
   );
 };
 
-const Nickname = styled.div`
-  color: #312B2B;
-  font-size: 15px;
-  font-family: npfont;
-  `
 const Headerbtn = styled.button`
   display: flex;
   flex-direction: row;

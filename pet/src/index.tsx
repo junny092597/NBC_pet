@@ -12,7 +12,7 @@ root.render(
   <RecoilRoot>
     <Provider store={Store}>
     <BrowserRouter>
-    <GlobalStyles />
+      <GlobalStyles />
       <App />
     </BrowserRouter>
     </Provider>
