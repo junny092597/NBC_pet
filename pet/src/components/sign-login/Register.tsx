@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 
 import { auth } from "../../Firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Register() {
@@ -13,10 +13,6 @@ export default function Register() {
     const [nickName, setNickName] = useState<string>("");
     const navigate = useNavigate();
   
-  
-    useEffect(() => {
-      //
-    }, []);
   
         const signUp = async (e: any) => {
           try {
@@ -107,7 +103,7 @@ export default function Register() {
                 type="password"
                 value={passwdCheck}
                 name="passwdCheck"
-                placeholder="Confirm Password(6~10글자)"
+                placeholder="Confirm Password (6~10글자)"
                 minLength={6}
                 maxLength={10}
                 onChange={(e) => setPasswdCheck(e.target.value)}
@@ -120,9 +116,9 @@ export default function Register() {
                 type="text"
                 value={nickName}
                 name="nickname"
-                placeholder="Nickname (2~10글자)"
+                placeholder="Nickname (2~5글자)"
                 minLength={2}
-                maxLength={10}
+                maxLength={8}
                 onChange={onChange}
                 required
               />
@@ -142,7 +138,7 @@ export default function Register() {
                   passwdCheck.length > 10 ||
                   nickName === "" ||
                   nickName.length < 2 ||
-                  nickName.length > 10 ||
+                  nickName.length > 8 ||
                   password !== passwdCheck
                 }
               >

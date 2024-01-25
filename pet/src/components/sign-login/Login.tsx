@@ -1,12 +1,11 @@
 import styled from 'styled-components';
 import Swal from 'sweetalert2';
-import leftimg from '../../assets/images/testlogin.jpg'
 import inputcat from '../../assets/images/Caticon.png'
 import inputdog from '../../assets/images/Dogicon.png'
 
 import { auth } from '../../Firebase';
 import { signInWithEmailAndPassword,  UserCredential as FirebaseAuthUserCredential, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../../redux/modules/AuthSlice'
