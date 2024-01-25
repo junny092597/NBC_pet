@@ -3,8 +3,10 @@ import styled from 'styled-components';
 import { addDoc, collection, deleteDoc, doc, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../../Firebase';
 
-interface User {
+interface Reviews {
+  id: string;
   email: string;
+  itemName?: string | undefined;
   index: string;
 }
 
@@ -16,82 +18,70 @@ interface ReviewProps {
 }
 
 function Review({ data }: ReviewProps): JSX.Element {
-  const [index, setIndex] = useState('');
-  const [reviews, setReviews] = useState<User[]>([]);
+  // 리뷰 내용 상태
+  const [index, setIndex] = useState<string>('');
+  //리뷰목록 상태
+  const [reviews, setReviews] = useState<Reviews[]>([]);
 
-  //게시글 데이터베이스에 추가기능
   useEffect(() => {
+    // 데이터 상태 업데이트
     const fetchReviews = async () => {
-      const q = query(collection(db, 'reviews'), where('email', '==', data.userEmail));
-      const querySnapshot = await getDocs(q);
-      const reviewsData: User[] = [];
-      querySnapshot.forEach(doc => {
-        reviewsData.push(doc.data() as User);
-      });
-      setReviews(reviewsData);
+      if (data.itemName) {
+        const q = query(collection(db, 'reviews'), where('itemName', '==', data.itemName));
+        const querySnapshot = await getDocs(q);
+        const reviewsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Reviews));
+        setReviews(reviewsData);
+      }
     };
 
     fetchReviews();
-  }, [data]);
+  }, [data.itemName]);
 
-  //게시글작성버튼 기능
-  const textPushHandler = async () => {
+  const handleWriteReview = async () => {
+    if (index.trim() === '') {
+      alert('게시글을 작성해주세요.');
+      return;
+    }
+
     try {
-      const docRef = await addDoc(collection(db, 'reviews'), {
+      const reviewRef = await addDoc(collection(db, 'reviews'), {
         email: data.userEmail,
+        itemName: data.itemName,
         index: index,
-        category: data.itemName,
       });
 
-      console.log('게시글이 성공적으로 작성되었습니다. Document ID:', docRef.id);
-
-      //게시글 데이터베이스에 수정기능
-      const q = query(collection(db, 'reviews'), where('email', '==', data.userEmail));
-      const querySnapshot = await getDocs(q);
-      const reviewsData: User[] = [];
-      querySnapshot.forEach(doc => {
-        reviewsData.push(doc.data() as User);
-      });
-      setReviews(reviewsData);
+      setReviews(prevReviews => [
+        ...prevReviews,
+        { id: reviewRef.id, email: data.userEmail, itemName: data.itemName, index: index },
+      ]);
       setIndex('');
     } catch (error) {
-      console.error('게시글 작성 중 오류 발생:', error);
+      console.error('리뷰 작성 중 오류 발생: ', error);
     }
   };
 
-  //삭제하기버튼 기능
-  const deleteReviewHandler = async (documentId: string) => {
+  const handleDeleteReview = async (reviewId: string) => {
     try {
-      await deleteDoc(doc(db, 'reviews', documentId));
-      console.log('게시글이 성공적으로 삭제되었습니다.');
+      await deleteDoc(doc(db, 'reviews', reviewId));
 
-      const q = query(collection(db, 'reviews'), where('email', '==', data.userEmail));
-      const querySnapshot = await getDocs(q);
-      const reviewsData: User[] = [];
-      querySnapshot.forEach(doc => {
-        reviewsData.push(doc.data() as User);
-      });
-      const updatedReviews = reviews.filter(review => review.index !== documentId);
-      setReviews(updatedReviews);
+      setReviews(prevReviews => prevReviews.filter(review => review.id !== reviewId));
     } catch (error) {
-      console.error('게시글 삭제 중 오류 발생:', error);
+      console.error('리뷰 삭제 중 오류 발생: ', error);
     }
   };
 
   return (
     <>
-      <h2>Review 게시판</h2>
-      <STextArea placeholder="게시글을 작성해주세요" onChange={e => setIndex(e.target.value)} />
-      <button onClick={textPushHandler}>작성하기</button>
+      <h2>Review</h2>
+      <STextArea placeholder="게시글을 작성해주세요" onChange={e => setIndex(e.target.value)} value={index} />
+      <button onClick={handleWriteReview}>작성하기</button>
 
-      <ul>
-        {reviews.map(review => (
-          <li key={review.index}>
-            <span>{review.index}</span>
-            <button onClick={() => deleteReviewHandler(review.index)}>삭제하기</button>
-          </li>
-        ))}
-      </ul>
+      {reviews.map(review => (
+        <div key={review.id}>
+          <p>{review.index}</p>
+          <button onClick={() => handleDeleteReview(review.id)}>삭제하기</button>
+        </div>
+      ))}
     </>
   );
 }

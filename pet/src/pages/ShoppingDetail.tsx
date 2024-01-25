@@ -63,8 +63,6 @@ function ShoppingDetail() {
     });
     return () => userData();
   }, []);
-  console.log('data');
-  console.log(data);
 
   //게시글 데이터베이스에 추가기능
   const [like, setLike] = useState<boolean>(false);
