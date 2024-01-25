@@ -155,7 +155,12 @@ function ShoppingDetail() {
           <div>총 금액 : {totalPrice}원</div>
           <div>
             <button>ADD Tod Cart</button>
-            <button>Buy Now</button>
+            <button
+              onClick={() => {
+                navigate('/CheckoutPage');
+              }}>
+              Buy Now
+            </button>
           </div>
           <div>
             <button
