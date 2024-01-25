@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import Slider from 'react-slick';
 import Category from './MainCategory';
-import banner1 from '../../assets/images/banner1.png'
-import banner2 from '../../assets/images/banner2.png'
-import banner3 from '../../assets/images/banner3.png'
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import banner1 from '../../assets/images/banner1.png';
+import banner2 from '../../assets/images/banner2.png';
+import banner3 from '../../assets/images/banner3.png';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 interface CategoryItem {
   title: string;
@@ -27,23 +27,11 @@ interface ArrowProps {
 }
 
 const SampleNextArrow: React.FC<ArrowProps> = ({ className, style, onClick }) => {
-  return (
-    <div
-      className={className}
-      style={{ ...style, display: "block" }}
-      onClick={onClick}
-    />
-  );
+  return <div className={className} style={{ ...style, display: 'block' }} onClick={onClick} />;
 };
 
 const SamplePrevArrow: React.FC<ArrowProps> = ({ className, style, onClick }) => {
-  return (
-    <div
-      className={className}
-      style={{ ...style, display: "block" }}
-      onClick={onClick}
-    />
-  );
+  return <div className={className} style={{ ...style, display: 'block' }} onClick={onClick} />;
 };
 
 const Main: React.FC = () => {
@@ -56,7 +44,7 @@ const Main: React.FC = () => {
     autoplay: true,
     autoplaySpeed: 3000,
     nextArrow: <SampleNextArrow />,
-    prevArrow: <SamplePrevArrow />
+    prevArrow: <SamplePrevArrow />,
   };
 
   return (
@@ -91,13 +79,18 @@ const Main: React.FC = () => {
           </BannerText>
         </BannerSlide>
       </Slider>
-      
+
       <Title>카테고리</Title>
       <CategoriesContainer>
         {categories.map((category, index) => (
-          <Category key={index} title={category.title} imageSrc={category.imageSrc} onClick={() => {
-            throw new Error('Function not implemented.');
-          }} />
+          <Category
+            key={index}
+            title={category.title}
+            imageSrc={category.imageSrc}
+            onClick={() => {
+              throw new Error('Function not implemented.');
+            }}
+          />
         ))}
       </CategoriesContainer>
     </MainContainer>
@@ -110,11 +103,10 @@ const MainContainer = styled.main`
   font-family: GmarketSansMedium;
 `;
 
-
 const Title = styled.p`
   font-size: 30px;
   margin: 20px auto;
-  color: #312B2B;
+  color: #312b2b;
 `;
 
 const CategoriesContainer = styled.div`
