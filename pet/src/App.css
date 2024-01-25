@@ -36,3 +36,40 @@
     transform: rotate(360deg);
   }
 }
+
+.carousel-container {
+  max-height: 100px;
+  overflow: hidden;
+}
+
+.slick-slide img {
+  height: 100px;     /* 고정 높이 설정 */
+  width: 100%;       /* 너비를 100%로 설정 */
+  object-fit: cover; /* 이미지가 컨테이너에 맞춰서 조정됨 */
+}
+
+@media (max-width: 768px) {
+  .slick-slide img {
+    max-height: 100px;
+  }
+}
+
+.slick-prev, .slick-next {
+  z-index: 2;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.slick-prev {
+  left: 20px;
+}
+
+.slick-next {
+  right: 20px;
+}
+
+.slick-prev, .slick-next {
+  width: 50px;       /* 버튼의 크기 */
+  height: 50px;      /* 버튼의 크기 */
+  background: white; /* 버튼의 배경색 */
+}
