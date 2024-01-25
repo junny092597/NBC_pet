@@ -44,12 +44,8 @@ export const ModifyCompleteButton = styled.button`
   background: none;
 `;
 
-// export const TabContainer = styled.div`
-//   width: 688px;
-//   @media screen and (max-width: 1060px) {
-//     width: 370px;
-//   }
-// `;
+export const TabContainer = styled.div`
+`;
 
 
 // MyProfileModal
@@ -341,3 +337,14 @@ export const MyProfileStar2 = styled.img`
   bottom: -65px;
   right: 40px;
 `;
+
+// NoPosts
+export const NoPostsWarp = styled.div``;
+export const NoPostsContainer = styled.div``;
+export const NoPostsImg = styled.img``;
+export const NoPostsText = styled.p``;
+export const MyPageTabWrap = styled.div``;
+export const MyPageTablist = styled.ul``;
+export const MyPageTebBtn = styled.button``;
+
+

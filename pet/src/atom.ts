@@ -1,6 +1,7 @@
 import { atom } from 'recoil';
 import { UserInfoState } from './types/User';
 
+
 // atom은 두 가지를 요구하는데 첫 번째는 key로 유니크해야한다.
 // 두 번째는 default 값이 필요하다.
 
@@ -41,4 +42,14 @@ export const editModal = atom<boolean>({
   key: 'editModalStatus',
   default: false,
 });
+
+export const mypagemenu = atom<number>({
+  key: 'mypagemenu',
+  default: 0,
+})
+
+// export const postsState = atom<Post[]>({
+//   key: 'postsState',
+//   default: [],
+// });
 
