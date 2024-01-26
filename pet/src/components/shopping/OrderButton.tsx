@@ -40,12 +40,14 @@ function OrderButton({ renderData, setRenderData }: OrderButtonProps): JSX.Eleme
 }
 
 export default OrderButton;
-const SProductsButtonContainer = styled.span`
+const SProductsButtonContainer = styled.div`
   display: flex;
   flex-direction: row;
   gap: 10vw;
   height: 3vh;
   background-color: red;
+  justify-content: center;
+  text-align: center;
 `;
 
 const SProductsButton = styled.button`
