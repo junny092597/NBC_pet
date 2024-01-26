@@ -91,9 +91,6 @@ function Shopping() {
     setRenderData(filteredItmes);
   }, [selectedCategory, selectedType, itemsData]);
 
-  console.log('renderData');
-  console.log(renderData);
-
   return (
     <>
       <SComponentsContainer>

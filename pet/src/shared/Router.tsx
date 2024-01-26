@@ -1,10 +1,9 @@
 import { Route, Routes } from 'react-router-dom';
 import HomePage from '../pages/HomPage';
 import Shopping from '../pages/Shopping';
-
-
 import ShoppingDetail from '../pages/ShoppingDetail';
 import KakaoMapPage from '../pages/KakaoMapPage';
+import { CheckoutPage } from '../components/tosspay/Checkout';
 import Profile from '../pages/Profile';
 import Signin from '../pages/Signin';
 import Signup from '../pages/Signup';
@@ -30,6 +29,7 @@ const Router = () => {
         <Route path="/daily" element={<DailyBoard />} />
         <Route path="/questions" element={<QuestionBoard />} />
       </Route>
+      <Route path="/CheckoutPage" element={<CheckoutPage />} />
     </Routes>
   );
 };

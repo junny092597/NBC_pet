@@ -2,7 +2,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../../redux/modules/AuthSlice';
- 
+
 import logo from '../../assets/images/logo.png';
 import styled from 'styled-components';
 import { BsSearchHeart } from 'react-icons/bs';
@@ -14,23 +14,22 @@ const Header: React.FC = () => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
-  const isLogin = useSelector((state: RootState) => state.auth.isLogin )
+  const isLogin = useSelector((state: RootState) => state.auth.isLogin);
 
   const navlogin = () => {
-    navigate("/Signin");
+    navigate('/Signin');
   };
 
   const navregister = () => {
-    navigate("/Signup");
+    navigate('/Signup');
   };
 
-  
   const navprofile = () => {
-    navigate("/Profile");
+    navigate('/Profile');
   };
 
   return (
-    <HeaderContainer>
+    <HeaderContainer key={isLogin ? 'loggedIn' : 'loggedOut'}>
       <Link to={'/'}>
         <Image src={logo} alt={'logo image'} />
       </Link>
@@ -54,41 +53,34 @@ const Header: React.FC = () => {
         </ul>
       </Navigation>
       <Headerbtn>
-      {isLogin ? (
-              <>
-                <button
-                  onClick={() => {
-                    Swal.fire({
-                      title: "로그아웃",
-                      text: "로그아웃 되셨습니다.",
-                      confirmButtonColor: "#20b2aa",
-                      confirmButtonText: "확인",
-                      // imageUrl: logo1,
-                      // imageWidth: 130,
-                      // imageHeight: 130,
-                      // imageAlt: "Custom image",
-                    });
-                    dispatch(logout())
-                    navigate("/");
-                  }}
-                >
-                  로그아웃
-                </button>
-                <button onClick={navprofile}>마이페이지</button>
-              </>
-            ) : (
-              <>
-                <button 
-                 onClick={navregister}>
-                  회원가입
-                </button>
-                <button
-                 onClick={navlogin}>
-                  로그인
-                </button>
-              </>
-            )}
-            </Headerbtn>
+        {isLogin ? (
+          <>
+            <button
+              onClick={() => {
+                Swal.fire({
+                  title: '로그아웃',
+                  text: '로그아웃 되셨습니다.',
+                  confirmButtonColor: '#20b2aa',
+                  confirmButtonText: '확인',
+                  // imageUrl: logo1,
+                  // imageWidth: 130,
+                  // imageHeight: 130,
+                  // imageAlt: "Custom image",
+                });
+                dispatch(logout());
+                navigate('/');
+              }}>
+              로그아웃
+            </button>
+            <button onClick={navprofile}>마이페이지</button>
+          </>
+        ) : (
+          <>
+            <button onClick={navregister}>회원가입</button>
+            <button onClick={navlogin}>로그인</button>
+          </>
+        )}
+      </Headerbtn>
       <BsSearchHeart />
     </HeaderContainer>
   );
@@ -110,7 +102,7 @@ const Headerbtn = styled.button`
     height: 40px;
     font-family: GmarketSansMedium;
     font-size: 18px;
-    background-color: #C5ABAB;
+    background-color: #c5abab;
     color: white;
     border: none;
     border-radius: 10px;
@@ -119,11 +111,11 @@ const Headerbtn = styled.button`
       transform: scale(1.05);
     }
   }
-`
+`;
 
 const HeaderContainer = styled.header`
-  background-color: #F6D6D6;
-  color: #312B2B;
+  background-color: #f6d6d6;
+  color: #312b2b;
   padding: 1em;
   display: flex;
   justify-content: space-between;
@@ -143,7 +135,6 @@ const Navigation = styled.nav`
     justify-content: space-between;
     align-items: center;
     margin: 0;
-    
   }
 
   li {
@@ -159,7 +150,7 @@ const Navigation = styled.nav`
     font-size: 21px;
     font-family: GmarketSansMedium;
     gap: 20px;
-    color: #312B2B;
+    color: #312b2b;
 
     &:hover {
       transform: scale(1.05);
