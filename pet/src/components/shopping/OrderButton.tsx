@@ -43,9 +43,9 @@ export default OrderButton;
 const SProductsButtonContainer = styled.span`
   display: flex;
   flex-direction: row;
-  margin-left: 20vw;
   gap: 10vw;
   height: 3vh;
+  background-color: red;
 `;
 
 const SProductsButton = styled.button`

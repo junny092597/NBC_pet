@@ -82,16 +82,15 @@ const SItemBox = styled.div`
 `;
 
 const OrderButtonBox = styled.div`
-  margin-top: 0.5vh;
   width: 100%;
 `;
 
 const SItemBoxContainer = styled.div`
-  margin-left: 8vw;
   width: 100%;
   display: flex;
   flex-wrap: wrap; // 부모 너비를 넘어가면 다음 줄로 넘어가도록 함
   gap: 5vw;
+  background-color: blue;
 `;
 
 const SImgBox = styled.div`

@@ -72,11 +72,10 @@ export default Category;
 
 const SCategoryContainer = styled.div`
   font-size: 20px;
-  margin-top: 2%;
-  width: 5vw;
+  width: 10vw;
   display: flex;
   flex-direction: column;
-  background-color: red;
+  background-color: ${({ theme }) => theme.color.lightGreen};
 `;
 
 const SCatagoryButton = styled.button<{ active?: boolean }>`
@@ -102,7 +101,13 @@ const SButtonContainer = styled.div`
 
 const SItemButton = styled.button<{ active?: boolean }>`
   margin-bottom: 5px;
-  font-size: 15px;
-  background-color: ${({ active }) => (active ? 'gray' : 'white')};
+  font-size: 20px;
+  background-color: transparent;
+  border: none;
   cursor: pointer;
+  color: ${({ active }) => (active ? 'gray' : 'black')};
+
+  &:hover {
+    text-decoration: underline; /* 마우스 호버 시 텍스트에 밑줄 추가 */
+  }
 `;

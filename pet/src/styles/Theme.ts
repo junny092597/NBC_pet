@@ -12,8 +12,12 @@ const colors = {
 };
 
 const theme = {
-  //네비게이션쪽 초록계열 컬러
-  subGreenColor: 'D9F8E5',
+  color: {
+    //네비게이션쪽 초록계열 컬러
+    lightGreen: '#D9F8E5',
+    //헤더,풋터부분 노랑계열 컬러
+    darkYello: '#F6F7C4',
+  },
 };
 
 export default theme;
