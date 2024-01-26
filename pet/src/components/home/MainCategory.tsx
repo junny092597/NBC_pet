@@ -1,3 +1,4 @@
+// MainCategory.tsx
 import React from 'react';
 import styled from 'styled-components';
 
@@ -7,66 +8,55 @@ interface CategoryProps {
   onClick: () => void;
 }
 
-const MainCategory: React.FC<CategoryProps> = ({ title, imageSrc }) => {
-  const handleCategoryClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    event.preventDefault(); // 기본 동작 방지
-    // 클릭한 카테고리에 따라 페이지 이동
-    switch (title) {
-      case '커뮤니티':
-        window.location.href = '/';
-        break;
-      case '쇼핑':
-        window.location.href = '/shopping';
-        break;
-      case '맵':
-        window.location.href = '/map';
-        break;
-      case '가족찾기':
-        window.location.href = '/';
-        break;
-      default:
-        break;
-    }
-  };
-
+const MainCategory: React.FC<CategoryProps> = ({ title, imageSrc, onClick }) => {
   return (
-    <CategoryContainer onClick={handleCategoryClick}>
+    <MainCategoryContainer onClick={onClick}>
       <CategoryImage src={imageSrc} alt={title} />
-      <TitleBox>{title}</TitleBox>
-    </CategoryContainer>
+      <CategoryText>{title}</CategoryText>
+    </MainCategoryContainer>
   );
 };
 
-const CategoryContainer = styled.div`
+const MainCategoryContainer = styled.div`
   flex: 1;
-  margin: 20px;
-  margin-bottom: 10px;
+  margin: 20px 80px;
   text-align: center;
-  width: 300px;
+  width: 500px; /* 너비 변경 */
+  height: 500px;
+  position: relative; /* 포지셔닝을 위한 설정 */
+  cursor: pointer;
+  overflow: hidden; /* 이미지가 컨테이너를 벗어나지 않도록 설정 */
 `;
 
 const CategoryImage = styled.img`
   width: 100%;
-  height: 250px;
+  height: 100%;
   object-fit: cover;
   border-radius: 8px;
-  margin-bottom: 10px;
-  cursor: pointer;
+  transition: filter 0.3s ease; /* 부드러운 효과를 위한 전환 설정 */
+
   &:hover {
-    transform: scale(1.05);
+    filter: blur(8px); /* 호버 시 블러 효과 적용 */
   }
 `;
 
-const TitleBox = styled.div`
-  background-color: #f8dede;
-  padding: 15px;
-  border-radius: 8px;
+const CategoryText = styled.div`
+  position: absolute; /* 절대 위치 설정 */
+  top: 50%; /* 중앙 정렬을 위한 설정 */
+  left: 50%;
+  transform: translate(-50%, -50%); /* 중앙 정렬을 위한 설정 */
   color: #625656;
-  cursor: pointer;
+  font-size: 24px;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.7); /* 반투명 배경 */
+  visibility: hidden; /* 기본적으로 텍스트 숨김 */
 
-  &:hover {
-    transform: scale(1.05);
+  ${MainCategoryContainer}:hover & {
+    visibility: visible; /* 호버 시 텍스트 보이기 */
   }
 `;
+
+
 
 export default MainCategory;

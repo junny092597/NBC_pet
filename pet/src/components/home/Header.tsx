@@ -114,7 +114,7 @@ const Headerbtn = styled.button`
 `;
 
 const HeaderContainer = styled.header`
-  background-color: #f6d6d6;
+  background-color: #F6F7C4;
   color: #312b2b;
   padding: 1em;
   display: flex;

@@ -1,40 +1,32 @@
 import React from 'react';
 import styled from 'styled-components';
 import Slider from 'react-slick';
-import Category from './MainCategory';
-import banner1 from '../../assets/images/banner1.png';
-import banner2 from '../../assets/images/banner2.png';
-import banner3 from '../../assets/images/banner3.png';
+import MainCategory from './MainCategory'; // 경로 확인 필요
+import banner1 from '../../assets/images/banner1.png'; // 실제 경로에 따라 다름
+import banner2 from '../../assets/images/banner2.png'; // 실제 경로에 따라 다름
+import banner3 from '../../assets/images/banner3.png'; // 실제 경로에 따라 다름
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 interface CategoryItem {
   title: string;
   imageSrc: string;
+  url: string;
 }
 
 const categories: CategoryItem[] = [
-  { title: '커뮤니티', imageSrc: '/1.jpg' },
-  { title: '쇼핑', imageSrc: '/2.jpg' },
-  { title: '맵', imageSrc: '/3.jpg' },
-  { title: '가족찾기', imageSrc: '/4.jpg' },
+  { title: '커뮤니티', imageSrc: '/CommunityCard.png', url: '/community' },
+  { title: '쇼핑', imageSrc: '/ShoppingCard.png', url: '/shopping' },
+  { title: '맵', imageSrc: '/HospitalCard.png', url: '/map' },
+  { title: '가족찾기', imageSrc: '/4.jpg', url: '/' },
 ];
 
-interface ArrowProps {
-  className?: string;
-  style?: React.CSSProperties;
-  onClick?: React.MouseEventHandler<HTMLDivElement>;
-}
-
-const SampleNextArrow: React.FC<ArrowProps> = ({ className, style, onClick }) => {
-  return <div className={className} style={{ ...style, display: 'block' }} onClick={onClick} />;
-};
-
-const SamplePrevArrow: React.FC<ArrowProps> = ({ className, style, onClick }) => {
-  return <div className={className} style={{ ...style, display: 'block' }} onClick={onClick} />;
-};
-
 const Main: React.FC = () => {
+  const handleCategoryClick = (url: string) => {
+    window.location.href = url;
+  };
+  const EmptyArrow = () => null;
+
   const settings = {
     dots: true,
     infinite: true,
@@ -43,8 +35,8 @@ const Main: React.FC = () => {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
-    nextArrow: <SampleNextArrow />,
-    prevArrow: <SamplePrevArrow />,
+  nextArrow: <EmptyArrow />,
+  prevArrow: <EmptyArrow />,
   };
 
   return (
@@ -80,16 +72,13 @@ const Main: React.FC = () => {
         </BannerSlide>
       </Slider>
 
-      <Title>카테고리</Title>
       <CategoriesContainer>
         {categories.map((category, index) => (
-          <Category
+          <MainCategory
             key={index}
             title={category.title}
             imageSrc={category.imageSrc}
-            onClick={() => {
-              throw new Error('Function not implemented.');
-            }}
+            onClick={() => handleCategoryClick(category.url)}
           />
         ))}
       </CategoriesContainer>
@@ -98,55 +87,54 @@ const Main: React.FC = () => {
 };
 
 const MainContainer = styled.main`
-  padding: 2rem;
+padding: 0; 
+  margin: 0; 
+  width: 100%; 
   text-align: center;
   font-family: GmarketSansMedium;
-`;
-
-const Title = styled.p`
-  font-size: 30px;
-  margin: 20px auto;
-  color: #312b2b;
+  background-color: #FAFAF4;
 `;
 
 const CategoriesContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+  width: 95%;
   justify-content: space-around;
   align-items: flex-start;
-  max-width: 900px;
+
   margin: 0 auto;
 `;
 
 const BannerSlide = styled.div`
-  position: relative; // 상대적 위치 설정
+  position: relative;
   width: 100%;
-  height: 500px; // 높이 조정이 필요하다면 변경하세요
+  height: 500px;
+  overflow: hidden;
 `;
 
 const BannerImage = styled.img`
   width: 100%;
   height: 100%;
-  object-fit: cover; // 이미지가 컨테이너를 채우도록 조정
+  object-fit: cover;
 `;
 
 const BannerText = styled.div`
   position: absolute;
   top: 50%;
-  right: 400px; // 우측 간격 조정
-  transform: translateY(-50%); // 세로 중앙 정렬
-  text-align: right; // 텍스트를 오른쪽 정렬
-  color: black; // 글자색은 이미지에 맞게 조정
+  right: 400px;
+  transform: translateY(-50%);
+  text-align: right;
+  color: black;
 `;
 
 const BannerTitle = styled.h1`
-  font-size: 24px; // 제목 크기 조정
-  font-weight: bold; // 글자 두께 조정
-  margin-bottom: 15px; // 제목과 설명 사이의 간격
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
 `;
 
 const BannerDescription = styled.p`
-  font-size: 16px; // 설명 글자 크기 조정
+  font-size: 16px;
 `;
 
 export default Main;
