@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import theme from '../../styles/Theme';
 
 interface CategoryProps {
   selectedCategory: string;
@@ -73,17 +74,22 @@ const SCategoryContainer = styled.div`
   font-size: 20px;
   margin-top: 2%;
   width: 5vw;
-  height: 35vh;
   display: flex;
   flex-direction: column;
+  background-color: red;
 `;
 
 const SCatagoryButton = styled.button<{ active?: boolean }>`
   margin-bottom: 5px;
-
   font-size: 20px;
-  background-color: ${({ active }) => (active ? 'gray' : 'white')};
+  background-color: transparent;
+  border: none;
   cursor: pointer;
+  color: ${({ active }) => (active ? 'gray' : 'black')};
+
+  &:hover {
+    text-decoration: underline; /* 마우스 호버 시 텍스트에 밑줄 추가 */
+  }
 `;
 
 const SButtonContainer = styled.div`
