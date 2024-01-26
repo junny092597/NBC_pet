@@ -1,3 +1,4 @@
+import React from 'react';
 import Router from './shared/Router';
 import GlobalStyles from './styles/Global-styles';
 import theme from './styles/Theme';
