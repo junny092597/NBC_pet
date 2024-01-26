@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import OrderButton from './OrderButton';
 import Pagination from 'react-js-pagination';
@@ -68,7 +67,7 @@ export default Products;
 const SItemContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  margin: 0px 0.9vw;
   gap: 3vw;
 `;
 const SItemBox = styled.div`
@@ -77,7 +76,6 @@ const SItemBox = styled.div`
   height: 20vh;
   border: 1px solid #ccc;
   cursor: pointer;
-  justify-content: center;
 
   &:hover {
     background-color: #ffffff;
@@ -98,8 +96,7 @@ const SItemBoxContainer = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap; // 부모 너비를 넘어가면 다음 줄로 넘어가도록 함
-  gap: 5vw;
-  background-color: blue;
+  gap: 0.5vw;
 `;
 
 const SImgBox = styled.div`

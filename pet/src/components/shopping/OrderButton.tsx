@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useState } from 'react';
 
 interface Item {
   id: number;
@@ -15,6 +16,7 @@ interface OrderButtonProps {
 }
 
 function OrderButton({ renderData, setRenderData }: OrderButtonProps): JSX.Element {
+  const [isActive, setIsActive] = useState(false);
   const handleSortClick = (sortOrder: 'higePrice' | 'lowPrice' | 'new') => {
     const sorted = [...renderData];
 
@@ -31,9 +33,15 @@ function OrderButton({ renderData, setRenderData }: OrderButtonProps): JSX.Eleme
   return (
     <>
       <SProductsButtonContainer>
-        <SProductsButton onClick={() => handleSortClick('new')}>최신순</SProductsButton>
-        <SProductsButton onClick={() => handleSortClick('higePrice')}>낮은가격순</SProductsButton>
-        <SProductsButton onClick={() => handleSortClick('lowPrice')}>높은가격순</SProductsButton>
+        <SProductsButton active={isActive} onClick={() => handleSortClick('new')}>
+          최신순
+        </SProductsButton>
+        <SProductsButton active={isActive} onClick={() => handleSortClick('higePrice')}>
+          낮은가격순
+        </SProductsButton>
+        <SProductsButton active={isActive} onClick={() => handleSortClick('lowPrice')}>
+          높은가격순
+        </SProductsButton>
       </SProductsButtonContainer>
     </>
   );
@@ -45,12 +53,20 @@ const SProductsButtonContainer = styled.div`
   flex-direction: row;
   gap: 10vw;
   height: 3vh;
-  background-color: red;
   justify-content: center;
   text-align: center;
 `;
 
-const SProductsButton = styled.button`
-  width: 15vh;
-  height: 3vh;
+const SProductsButton = styled.button<{ active?: boolean }>`
+  margin-bottom: 5px;
+  font-size: 20px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: ${({ active }) => (active ? 'yello' : 'black')};
+  text-decoration: ${({ active }) => (active ? 'underline' : 'none')};
+
+  &:hover {
+    text-decoration: underline; /* 마우스 호버 시 텍스트에 밑줄 추가 */
+  }
 `;

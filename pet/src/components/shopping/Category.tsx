@@ -95,7 +95,7 @@ const SButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  justify-content: space-between; // 버튼 간 여백을 최대화
+
   gap: 0.3vh;
 `;
 
