@@ -11,16 +11,17 @@ import 'slick-carousel/slick/slick-theme.css';
 interface CategoryItem {
   title: string;
   imageSrc: string;
+  description: string;  // 추가된 속성
+  buttonText: string; 
   url: string;
 }
 
 const categories: CategoryItem[] = [
-  { title: '커뮤니티', imageSrc: '/CommunityCard.png', url: '/community' },
-  { title: '쇼핑', imageSrc: '/ShoppingCard.png', url: '/shopping' },
-  { title: '맵', imageSrc: '/HospitalCard.png', url: '/map' },
-  { title: '가족찾기', imageSrc: '/4.jpg', url: '/' },
+  { title: '커뮤니티', imageSrc: '/CommunityCard.png', description: '커뮤니티 설명', buttonText: '더 보기', url: '/community' },
+  { title: '쇼핑', imageSrc: '/ShoppingCard.png', description: '쇼핑 설명', buttonText: '쇼핑 시작', url: '/shopping' },
+  { title: '맵', imageSrc: '/HospitalCard.png', description: '맵 설명', buttonText: '지도 보기', url: '/map' },
+  { title: '가족찾기', imageSrc: '/4.jpg', description: '가족찾기 설명', buttonText: '찾아보기', url: '/' },
 ];
-
 const Main: React.FC = () => {
   const handleCategoryClick = (url: string) => {
     window.location.href = url;
@@ -72,12 +73,15 @@ const Main: React.FC = () => {
         </BannerSlide>
       </Slider>
 
+      
       <CategoriesContainer>
         {categories.map((category, index) => (
           <MainCategory
             key={index}
             title={category.title}
             imageSrc={category.imageSrc}
+            description={category.description} // 추가된 부분
+            buttonText={category.buttonText}   // 추가된 부분
             onClick={() => handleCategoryClick(category.url)}
           />
         ))}
