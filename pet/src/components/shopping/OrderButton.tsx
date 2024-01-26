@@ -42,6 +42,10 @@ function OrderButton({ renderData, setRenderData }: OrderButtonProps): JSX.Eleme
         <SProductsButton active={isActive} onClick={() => handleSortClick('lowPrice')}>
           높은가격순
         </SProductsButton>
+        <SinputWrapper>
+          <SsearchInput placeholder="제품을 검색해주세요" />
+          <SsearchButton>검색하기</SsearchButton>
+        </SinputWrapper>
       </SProductsButtonContainer>
     </>
   );
@@ -51,14 +55,16 @@ export default OrderButton;
 const SProductsButtonContainer = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 10vw;
+  width: 80vw;
+  height: 10vh;
+  gap: 5.5vw;
   height: 3vh;
-  justify-content: center;
-  text-align: center;
+  margin-left: 0.6vw;
+  margin-top: 3vh;
 `;
 
 const SProductsButton = styled.button<{ active?: boolean }>`
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   font-size: 20px;
   background-color: transparent;
   border: none;
@@ -70,3 +76,11 @@ const SProductsButton = styled.button<{ active?: boolean }>`
     text-decoration: underline; /* 마우스 호버 시 텍스트에 밑줄 추가 */
   }
 `;
+const SinputWrapper = styled.div`
+  margin-left: 29vw;
+`;
+
+const SsearchInput = styled.input`
+  margin-right: 0.8vw;
+`;
+const SsearchButton = styled.button``;

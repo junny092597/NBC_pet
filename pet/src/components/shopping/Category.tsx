@@ -49,21 +49,23 @@ function Category({
 
   return (
     <SCategoryContainer>
-      {CATEGORIES.map(category => (
-        <div key={category}>
-          <SButtonContainer>
-            <SCatagoryButton onClick={() => onClickCategory(category)} active={category === selectedCategory}>
-              {category}
-            </SCatagoryButton>
-            {category === selectedCategory &&
-              TYPES[category].map(item => (
-                <SItemButton key={item} onClick={() => onClickItem(item)}>
-                  {item}
-                </SItemButton>
-              ))}
-          </SButtonContainer>
-        </div>
-      ))}
+      <SCategoryBox>
+        {CATEGORIES.map(category => (
+          <div key={category}>
+            <SButtonContainer>
+              <SCatagoryButton onClick={() => onClickCategory(category)} active={category === selectedCategory}>
+                {category}
+              </SCatagoryButton>
+              {category === selectedCategory &&
+                TYPES[category].map(item => (
+                  <SItemButton key={item} onClick={() => onClickItem(item)}>
+                    {item}
+                  </SItemButton>
+                ))}
+            </SButtonContainer>
+          </div>
+        ))}
+      </SCategoryBox>
     </SCategoryContainer>
   );
 }
@@ -89,6 +91,9 @@ const SCatagoryButton = styled.button<{ active?: boolean }>`
   &:hover {
     text-decoration: underline; /* 마우스 호버 시 텍스트에 밑줄 추가 */
   }
+`;
+const SCategoryBox = styled.div`
+  margin-top: 1.5vw;
 `;
 
 const SButtonContainer = styled.div`
