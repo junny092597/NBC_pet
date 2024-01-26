@@ -13,6 +13,7 @@
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
     "@tosspayments/payment-widget-sdk": "^0.10.2",
+    "@types/axios": "^0.14.0",
     "@types/firebase": "^3.2.1",
     "@types/jest": "^27.0.1",
     "@types/node": "^16.7.13",

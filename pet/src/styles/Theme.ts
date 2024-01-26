@@ -14,9 +14,9 @@ const colors = {
 const theme = {
   color: {
     //네비게이션쪽 초록계열 컬러
-    lightGreen: '#D9F8E5',
+    lightGreen: '#E2FAEB',
     //헤더,풋터부분 노랑계열 컬러
-    darkYello: '#F6F7C4',
+    darkYello: '#FFF8E3',
   },
 };
 
