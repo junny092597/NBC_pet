@@ -13,12 +13,12 @@ const ButtonWrapper = styled.div`
 const ShortsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start; 
-  align-items: center; 
-  gap: 200px; 
-  padding: 20px; 
-  max-width: 1200px; 
-  margin: auto; 
+  justify-content: flex-start;
+  align-items: center;
+  gap: 200px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: auto;
 `;
 
 const RoundButton = styled.button`
@@ -41,8 +41,6 @@ const RoundButton = styled.button`
   }
 `;
 
-
-
 const TitleContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -55,9 +53,8 @@ const TitleContainer = styled.div`
   margin-top: 30px;
 `;
 
-
 const Title = styled.h3`
-width: 200px;
+  width: 200px;
   font-weight: bold;
   margin: 0 0 5px 0;
   padding: 0 5px;
@@ -67,10 +64,10 @@ width: 200px;
 `;
 
 const ChannelTitle = styled.p`
-width: 200px;
+  width: 200px;
   font-weight: normal;
   margin: 0;
-  padding: 0 5px; 
+  padding: 0 5px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -95,12 +92,11 @@ interface YouTubeApiResponseItem {
   };
 }
 
-
-
-
 const fetchYouTubeShortsIds = async (keyword: string): Promise<YouTubeApiResponseItem[]> => {
   const apiKey = process.env.REACT_APP_YOUTUBE_API_KEY;
-  const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=6&type=video&videoDefinition=high&q=${encodeURIComponent(keyword)} shorts&key=${apiKey}`;
+  const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=6&type=video&videoDefinition=high&q=${encodeURIComponent(
+    keyword
+  )} shorts&key=${apiKey}`;
 
   try {
     const response = await axios.get(searchUrl);
@@ -119,29 +115,24 @@ interface GenreButtonProps {
   channelTitle: string;
 }
 
-const GenreButton: React.FC<GenreButtonProps> = ({
-  label,
-  videoId,
-  thumbnailUrl,
-  title,
-  channelTitle
-}) => {
-
+const GenreButton: React.FC<GenreButtonProps> = ({ label, videoId, thumbnailUrl, title, channelTitle }) => {
   const handleClick = () => {
     window.open(`https://www.youtube.com/shorts/${videoId}`, '_blank');
   };
   return (
     <ButtonWrapper>
       <RoundButton onClick={handleClick} aria-label={`Watch ${title}`}>
-        <div style={{
-          backgroundImage: `url(${thumbnailUrl})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          borderRadius: '50%',
-          width: '100%',
-          height: '100%',
-          transition: 'transform 0.3s ease'
-        }} />
+        <div
+          style={{
+            backgroundImage: `url(${thumbnailUrl})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            borderRadius: '50%',
+            width: '100%',
+            height: '100%',
+            transition: 'transform 0.3s ease',
+          }}
+        />
       </RoundButton>
       <TitleContainer>
         <Title>{title}</Title>
@@ -155,23 +146,22 @@ const YouTubeShorts: React.FC = () => {
   const [items, setItems] = useState<YouTubeApiResponseItem[]>([]);
 
   useEffect(() => {
-    const keyword = "반려견과 함께하는";
+    const keyword = '반려견과 함께하는';
     fetchYouTubeShortsIds(keyword).then(items => {
       setItems(items);
     });
   }, []);
-
 
   return (
     <ShortsContainer>
       {items.map((item, index) => {
         const { videoId } = item.id;
         const { title, channelTitle, thumbnails } = item.snippet;
-        const thumbnailUrl = thumbnails.high.url; 
+        const thumbnailUrl = thumbnails.high.url;
 
         return (
           <GenreButton
-            key={videoId} 
+            key={videoId}
             label={`Video ${index + 1}`}
             videoId={videoId}
             thumbnailUrl={thumbnailUrl}

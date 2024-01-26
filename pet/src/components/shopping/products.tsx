@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import OrderButton from './OrderButton';
 import Pagination from 'react-js-pagination';
@@ -34,18 +33,20 @@ function Products({ renderData, setRenderData, page }: ProductsProps): JSX.Eleme
         <OrderButtonBox>
           <OrderButton renderData={renderData} setRenderData={setRenderData} />
         </OrderButtonBox>
-        {renderData.map(Product => (
-          <SItemBox key={Product.id}>
-            <SImgBox>
-              <img src={Product.img} alt="Product Image" />
-            </SImgBox>
-            <STextBox>
-              <div>{Product.name}</div>
-              <div> 가격 : {Product.price}원</div>
-              <button onClick={() => moveToDeatailPageHandler(Product)}>구매하기</button>
-            </STextBox>
-          </SItemBox>
-        ))}
+        <SItemContainer>
+          {renderData.map(Product => (
+            <SItemBox key={Product.id}>
+              <SImgBox>
+                <img src={Product.img} alt="Product Image" />
+              </SImgBox>
+              <STextBox>
+                <div>{Product.name}</div>
+                <div> 가격 : {Product.price}원</div>
+                <button onClick={() => moveToDeatailPageHandler(Product)}>구매하기</button>
+              </STextBox>
+            </SItemBox>
+          ))}
+        </SItemContainer>
         {/* 페이지네이션 기능 추가중 */}
         {/* <Pagination
           activePage={page}
@@ -63,6 +64,12 @@ function Products({ renderData, setRenderData, page }: ProductsProps): JSX.Eleme
 
 export default Products;
 
+const SItemContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0px 0.9vw;
+  gap: 3vw;
+`;
 const SItemBox = styled.div`
   display: flex;
   width: 20vw;
@@ -82,16 +89,14 @@ const SItemBox = styled.div`
 `;
 
 const OrderButtonBox = styled.div`
-  margin-top: 0.5vh;
   width: 100%;
 `;
 
 const SItemBoxContainer = styled.div`
-  margin-left: 8vw;
   width: 100%;
   display: flex;
   flex-wrap: wrap; // 부모 너비를 넘어가면 다음 줄로 넘어가도록 함
-  gap: 5vw;
+  gap: 0.5vw;
 `;
 
 const SImgBox = styled.div`

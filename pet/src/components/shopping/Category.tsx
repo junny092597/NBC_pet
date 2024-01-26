@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import theme from '../../styles/Theme';
 
 interface CategoryProps {
   selectedCategory: string;
@@ -71,32 +72,42 @@ export default Category;
 
 const SCategoryContainer = styled.div`
   font-size: 20px;
-  margin-top: 2%;
-  width: 5vw;
-  height: 35vh;
+  width: 10vw;
   display: flex;
   flex-direction: column;
+  background-color: ${({ theme }) => theme.color.lightGreen};
 `;
 
 const SCatagoryButton = styled.button<{ active?: boolean }>`
   margin-bottom: 5px;
-
   font-size: 20px;
-  background-color: ${({ active }) => (active ? 'gray' : 'white')};
+  background-color: transparent;
+  border: none;
   cursor: pointer;
+  color: ${({ active }) => (active ? 'gray' : 'black')};
+
+  &:hover {
+    text-decoration: underline; /* 마우스 호버 시 텍스트에 밑줄 추가 */
+  }
 `;
 
 const SButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  justify-content: space-between; // 버튼 간 여백을 최대화
+
   gap: 0.3vh;
 `;
 
 const SItemButton = styled.button<{ active?: boolean }>`
   margin-bottom: 5px;
-  font-size: 15px;
-  background-color: ${({ active }) => (active ? 'gray' : 'white')};
+  font-size: 20px;
+  background-color: transparent;
+  border: none;
   cursor: pointer;
+  color: ${({ active }) => (active ? 'gray' : 'black')};
+
+  &:hover {
+    text-decoration: underline; /* 마우스 호버 시 텍스트에 밑줄 추가 */
+  }
 `;
