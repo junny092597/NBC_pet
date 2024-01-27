@@ -72,11 +72,8 @@ function Review({ data }: ReviewProps): JSX.Element {
 
   return (
     <>
-      <SHeadTitle>
-        <h2>Review</h2>
-      </SHeadTitle>
       <div>
-        <STextArea placeholder="게시글을 작성해주세요" onChange={e => setIndex(e.target.value)} value={index} />
+        <STextArea placeholder="Review를 작성해주세요" onChange={e => setIndex(e.target.value)} value={index} />
         <SButton onClick={handleWriteReview}>작성하기</SButton>
       </div>
       {reviews.map(review => (
@@ -94,12 +91,8 @@ function Review({ data }: ReviewProps): JSX.Element {
 
 export default Review;
 
-const SHeadTitle = styled.div`
-  font-size: 30px;
-  display: flex;
-  justify-content: center;
-`;
 const STextArea = styled.textarea`
+  margin-top: 1vh;
   width: 20vw;
   height: 6vh;
   resize: none;

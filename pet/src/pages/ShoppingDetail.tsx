@@ -10,6 +10,7 @@ import QuestionAndAnswer from '../components/shoppingDetail/QuestionAndAnswer';
 import { addDoc, collection, setDoc, getDocs, query, where, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../Firebase';
 import { FaHeart } from 'react-icons/fa';
+import theme from '../styles/Theme';
 
 interface Item {
   id: number;
@@ -48,8 +49,8 @@ function ShoppingDetail() {
   //리뷰 & QnA tab기능
   const [tab, setTab] = useState<string | null>(null);
 
-  const swithTab = (tab: string | null) => {
-    setTab(tab);
+  const swithTab = (selectedTab: string | null) => {
+    setTab(selectedTab);
   };
 
   useEffect(() => {
@@ -168,7 +169,7 @@ function ShoppingDetail() {
             <SItemTotalPrice>총 금액 : {totalPrice}원</SItemTotalPrice>
           </SItemTotalPriceBox>
           <SOrderButtonBox>
-            <SOrderButton>ADD Tod Cart</SOrderButton>
+            <SAddToCartButton>ADD Tod Cart</SAddToCartButton>
             <SOrderButton
               onClick={() => {
                 if (data.userEmail !== '') {
@@ -183,12 +184,14 @@ function ShoppingDetail() {
           </SOrderButtonBox>
           <div>
             <CummunityButton
+              isActive={tab === 'REVIEW'}
               onClick={() => {
                 swithTab('REVIEW');
               }}>
               REVIEW
             </CummunityButton>
             <CummunityButton
+              isActive={tab === 'Q&A'}
               onClick={() => {
                 swithTab('Q&A');
               }}>
@@ -219,6 +222,7 @@ const SProductContainer = styled.div`
 const SImgBox = styled.div`
   width: 50%; /* 반의 너비를 차지하도록 50%로 설정 */
   margin-top: 5vh;
+  margin-bottom: 5vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -239,8 +243,6 @@ const STextContainer = styled.div`
   width: 35%; /* 반의 너비를 차지하도록 50%로 설정 */
   height: 70%;
   padding: 20px;
-  border: 1px solid black;
-  border-radius: 50px;
 `;
 
 const SCategoryName = styled.div`
@@ -271,7 +273,7 @@ const SItemTotalPriceBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between; /* 두 요소를 좌우로 정렬하도록 추가된 부분 */
-  margin-bottom: 3vh; /* QuantityInput과의 간격을 주기 위해 추가된 부분 */
+  margin-bottom: 5vh; /* QuantityInput과의 간격을 주기 위해 추가된 부분 */
 `;
 
 const SItemTotalPrice = styled.span`
@@ -293,9 +295,22 @@ const SOrderButton = styled.button`
   padding: 0; /* 내부 여백을 없애는 속성 추가 */
   cursor: pointer;
   margin: 0 1vw;
+  background-color: ${({ theme }) => theme.color.ButtonColor};
 `;
 
-const CummunityButton = styled.button`
+const SAddToCartButton = styled.button`
+  width: 10vw;
+  height: 5vh;
+  border: 1px solid black;
+  border-radius: 40px;
+  background: none; /* 배경을 없애는 속성 추가 */
+  padding: 0; /* 내부 여백을 없애는 속성 추가 */
+  cursor: pointer;
+  margin: 0 1vw;
+  background-color: ${({ theme }) => theme.color.ButtonColor2};
+`;
+
+const CummunityButton = styled.button<{ isActive: boolean }>`
   width: 50%;
   height: 5vh;
   border: 1px solid black;
@@ -303,4 +318,6 @@ const CummunityButton = styled.button`
   background: none; /* 배경을 없애는 속성 추가 */
   padding: 0; /* 내부 여백을 없애는 속성 추가 */
   cursor: pointer;
+  background: ${({ isActive, theme }) => (isActive ? theme.color.ReviewButtonColor : 'none')};
+  color: ${({ isActive }) => (isActive ? 'white' : 'black')};
 `;

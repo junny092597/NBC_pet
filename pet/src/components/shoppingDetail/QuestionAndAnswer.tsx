@@ -72,11 +72,8 @@ function QnA({ data }: QnAProps): JSX.Element {
 
   return (
     <>
-      <SHeadTitle>
-        <h2>Q&A</h2>
-      </SHeadTitle>
       <div>
-        <STextArea placeholder="게시글을 작성해주세요" onChange={e => setIndex(e.target.value)} value={index} />
+        <STextArea placeholder="Q&A를 작성해주세요" onChange={e => setIndex(e.target.value)} value={index} />
         <SButton onClick={handleWriteQnA}>작성하기</SButton>
       </div>
       {QnAs.map(QnA => (
@@ -94,12 +91,8 @@ function QnA({ data }: QnAProps): JSX.Element {
 
 export default QnA;
 
-const SHeadTitle = styled.div`
-  font-size: 30px;
-  display: flex;
-  justify-content: center;
-`;
 const STextArea = styled.textarea`
+  margin-top: 1vh;
   width: 20vw;
   height: 6vh;
   resize: none;
