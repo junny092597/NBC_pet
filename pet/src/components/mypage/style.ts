@@ -362,11 +362,13 @@ export const AllPostContainer = styled.div`
 `;
 
 export const TitleContainer = styled.div`
-  margin-left: 50px;
-  padding: 10px;
+  margin-left: 83px;
+  padding: 13px;
 
   text-decoration: underline;
   font-weight: bold;
+  font-family: GmarketSansMedium;
+  font-size: 25px;
 `;
 
 export const TextContainer = styled.div`
