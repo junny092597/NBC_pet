@@ -1,5 +1,8 @@
 import styled from "styled-components";
 import Swal from "sweetalert2";
+import inputcat from '../../assets/images/Caticon.png';
+import inputdog from '../../assets/images/Dogicon.png';
+import erroricon from '../../assets/images/erroricon.png';
 
 import { auth } from "../../Firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
@@ -35,10 +38,10 @@ export default function Register() {
               text: "로그인 화면으로 이동합니다.",
               confirmButtonColor: '#20b2aa',
               confirmButtonText: '확인',
-            //   imageUrl: heart,
-            //   imageWidth: 130,
-            //   imageHeight: 130,
-            //   imageAlt: "Custom image",
+              imageUrl: inputcat,
+              imageWidth: 130,
+              imageHeight: 130,
+              imageAlt: "Custom image",
             });
             navigate('/Signin')
           } catch (error: any) {
@@ -50,10 +53,10 @@ export default function Register() {
               text: "중복이거나 사용할 수 없는 이메일 입니다.",
               confirmButtonColor: '#ef4040',
               confirmButtonText: '확인',
-            //   imageUrl: erroricon,
-            //   imageWidth: 130,
-            //   imageHeight: 130,
-            //   imageAlt: "Custom image"
+              imageUrl: erroricon,
+              imageWidth: 130,
+              imageHeight: 130,
+              imageAlt: "Custom image"
             });
           }
         };
@@ -77,13 +80,13 @@ export default function Register() {
       <Container>
         <Form onSubmit={signUp}>
           <>
-            <Title>SIGN UP</Title>
+            <Title>회원가입</Title>
             <InputContainer>
               <Input
                 type="email"
                 value={email}
                 name="email"
-                placeholder="E-mail (6~30글자)"
+                placeholder="이메일 (6~30글자)"
                 minLength={6}
                 maxLength={30}
                 onChange={onChange}
@@ -93,7 +96,7 @@ export default function Register() {
                 type="password"
                 value={password}
                 name="password"
-                placeholder="Password (6~10글자)"
+                placeholder="비밀번호 (6~10글자)"
                 minLength={6}
                 maxLength={10}
                 onChange={onChange}
@@ -103,7 +106,7 @@ export default function Register() {
                 type="password"
                 value={passwdCheck}
                 name="passwdCheck"
-                placeholder="Confirm Password (6~10글자)"
+                placeholder="비밀번호 확인 (6~10글자)"
                 minLength={6}
                 maxLength={10}
                 onChange={(e) => setPasswdCheck(e.target.value)}
@@ -116,7 +119,7 @@ export default function Register() {
                 type="text"
                 value={nickName}
                 name="nickname"
-                placeholder="Nickname (2~5글자)"
+                placeholder="닉네임 (2~5글자)"
                 minLength={2}
                 maxLength={8}
                 onChange={onChange}
@@ -170,7 +173,7 @@ export default function Register() {
   `;
   
   const Title = styled.h1`
-  color: #312B2B;
+  color: #2e2e2b;
   font-size: 56px;
   margin-bottom: 7px;
   align-items: center;
@@ -201,6 +204,7 @@ export default function Register() {
   &::placeholder {
     font-size: 12px; 
     color: #949393;
+    font-family: GmarketSansMedium;
     transform: translateX(3px)
   }
   `;
@@ -212,9 +216,9 @@ export default function Register() {
   `;
   
   const Button = styled.button`
-  background-color: ${(props) => (props.disabled ? "lightgray" : "#81BE97")};
+  background-color: ${(props) => (props.disabled ? "lightgray" : "#D9F8E5")};
   cursor: ${(props) => (props.disabled ? "default" : "pointer")};
-  color: #ffffff;
+  color: #2e2e2b;
   border: none;
   width: 250px; /* 입력란 너비 설정 */
   height: 40px; /* 입력란 높이 설정 */

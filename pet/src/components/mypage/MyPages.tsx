@@ -8,10 +8,10 @@ import { auth } from '../../Firebase';
 
 import * as S from './style';
 
-import MyPageTab from './MyPageTab';
 import basicProfileImg from '../../assets/images/logo.png';
 import { User } from 'firebase/auth';
 import MyProfileModal from './MyProfileModal';
+import MyPagePost from './MyPagePost';
 
 type CurrentUserProfile = User | null;
 
@@ -54,14 +54,14 @@ const MyProfile = () => {
           />
         </S.ProfileImgWrapper>
         <S.ProfileNickname>
-          {currentUser.displayName ? currentUser.displayName : user.userInfomation.displayName}
+          {currentUser.displayName ? currentUser.displayName : user.userInfomation.nickName}
           <S.ModifyCompleteButton type="button">
             <MyProfileModal />
           </S.ModifyCompleteButton>
         </S.ProfileNickname>
       </S.ProfileContainer>
       <S.TabContainer>
-        <MyPageTab />
+        <MyPagePost />
       </S.TabContainer>
     </S.MyPageAll>
   );

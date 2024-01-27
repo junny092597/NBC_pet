@@ -1,29 +1,31 @@
 import { atom } from 'recoil';
 import { UserInfoState } from './types/User';
 
-
 // atom은 두 가지를 요구하는데 첫 번째는 key로 유니크해야한다.
 // 두 번째는 default 값이 필요하다.
+
 
 export const userInfo = atom<UserInfoState>({
   key: 'user',
   default: {
     isLogin: false,
     userInfomation: {
-      displayName: '',
-      emil: '',
+      nickName: '',
+      email: '',
       photoURL: '',
       uid: '',
+      }
     },
-  },
-});
+  })
 
-export const userInfoState = atom({
-  key: 'userInfoState',
+
+export const userInfoState  = atom({
+  key: 'userInfoState ',
   default: {
-    emil: '',
-    displayName: '',
+    email: '',
+    nickname: '',
     id: '',
+    accessToken: '',
   },
 });
 
@@ -48,8 +50,19 @@ export const mypagemenu = atom<number>({
   default: 0,
 })
 
-// export const postsState = atom<Post[]>({
-//   key: 'postsState',
-//   default: [],
-// });
+export const selectedTabData = atom<any>({
+  key: 'selectedTabData',
+  default: null,
+});
 
+type Review = {
+  category: string;
+  emil: string;
+  index: number;
+};
+
+// 리뷰 데이터를 담는 Recoil 상태(atom) 정의
+export const reviewsState = atom<Review[]>({
+  key: 'reviewsState',
+  default: [], // 초기 값은 빈 배열
+});

@@ -6,7 +6,7 @@ const NoPosts = () => {
     <S.NoPostsWarp>
       <S.NoPostsContainer>
         <S.NoPostsImg src={test1} />
-        <S.NoPostsText>제보할 내용이 있다면 제보해 주세요!</S.NoPostsText>
+        <S.NoPostsText>게시글을 등록해주세요</S.NoPostsText>
       </S.NoPostsContainer>
     </S.NoPostsWarp>
   );

@@ -1,34 +1,43 @@
 import { useRecoilState } from 'recoil';
 import { mypagemenu } from '../../atom';
-import MyPagePost from '../mypage/MyPagePost';
-
+// component
+import MyPagePost from './MyPagePost';
+// style
 import * as S from './style';
 
 const MyPageTab = () => {
-  const [menuIndex, setMenuIndex] = useRecoilState(mypagemenu);
+  const [activeIndex, setActiveIndex] = useRecoilState(mypagemenu);
 
-  const myTab = {
-    id: 0,
-    tedTitle: '등록게시글',
-    tedContent: <MyPagePost />,
+  const myTabArr = [
+
+    {
+      id: 0,
+      tabTitle: '등록게시글',
+      tabContent: <MyPagePost />,
+    },
+  ];
+
+  const MyTabClick = (i: number) => {
+    setActiveIndex(i);
   };
-
-  const MyTadClick = (i: number) => {
-    setMenuIndex(i);
-  };
-
   return (
     <>
-      <S.MyPageTabWrap>
-        <S.MyPageTablist>
-          <S.MyPageTebBtn
-            key={myTab.id}
-            className={menuIndex === myTab.id ? 'menu' : ''}
-            onClick={() => MyTadClick(myTab.id)}>
-            {myTab.tedTitle}
-          </S.MyPageTebBtn>
-        </S.MyPageTablist>
-      </S.MyPageTabWrap>
+        <S.MyBookmarkReportBox>
+          <S.MyBookmarkReportTabMenu>
+            {myTabArr.map((t, i) => {
+              return (
+                <S.MyTitleTabBtn
+                  key={t.id}
+                  className={activeIndex === i ? 'active' : ''}
+                  onClick={() => MyTabClick(i)}
+                >
+                  {t.tabTitle}
+                </S.MyTitleTabBtn>
+              );
+            })}
+          </S.MyBookmarkReportTabMenu>
+          <S.MyContentBox>{myTabArr[activeIndex].tabContent}</S.MyContentBox>
+        </S.MyBookmarkReportBox>
     </>
   );
 };
