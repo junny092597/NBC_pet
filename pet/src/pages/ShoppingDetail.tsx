@@ -7,22 +7,11 @@ import QuantityInput from '../components/shoppingDetail/QuantityInput';
 import styled from 'styled-components';
 import { auth } from '../Firebase';
 import QuestionAndAnswer from '../components/shoppingDetail/QuestionAndAnswer';
-import { addDoc, collection, setDoc, getDocs, query, where, doc, getDoc, updateDoc } from 'firebase/firestore';
+import { collection, setDoc, getDocs, query, where, doc, deleteDoc } from 'firebase/firestore';
 import { db } from '../Firebase';
 import { FaHeart } from 'react-icons/fa';
+// import logo from '../../assets/images/logo.png';
 
-interface Item {
-  id: number;
-  price: number;
-  name: string;
-  img: string;
-  category: string;
-  type: string;
-}
-
-interface user {
-  email: string;
-}
 function ShoppingDetail() {
   //받아온 renderData
   const location = useLocation();
@@ -48,8 +37,8 @@ function ShoppingDetail() {
   //리뷰 & QnA tab기능
   const [tab, setTab] = useState<string | null>(null);
 
-  const swithTab = (tab: string | null) => {
-    setTab(tab);
+  const swithTab = (selectedTab: string | null) => {
+    setTab(selectedTab);
   };
 
   useEffect(() => {
@@ -85,32 +74,61 @@ function ShoppingDetail() {
 
   //좋아요기능
   const [heartColor, setHeartColor] = useState<string>('black');
-  const [liked, setLiked] = useState(false);
+  const [liked, setLiked] = useState<boolean>(false);
   useEffect(() => {
     fetchHeart();
   }, [data]); // data가 변경될 때마다 fetchHeart를 호출
 
+  //페이지가 리렌더링될때 좋아요 정보를 갖고온다
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await fetchHeart();
+        // 데이터를 가져온 후에 liked 상태를 설정
+        const likeQuery = query(collection(db, 'like'), where('email', '==', data.userEmail));
+        const querySnapshot = await getDocs(likeQuery);
+
+        if (querySnapshot.empty) {
+          setLiked(false); // 좋아요 문서가 없으면 false로 설정
+          setHeartColor('black');
+        } else {
+          const firstDoc = querySnapshot.docs[0];
+          const likedValue = firstDoc.data().liked;
+          setLiked(likedValue);
+          setHeartColor(likedValue ? 'red' : 'black');
+        }
+      } catch (error) {
+        console.error('Error fetching like information:', error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  //좋아요 기능(수정해야합니다)
   const handleButtonClick = async () => {
     if (data.userEmail === '') {
       alert('로그인을 해야 사용가능한 기능입니다');
       navigate('/signin');
     } else {
       const likeCollectionRef = collection(db, 'like');
-      const randomDocId = generateRandomDocId(); // Assuming you have a function to generate a random ID
+      const querySnapshot = await getDocs(likeCollectionRef);
 
-      const docRef = doc(likeCollectionRef, randomDocId);
+      // 이미 좋아요를 눌렀는지 확인
+      const existingDoc = querySnapshot.docs.find(
+        doc => doc.data().userEmail === data.userEmail && doc.data().itemName === data.itemName
+      );
 
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        // 문서가 존재하면 업데이트
-        await updateDoc(docRef, { userEmail: data.userEmail, itemName: data.itemName, liked: !like });
-        setLike(!like);
-        setHeartColor(like ? 'black' : 'red');
+      if (existingDoc) {
+        // 이미 좋아요를 누른 경우 문서 삭제
+        await deleteDoc(existingDoc.ref);
+        setLiked(false);
+        setHeartColor('black');
       } else {
-        // 문서가 존재하지 않으면 새로 생성
+        // 좋아요를 누른 경우 새로운 문서 생성
+        const randomDocId = generateRandomDocId();
+        const docRef = doc(likeCollectionRef, randomDocId);
         await setDoc(docRef, { userEmail: data.userEmail, itemName: data.itemName, liked: true });
-        setLike(true);
+        setLiked(true);
         setHeartColor('red');
       }
     }
@@ -152,20 +170,27 @@ function ShoppingDetail() {
           <img src={item.img} />
         </SImgBox>
         <STextContainer>
-          <div>
+          <SCategoryName>
             {item.category}-{item.type}
-          </div>
-          <div>{item.name}</div>
-          <div>
+            <FaHeart
+              size={25}
+              onClick={handleHeartIconClick}
+              style={{ color: liked ? 'red' : 'black', cursor: 'pointer' }}
+            />
+          </SCategoryName>
+          <SItemNameBox>
+            <SItemName>{item.name}</SItemName>
+          </SItemNameBox>
+          <SItemPriceBox>
             <span>가격 : {item.price}원 </span>
-            <FaHeart size={20} onClick={handleHeartIconClick} style={{ color: heartColor, cursor: 'pointer' }} />
-          </div>
-
-          <QuantityInput quantity={quantity} onclickQuantityHandler={onclickQuantityHandler} />
-          <div>총 금액 : {totalPrice}원</div>
-          <div>
-            <button>ADD Tod Cart</button>
-            <button
+          </SItemPriceBox>
+          <SItemTotalPriceBox>
+            <QuantityInput quantity={quantity} onclickQuantityHandler={onclickQuantityHandler} />
+            <SItemTotalPrice>총 금액 : {totalPrice}원</SItemTotalPrice>
+          </SItemTotalPriceBox>
+          <SOrderButtonBox>
+            <SAddToCartButton>ADD Tod Cart</SAddToCartButton>
+            <SOrderButton
               onClick={() => {
                 if (data.userEmail !== '') {
                   navigate('/CheckoutPage');
@@ -175,28 +200,30 @@ function ShoppingDetail() {
                 }
               }}>
               Buy Now
-            </button>
-          </div>
+            </SOrderButton>
+          </SOrderButtonBox>
           <div>
-            <button
+            <CummunityButton
+              isActive={tab === 'REVIEW'}
               onClick={() => {
                 swithTab('REVIEW');
               }}>
               REVIEW
-            </button>
-            <button
+            </CummunityButton>
+            <CummunityButton
+              isActive={tab === 'Q&A'}
               onClick={() => {
                 swithTab('Q&A');
               }}>
               Q&A
-            </button>
+            </CummunityButton>
             {tab === 'REVIEW' && <Review data={data} />}
             {tab === 'Q&A' && <QuestionAndAnswer data={data} />}
-            {tab === null && (
+            {/* {tab === null && (
               <div>
-                <img src="src/assets/images/logo.png" alt="강아지 사진" />
+                <Logo src={logo} alt="logo" />
               </div>
-            )}
+            )} */}
           </div>
         </STextContainer>
       </SProductContainer>
@@ -204,12 +231,116 @@ function ShoppingDetail() {
   );
 }
 export default ShoppingDetail;
+// const Logo = styled.img`
+//   background-image: url(${logo});
+// `;
 
 const SProductContainer = styled.div`
   display: flex;
-  flex-direction: row;
+  width: 100vw;
+  min-height: 80vh;
+  max-height: auto;
 `;
 
-const SImgBox = styled.div``;
+const SImgBox = styled.div`
+  width: 50%; /* 반의 너비를 차지하도록 50%로 설정 */
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 
-const STextContainer = styled.div``;
+  img {
+    display: block;
+    width: 70vh;
+    height: 70vw;
+    object-fit: contain;
+    position: absolute;
+    margin: 0;
+  }
+`;
+
+const STextContainer = styled.div`
+  margin-top: 5vh;
+  width: 35%; /* 반의 너비를 차지하도록 50%로 설정 */
+  height: 70%;
+  padding: 20px;
+`;
+
+const SCategoryName = styled.div`
+  font-size: 30px;
+`;
+
+const SItemName = styled.span`
+  margin-right: 1vw;
+  white-space: normal;
+  flex-wrap: wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+`;
+
+const SItemNameBox = styled.div`
+  margin-bottom: 1.5vh;
+  font-size: 20px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+`;
+
+const SItemPriceBox = styled.div`
+  margin-bottom: 1.5vh;
+  font-size: 20px;
+`;
+
+const SItemTotalPriceBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* 두 요소를 좌우로 정렬하도록 추가된 부분 */
+  margin-bottom: 5vh; /* QuantityInput과의 간격을 주기 위해 추가된 부분 */
+`;
+
+const SItemTotalPrice = styled.span`
+  font-size: 25px;
+`;
+
+const SOrderButtonBox = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5vh;
+`;
+
+const SOrderButton = styled.button`
+  width: 10vw;
+  height: 5vh;
+  border: 1px solid black;
+  border-radius: 40px;
+  background: none; /* 배경을 없애는 속성 추가 */
+  padding: 0; /* 내부 여백을 없애는 속성 추가 */
+  cursor: pointer;
+  margin: 0 1vw;
+  background-color: ${({ theme }) => theme.color.ButtonColor};
+`;
+
+const SAddToCartButton = styled.button`
+  width: 10vw;
+  height: 5vh;
+  border: 1px solid black;
+  border-radius: 40px;
+  background: none; /* 배경을 없애는 속성 추가 */
+  padding: 0; /* 내부 여백을 없애는 속성 추가 */
+  cursor: pointer;
+  margin: 0 1vw;
+  background-color: ${({ theme }) => theme.color.ButtonColor2};
+`;
+
+const CummunityButton = styled.button<{ isActive: boolean }>`
+  width: 50%;
+  height: 5vh;
+  border: 1px solid black;
+  border-radius: 40px;
+  background: none; /* 배경을 없애는 속성 추가 */
+  padding: 0; /* 내부 여백을 없애는 속성 추가 */
+  cursor: pointer;
+  background: ${({ isActive, theme }) => (isActive ? theme.color.ReviewButtonColor : 'none')};
+  color: ${({ isActive }) => (isActive ? 'white' : 'black')};
+`;

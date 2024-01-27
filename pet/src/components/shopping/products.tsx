@@ -35,14 +35,14 @@ function Products({ renderData, setRenderData, page }: ProductsProps): JSX.Eleme
         </OrderButtonBox>
         <SItemContainer>
           {renderData.map(Product => (
-            <SItemBox key={Product.id}>
+            <SItemBox key={Product.id} onClick={() => moveToDeatailPageHandler(Product)}>
               <SImgBox>
                 <img src={Product.img} alt="Product Image" />
               </SImgBox>
               <STextBox>
-                <div>{Product.name}</div>
-                <div> 가격 : {Product.price}원</div>
-                <button onClick={() => moveToDeatailPageHandler(Product)}>구매하기</button>
+                <SProductName>{Product.name}</SProductName>
+                <SProductPrice>가격: {Product.price}원</SProductPrice>
+                {/* <button onClick={() => moveToDeatailPageHandler(Product)}>구매하기</button> */}
               </STextBox>
             </SItemBox>
           ))}
@@ -64,62 +64,99 @@ function Products({ renderData, setRenderData, page }: ProductsProps): JSX.Eleme
 
 export default Products;
 
+const SItemBoxContainer = styled.div`
+  width: 90%;
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 3vw;
+  gap: 2vw; /* 간격 조절 */
+`;
+
 const SItemContainer = styled.div`
+  width: 90%;
+  height: auto;
   display: flex;
   flex-wrap: wrap;
   margin: 0px 0.9vw;
-  gap: 3vw;
+  gap: 2vw; /* 간격 조절 */
 `;
+
 const SItemBox = styled.div`
-  display: flex;
-  width: 20vw;
-  height: 20vh;
-  border: 1px solid #ccc;
+  flex: 0 0 calc(25% - 2vw);
+  height: auto;
+  margin-bottom: 2vh;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #ffffff;
+    background-color: #f5f5f5;
   }
 
   img {
-    max-width: 100%;
-    max-height: 30vh;
+    display: block;
+    width: 100%;
+    height: 80%; /* 이미지의 높이를 조정 */
     object-fit: cover;
+    margin: 0;
   }
+
+  width: 20vw; /* SItemBox의 가로 길이를 조정 */
+  height: 50vh;
+  box-sizing: content-box; /* 패딩이 크기에 영향을 미치지 않도록 변경 */
+  border: 1px solid gray;
+  border-radius: 10px;
+  word-wrap: break-word;
+`;
+
+const SImgBox = styled.div`
+  width: 100%;
+  height: 67%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    display: block;
+    width: 100%;
+    height: 80%; /* 이미지의 높이를 조정 */
+    object-fit: contain;
+    margin: 0;
+  }
+`;
+
+const STextBox = styled.div`
+  word-wrap: break-word;
+  width: 18vw; /* SItemBox와 동일한 가로 길이로 조정 */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  white-space: pre-line;
+  font-size: 16px;
+  font-weight: bold; /* 글자를 찐하게 만듭니다 */
+  color: #333; /* 글자 색상을 지정합니다 */
 `;
 
 const OrderButtonBox = styled.div`
   width: 100%;
 `;
 
-const SItemBoxContainer = styled.div`
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap; // 부모 너비를 넘어가면 다음 줄로 넘어가도록 함
-  gap: 0.5vw;
+const SProductName = styled.div`
+  height: 5vh;
+  word-wrap: break-word;
+  padding-left: 0.3vw;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold; /* 글자를 찐하게 만듭니다 */
+  color: #333; /* 글자 색상을 지정합니다 */
+  margin-bottom: 1.5vh;
 `;
 
-const SImgBox = styled.div`
-  display: flex;
-  width: 50%;
-  padding: 0.5rem;
-  // 텍스트 박스에 여백 추가
+const SProductPrice = styled.div`
+  margin-right: 0.5vw;
+  text-align: right;
+  font-size: 16px;
+  font-weight: bold; /* 글자를 찐하게 만듭니다 */
+  color: #5b5b5b; /* 글자 색상을 지정합니다 */
 `;
-
-const STextBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 50%; // 텍스트 박스의 너비를 50%로 조절
-  padding: 0.5rem; // 텍스트 박스에 여백 추가
-  margin-left: 0.5vw;
-  box-sizing: border-box;
-  justify-content: space-between;
-  white-space: pre-line;
-  font-size: 15px;
-`;
-
-// const SBuyButton = styled.button`
-//   width: 5vw;
-//   height: 4vh;
-//   margin-left: 3vw;
-// `;

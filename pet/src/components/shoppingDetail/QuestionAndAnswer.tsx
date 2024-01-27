@@ -72,14 +72,17 @@ function QnA({ data }: QnAProps): JSX.Element {
 
   return (
     <>
-      <h2>Q&A</h2>
-      <STextArea placeholder="게시글을 작성해주세요" onChange={e => setIndex(e.target.value)} value={index} />
-      <button onClick={handleWriteQnA}>작성하기</button>
-
+      <div>
+        <STextArea placeholder="Q&A를 작성해주세요" onChange={e => setIndex(e.target.value)} value={index} />
+        <SButton onClick={handleWriteQnA}>작성하기</SButton>
+      </div>
       {QnAs.map(QnA => (
         <div key={QnA.id}>
-          <p>{QnA.index}</p>
-          <button onClick={() => handleDeleteQnA(QnA.id)}>삭제하기</button>
+          <SEmailBox>{QnA.email}</SEmailBox>
+          <SIndexContainer>
+            <SIndexBox>{QnA.index}</SIndexBox>
+            <SButton onClick={() => handleDeleteQnA(QnA.id)}>삭제하기</SButton>
+          </SIndexContainer>
         </div>
       ))}
     </>
@@ -89,5 +92,39 @@ function QnA({ data }: QnAProps): JSX.Element {
 export default QnA;
 
 const STextArea = styled.textarea`
+  margin-top: 1vh;
+  width: 20vw;
+  height: 6vh;
   resize: none;
+`;
+
+const SButton = styled.button`
+  width: 5vw;
+  height: 3vh;
+  background-color: white;
+  border: none;
+  font-size: 13px;
+  transition: background-color 0.3s; /* 변화를 부드럽게 만들기 위한 트랜지션 속성 추가 */
+
+  &:hover {
+    font-weight: bold;
+    cursor: pointer; /* 호버 시 커서 모양 변경 */
+  }
+`;
+
+const SIndexContainer = styled.div`
+  display: flex;
+  align-items: center;
+  width: 25vw;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid gray;
+`;
+const SIndexBox = styled.span`
+  width: 20vw;
+  word-wrap: break-word;
+`;
+
+const SEmailBox = styled.div`
+  font-size: 12px;
+  color: gray;
 `;

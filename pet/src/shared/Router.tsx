@@ -11,6 +11,8 @@ import Layout from '../components/home/Layout';
 import Community from '../pages/Community';
 import DailyBoard from '../components/community/DailyBoard';
 import QuestionBoard from '../components/community/QuestionBoard';
+import WritePost from '../components/community/WritePost';
+
 
 const Router = () => {
   return (
@@ -28,6 +30,7 @@ const Router = () => {
         <Route path="/community" element={<Community />} />
         <Route path="/daily" element={<DailyBoard />} />
         <Route path="/questions" element={<QuestionBoard />} />
+        <Route path="/write-post" element={<WritePost />} />
       </Route>
       <Route path="/CheckoutPage" element={<CheckoutPage />} />
     </Routes>

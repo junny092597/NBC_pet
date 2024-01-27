@@ -116,7 +116,7 @@ const Headerbtn = styled.button`
 `;
 
 const HeaderContainer = styled.header`
-  background-color: #f6d6d6;
+  background-color: #F6F7C4;
   color: #312b2b;
   padding: 1em;
   display: flex;
@@ -125,8 +125,8 @@ const HeaderContainer = styled.header`
 `;
 
 const Image = styled.img`
-  width: 70%;
-  height: 70%;
+  width: 17%;
+  height: 17%;
   margin-right: 0px;
 `;
 
