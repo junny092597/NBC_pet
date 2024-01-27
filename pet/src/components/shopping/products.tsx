@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import OrderButton from './OrderButton';
 import Pagination from 'react-js-pagination';
 import { useNavigate } from 'react-router-dom';
-import { style } from '@mui/system';
 
 interface Item {
   id: number;
