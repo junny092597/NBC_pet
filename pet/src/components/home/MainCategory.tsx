@@ -62,7 +62,7 @@ const Categories = () => {
 
 const MainCategoryContainer = styled.div`
   flex: 1;
-  margin: 20px 80px;
+  margin: 10px 70px;
   text-align: center;
   width: 500px; 
   height: auto; /* 높이를 자동으로 조절 */
