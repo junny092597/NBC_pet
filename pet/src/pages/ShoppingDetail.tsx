@@ -7,23 +7,11 @@ import QuantityInput from '../components/shoppingDetail/QuantityInput';
 import styled from 'styled-components';
 import { auth } from '../Firebase';
 import QuestionAndAnswer from '../components/shoppingDetail/QuestionAndAnswer';
-import { addDoc, collection, setDoc, getDocs, query, where, doc, getDoc, updateDoc } from 'firebase/firestore';
+import { collection, setDoc, getDocs, query, where, doc, deleteDoc } from 'firebase/firestore';
 import { db } from '../Firebase';
 import { FaHeart } from 'react-icons/fa';
-import theme from '../styles/Theme';
+// import logo from '../../assets/images/logo.png';
 
-interface Item {
-  id: number;
-  price: number;
-  name: string;
-  img: string;
-  category: string;
-  type: string;
-}
-
-interface user {
-  email: string;
-}
 function ShoppingDetail() {
   //받아온 renderData
   const location = useLocation();
@@ -86,10 +74,35 @@ function ShoppingDetail() {
 
   //좋아요기능
   const [heartColor, setHeartColor] = useState<string>('black');
-  const [liked, setLiked] = useState(false);
+  const [liked, setLiked] = useState<boolean>(false);
   useEffect(() => {
     fetchHeart();
   }, [data]); // data가 변경될 때마다 fetchHeart를 호출
+
+  //페이지가 리렌더링될때 좋아요 정보를 갖고온다
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await fetchHeart();
+        // 데이터를 가져온 후에 liked 상태를 설정
+        const likeQuery = query(collection(db, 'like'), where('email', '==', data.userEmail));
+        const querySnapshot = await getDocs(likeQuery);
+
+        if (querySnapshot.empty) {
+          setLiked(false); // 좋아요 문서가 없으면 false로 설정
+          setHeartColor('black');
+        } else {
+          const firstDoc = querySnapshot.docs[0];
+          const likedValue = firstDoc.data().liked;
+          setLiked(likedValue);
+          setHeartColor(likedValue ? 'red' : 'black');
+        }
+      } catch (error) {
+        console.error('Error fetching like information:', error);
+      }
+    };
+    fetchData();
+  }, []);
 
   //좋아요 기능(수정해야합니다)
   const handleButtonClick = async () => {
@@ -98,21 +111,24 @@ function ShoppingDetail() {
       navigate('/signin');
     } else {
       const likeCollectionRef = collection(db, 'like');
-      const randomDocId = generateRandomDocId();
+      const querySnapshot = await getDocs(likeCollectionRef);
 
-      const docRef = doc(likeCollectionRef, randomDocId);
+      // 이미 좋아요를 눌렀는지 확인
+      const existingDoc = querySnapshot.docs.find(
+        doc => doc.data().userEmail === data.userEmail && doc.data().itemName === data.itemName
+      );
 
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        // 문서가 존재하면 업데이트
-        await updateDoc(docRef, { userEmail: data.userEmail, itemName: data.itemName, liked: !like });
-        setLike(!like);
-        setHeartColor(like ? 'black' : 'red');
+      if (existingDoc) {
+        // 이미 좋아요를 누른 경우 문서 삭제
+        await deleteDoc(existingDoc.ref);
+        setLiked(false);
+        setHeartColor('black');
       } else {
-        // 문서가 존재하지 않으면 새로 생성
+        // 좋아요를 누른 경우 새로운 문서 생성
+        const randomDocId = generateRandomDocId();
+        const docRef = doc(likeCollectionRef, randomDocId);
         await setDoc(docRef, { userEmail: data.userEmail, itemName: data.itemName, liked: true });
-        setLike(true);
+        setLiked(true);
         setHeartColor('red');
       }
     }
@@ -156,7 +172,11 @@ function ShoppingDetail() {
         <STextContainer>
           <SCategoryName>
             {item.category}-{item.type}
-            <FaHeart size={25} onClick={handleHeartIconClick} style={{ color: heartColor, cursor: 'pointer' }} />
+            <FaHeart
+              size={25}
+              onClick={handleHeartIconClick}
+              style={{ color: liked ? 'red' : 'black', cursor: 'pointer' }}
+            />
           </SCategoryName>
           <SItemNameBox>
             <SItemName>{item.name}</SItemName>
@@ -199,11 +219,11 @@ function ShoppingDetail() {
             </CummunityButton>
             {tab === 'REVIEW' && <Review data={data} />}
             {tab === 'Q&A' && <QuestionAndAnswer data={data} />}
-            {tab === null && (
+            {/* {tab === null && (
               <div>
-                <img src="src/assets/images/logo.png" alt="강아지 사진" />
+                <Logo src={logo} alt="logo" />
               </div>
-            )}
+            )} */}
           </div>
         </STextContainer>
       </SProductContainer>
@@ -211,6 +231,9 @@ function ShoppingDetail() {
   );
 }
 export default ShoppingDetail;
+// const Logo = styled.img`
+//   background-image: url(${logo});
+// `;
 
 const SProductContainer = styled.div`
   display: flex;
