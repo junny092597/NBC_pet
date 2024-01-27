@@ -84,22 +84,25 @@ const CategoryImage = styled.img`
 `;
 
 const CategoryText = styled.div`
-  position: absolute; 
-  top: 50%; 
+  position: absolute;
+  top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); 
-  color: #625656;
-  font-size: 24px;
-  padding: 20px;
+  transform: translate(-50%, -50%);
+  width: 80%; /* 너비를 80%로 설정 */
+  height: auto; /* 높이를 자동으로 조절 */
+  padding: 20px; /* 패딩 증가 */
+  background-color: rgba(255, 255, 255, 0.7);
   border-radius: 8px;
-  background-color: rgba(255, 255, 255, 0.7); 
-  visibility: hidden; /* 기본적으로 숨김 */
+  color: #625656;
+  font-size: 16px; /* 필요에 따라 글꼴 크기 조절 */
+  text-align: center;
+  visibility: hidden;
+  white-space: pre-wrap;
 
   ${MainCategoryContainer}:hover & {
-    visibility: visible; /* 호버 시 보임 */
+    visibility: visible;
   }
 `;
-
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;

@@ -25,13 +25,17 @@ const Footers = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  background-color: #f6d6d6;
+  background-color: #F6F7C4;
 `;
 
 const FooterLogo = styled.div`
   justify-content: flex-start;
-`;
 
+  img {
+    width: 100px; // 로고 이미지의 너비 조정
+    height: auto; // 높이를 자동으로 조절하여 비율 유지
+  }
+`;
 const Div = styled.div`
   display: flex;
   align-items: center;
