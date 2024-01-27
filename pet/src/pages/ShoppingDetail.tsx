@@ -90,13 +90,14 @@ function ShoppingDetail() {
     fetchHeart();
   }, [data]); // data가 변경될 때마다 fetchHeart를 호출
 
+  //좋아요 기능(수정해야합니다)
   const handleButtonClick = async () => {
     if (data.userEmail === '') {
       alert('로그인을 해야 사용가능한 기능입니다');
       navigate('/signin');
     } else {
       const likeCollectionRef = collection(db, 'like');
-      const randomDocId = generateRandomDocId(); // Assuming you have a function to generate a random ID
+      const randomDocId = generateRandomDocId();
 
       const docRef = doc(likeCollectionRef, randomDocId);
 
@@ -152,20 +153,23 @@ function ShoppingDetail() {
           <img src={item.img} />
         </SImgBox>
         <STextContainer>
-          <div>
+          <SCategoryName>
             {item.category}-{item.type}
-          </div>
-          <div>{item.name}</div>
-          <div>
+            <FaHeart size={25} onClick={handleHeartIconClick} style={{ color: heartColor, cursor: 'pointer' }} />
+          </SCategoryName>
+          <SItemNameBox>
+            <SItemName>{item.name}</SItemName>
+          </SItemNameBox>
+          <SItemPriceBox>
             <span>가격 : {item.price}원 </span>
-            <FaHeart size={20} onClick={handleHeartIconClick} style={{ color: heartColor, cursor: 'pointer' }} />
-          </div>
-
-          <QuantityInput quantity={quantity} onclickQuantityHandler={onclickQuantityHandler} />
-          <div>총 금액 : {totalPrice}원</div>
-          <div>
-            <button>ADD Tod Cart</button>
-            <button
+          </SItemPriceBox>
+          <SItemTotalPriceBox>
+            <QuantityInput quantity={quantity} onclickQuantityHandler={onclickQuantityHandler} />
+            <SItemTotalPrice>총 금액 : {totalPrice}원</SItemTotalPrice>
+          </SItemTotalPriceBox>
+          <SOrderButtonBox>
+            <SOrderButton>ADD Tod Cart</SOrderButton>
+            <SOrderButton
               onClick={() => {
                 if (data.userEmail !== '') {
                   navigate('/CheckoutPage');
@@ -175,21 +179,21 @@ function ShoppingDetail() {
                 }
               }}>
               Buy Now
-            </button>
-          </div>
+            </SOrderButton>
+          </SOrderButtonBox>
           <div>
-            <button
+            <CummunityButton
               onClick={() => {
                 swithTab('REVIEW');
               }}>
               REVIEW
-            </button>
-            <button
+            </CummunityButton>
+            <CummunityButton
               onClick={() => {
                 swithTab('Q&A');
               }}>
               Q&A
-            </button>
+            </CummunityButton>
             {tab === 'REVIEW' && <Review data={data} />}
             {tab === 'Q&A' && <QuestionAndAnswer data={data} />}
             {tab === null && (
@@ -207,9 +211,96 @@ export default ShoppingDetail;
 
 const SProductContainer = styled.div`
   display: flex;
-  flex-direction: row;
+  width: 100vw;
+  min-height: 80vh;
+  max-height: auto;
 `;
 
-const SImgBox = styled.div``;
+const SImgBox = styled.div`
+  width: 50%; /* 반의 너비를 차지하도록 50%로 설정 */
+  margin-top: 5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 
-const STextContainer = styled.div``;
+  img {
+    display: block;
+    width: 70vh;
+    height: 70vw;
+    object-fit: contain;
+    position: absolute;
+    margin: 0;
+  }
+`;
+
+const STextContainer = styled.div`
+  margin-top: 5vh;
+  width: 35%; /* 반의 너비를 차지하도록 50%로 설정 */
+  height: 70%;
+  padding: 20px;
+  border: 1px solid black;
+  border-radius: 50px;
+`;
+
+const SCategoryName = styled.div`
+  font-size: 30px;
+`;
+
+const SItemName = styled.span`
+  margin-right: 1vw;
+  white-space: normal;
+  flex-wrap: wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+`;
+
+const SItemNameBox = styled.div`
+  margin-bottom: 1.5vh;
+  font-size: 20px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+`;
+
+const SItemPriceBox = styled.div`
+  margin-bottom: 1.5vh;
+  font-size: 20px;
+`;
+
+const SItemTotalPriceBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* 두 요소를 좌우로 정렬하도록 추가된 부분 */
+  margin-bottom: 3vh; /* QuantityInput과의 간격을 주기 위해 추가된 부분 */
+`;
+
+const SItemTotalPrice = styled.span`
+  font-size: 25px;
+`;
+
+const SOrderButtonBox = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5vh;
+`;
+
+const SOrderButton = styled.button`
+  width: 10vw;
+  height: 5vh;
+  border: 1px solid black;
+  border-radius: 40px;
+  background: none; /* 배경을 없애는 속성 추가 */
+  padding: 0; /* 내부 여백을 없애는 속성 추가 */
+  cursor: pointer;
+  margin: 0 1vw;
+`;
+
+const CummunityButton = styled.button`
+  width: 50%;
+  height: 5vh;
+  border: 1px solid black;
+  border-radius: 40px;
+  background: none; /* 배경을 없애는 속성 추가 */
+  padding: 0; /* 내부 여백을 없애는 속성 추가 */
+  cursor: pointer;
+`;

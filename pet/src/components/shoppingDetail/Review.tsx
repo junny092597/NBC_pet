@@ -72,14 +72,20 @@ function Review({ data }: ReviewProps): JSX.Element {
 
   return (
     <>
-      <h2>Review</h2>
-      <STextArea placeholder="게시글을 작성해주세요" onChange={e => setIndex(e.target.value)} value={index} />
-      <button onClick={handleWriteReview}>작성하기</button>
-
+      <SHeadTitle>
+        <h2>Review</h2>
+      </SHeadTitle>
+      <div>
+        <STextArea placeholder="게시글을 작성해주세요" onChange={e => setIndex(e.target.value)} value={index} />
+        <SButton onClick={handleWriteReview}>작성하기</SButton>
+      </div>
       {reviews.map(review => (
         <div key={review.id}>
-          <p>{review.index}</p>
-          <button onClick={() => handleDeleteReview(review.id)}>삭제하기</button>
+          <SEmailBox>{review.email}</SEmailBox>
+          <SIndexContainer>
+            <SIndexBox>{review.index}</SIndexBox>
+            <SButton onClick={() => handleDeleteReview(review.id)}>삭제하기</SButton>
+          </SIndexContainer>
         </div>
       ))}
     </>
@@ -88,6 +94,44 @@ function Review({ data }: ReviewProps): JSX.Element {
 
 export default Review;
 
+const SHeadTitle = styled.div`
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+`;
 const STextArea = styled.textarea`
+  width: 20vw;
+  height: 6vh;
   resize: none;
+`;
+
+const SButton = styled.button`
+  width: 5vw;
+  height: 3vh;
+  background-color: white;
+  border: none;
+  font-size: 13px;
+  transition: background-color 0.3s; /* 변화를 부드럽게 만들기 위한 트랜지션 속성 추가 */
+
+  &:hover {
+    font-weight: bold;
+    cursor: pointer; /* 호버 시 커서 모양 변경 */
+  }
+`;
+
+const SIndexContainer = styled.div`
+  display: flex;
+  align-items: center;
+  width: 25vw;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid gray;
+`;
+const SIndexBox = styled.span`
+  width: 20vw;
+  word-wrap: break-word;
+`;
+
+const SEmailBox = styled.div`
+  font-size: 12px;
+  color: gray;
 `;
