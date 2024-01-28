@@ -48,6 +48,12 @@ const EditButton = styled.button`
   cursor: pointer;
 `;
 
+const AuthorInfo = styled.div`
+  margin-top: 1rem;
+  font-style: italic;
+  color: #777;
+`;
+
 // 게시물 데이터 인터페이스
 interface Post {
   id: string;
@@ -55,7 +61,9 @@ interface Post {
   content: string;
   createdAt: Date;
   imageUrl?: string;
-  authorId?: string; // 작성자의 UID를 저장하는 필드
+  authorId?: string;
+  authorEmail?: string; // 작성자 이메일 추가
+  authorName?: string; // 작성자 닉네임 추가
 }
 
 const PostDetail: React.FC = () => {
@@ -75,12 +83,27 @@ const PostDetail: React.FC = () => {
 
           if (docSnap.exists()) {
             const postData = docSnap.data();
+            const authorRef = doc(db, 'users', postData.authorId);
+            const authorSnap: DocumentSnapshot = await getDoc(authorRef);
+
+            let authorEmail = '';
+            let authorName = '';
+
+            if (authorSnap.exists()) {
+              const authorData = authorSnap.data();
+              authorEmail = authorData.email;
+              authorName = authorData.displayName;
+            }
+
             setPost({
               id: docSnap.id,
               title: postData.title,
               content: postData.content,
               createdAt: postData.createdAt.toDate(),
               imageUrl: postData.imageUrl,
+              authorId: postData.authorId,
+              authorEmail: authorEmail,
+              authorName: authorName,
             });
           } else {
             setError('Document does not exist');
@@ -116,6 +139,9 @@ const PostDetail: React.FC = () => {
         <Title>{post.title}</Title>
         <Content>{post.content}</Content>
         {post.imageUrl && <Image src={post.imageUrl} alt="Post image" />}
+        <AuthorInfo>
+          작성자: {post.authorName} ({post.authorEmail})
+        </AuthorInfo>
         {isAuthor && <EditButton onClick={handleEdit}>글 수정</EditButton>}
       </DetailContainer>
     );
