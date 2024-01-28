@@ -13,7 +13,7 @@ const MainCategory: React.FC<CategoryProps> = ({ title, imageSrc }) => {
     // 클릭한 카테고리에 따라 페이지 이동
     switch (title) {
       case '커뮤니티':
-        window.location.href = '/';
+        window.location.href = '/community';
         break;
       case '쇼핑':
         window.location.href = '/shopping';
