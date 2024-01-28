@@ -11,8 +11,13 @@ import Layout from '../components/home/Layout';
 import Community from '../pages/Community';
 import DailyBoard from '../components/community/DailyBoard';
 import QuestionBoard from '../components/community/QuestionBoard';
+import Youtubeshorts from '../components/community/Youtubeshorts';
 import WritePost from '../components/community/WritePost';
-
+import WriteQuestionPost from '../components/community/WriteQuestionPost';
+import PostDetail from '../components/community/PostDetail';
+import QuestionDetail from '../components/community/QuestionDetail';
+import Sidebar from '../components/community/Sidebar';
+import Popular from '../components/community/Popular';
 
 const Router = () => {
   return (
@@ -27,10 +32,17 @@ const Router = () => {
         <Route path="/profile" element={<Profile />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/community" element={<Community />} />
-        <Route path="/daily" element={<DailyBoard />} />
-        <Route path="/questions" element={<QuestionBoard />} />
-        <Route path="/write-post" element={<WritePost />} />
+        <Route path="/" element={<Sidebar />}>
+          <Route path="/community" element={<Community />} />
+          <Route path="/popular" element={<Popular />} />
+          <Route path="/daily" element={<DailyBoard />} />
+          <Route path="/questions" element={<QuestionBoard />} />
+          <Route path="/shorts" element={<Youtubeshorts />} />
+          <Route path="/write-post" element={<WritePost />} />
+          <Route path="/posts/:postId" element={<PostDetail />} />
+          <Route path="/write-question" element={<WriteQuestionPost />} />
+          <Route path="/questions/:questionId" element={<QuestionDetail />} />
+        </Route>
       </Route>
       <Route path="/CheckoutPage" element={<CheckoutPage />} />
     </Routes>

@@ -1,7 +1,9 @@
-// components/community/DailyBoard.tsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { db, auth } from '../../Firebase'; // Include auth for authentication check
+import { collection, query, onSnapshot, DocumentData } from 'firebase/firestore';
+import { onAuthStateChanged, User } from 'firebase/auth'; // Import necessary Firebase modules
 
 const BoardContainer = styled.div`
   background-color: #ffffff;
@@ -33,16 +35,16 @@ const PostTitle = styled.h3`
 `;
 
 const CircleImage = styled.img`
-  width: 70px; //
-  height: 70px; //
-  border-radius: 50%; //
-  object-fit: cover; //
-  margin-right: 15px; //
-  border: 1px solid #000; //
-  position: absolute; //
-  left: -100px; //
-  top: 50%; //
-  transform: translateY(-50%); //
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 15px;
+  border: 1px solid #000;
+  position: absolute;
+  left: -100px;
+  top: 50%;
+  transform: translateY(-50%);
 `;
 
 const WriteButton = styled.button`
@@ -58,33 +60,64 @@ const WriteButton = styled.button`
   z-index: 1000;
 `;
 
-interface Post {
-  id: number;
+interface QuestionPost {
+  id: string;
   title: string;
+  createdAt: Date;
+  imageUrl?: string;
 }
 
-const QuestionBoard = () => {
-  const [posts, setPosts] = useState<Post[]>([
-    { id: 1, title: '질문 게시글 제목 1' },
-    { id: 2, title: '질문 게시글 제목 2' },
-    { id: 3, title: '질문 게시글 제목 3' },
-  ]);
+const QuestionBoard: React.FC = () => {
+  const [questions, setQuestions] = useState<QuestionPost[]>([]);
+  const [user, setUser] = useState<User | null>(null); // State to hold the current user
   const navigate = useNavigate();
 
-  const handleMoreClick = (postId: number) => {
-    console.log(`More button clicked for post ${postId}`);
+  useEffect(() => {
+    const unsubscribeAuth = onAuthStateChanged(auth, currentUser => {
+      setUser(currentUser); // Update user state on auth state change
+    });
+
+    const q = query(collection(db, 'questions'));
+    const unsubscribeQuestions = onSnapshot(q, querySnapshot => {
+      const questionsArray: QuestionPost[] = [];
+      querySnapshot.forEach(doc => {
+        const data = doc.data() as DocumentData;
+        questionsArray.push({
+          id: doc.id,
+          title: data.title,
+          createdAt: data.createdAt.toDate(),
+          imageUrl: data.imageUrl,
+        });
+      });
+      setQuestions(questionsArray);
+    });
+
+    // Cleanup function
+    return () => {
+      unsubscribeAuth();
+      unsubscribeQuestions();
+    };
+  }, []);
+
+  const handleMoreClick = (postId: string) => {
+    navigate(`/questions/${postId}`);
   };
 
   const handleWriteButtonClick = () => {
-    navigate('/write-post');
+    if (user) {
+      navigate('/write-question'); // Navigate to question writing page if user is logged in
+    } else {
+      alert('질문 게시글을 작성하려면 로그인이 필요합니다. 회원가입을 해주세요.');
+      navigate('/signup'); // Redirect to signup page if user is not logged in
+    }
   };
 
   return (
     <BoardContainer>
-      <WriteButton onClick={handleWriteButtonClick}>게시글 작성</WriteButton>
-      {posts.map(post => (
+      <WriteButton onClick={handleWriteButtonClick}>질문 게시글 작성</WriteButton>
+      {questions.map(post => (
         <PostContainer key={post.id} onClick={() => handleMoreClick(post.id)}>
-          <CircleImage src="/path/to/your/image.jpg" alt="mainimage" />
+          <CircleImage src={post.imageUrl} alt="Question image" />
           <PostTitle>{post.title}</PostTitle>
         </PostContainer>
       ))}
