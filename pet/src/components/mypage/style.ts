@@ -1,9 +1,7 @@
 import styled from 'styled-components';
 
 // MyPages
-export const MyPageAll = styled.div`
-
-`;
+export const MyPageAll = styled.div``;
 
 export const ProfileContainer = styled.div`
   display: flex;
@@ -42,8 +40,7 @@ export const ModifyCompleteButton = styled.button`
   background: none;
 `;
 
-export const TabContainer = styled.div`
-`;
+export const TabContainer = styled.div``;
 
 // MyProfileModal
 export const Text = styled.div`
@@ -67,7 +64,7 @@ export const NicknameModifyBox = styled.div`
 export const InfoHolder = styled.div`
   width: 252px;
   height: 48px;
-  border: 1px solid ;
+  border: 1px solid;
   background-color: black;
   border-radius: 8px;
   font-size: 16px;
@@ -103,13 +100,12 @@ export const ProfileImgLabel = styled.label`
   width: 200px;
   height: 200px;
   border-radius: 70%;
-  border: 1px solid ;
+  border: 1px solid;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
 `;
-
 
 export const ProfileImgInput = styled.input``;
 
@@ -120,7 +116,7 @@ export const InfoWrapper = styled.div`
 export const EmailInputDiv = styled.div`
   width: 80%;
   height: 48px;
-  border: 1px solid ;
+  border: 1px solid;
   border-radius: 8px;
   font-size: 16px;
   box-sizing: border-box;
@@ -129,7 +125,7 @@ export const EmailInputDiv = styled.div`
   align-items: center;
   padding: 8px 16px;
   gap: 8px;
-  background-color:black;
+  background-color: black;
 `;
 
 export const MyBookmarkReportWrap = styled.div``;
@@ -166,7 +162,7 @@ export const EditModalProfileImgLabel = styled.label`
   width: 160px;
   height: 160px;
   border-radius: 70%;
-  border: 1px solid ;
+  border: 1px solid;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -177,7 +173,7 @@ export const EditModalProfileImgShow = styled.img`
   width: 160px;
   height: 160px;
   border-radius: 70%;
-  border: 1px solid ;
+  border: 1px solid;
 `;
 
 export const EditModalProfileImgInput = styled.input``;
@@ -239,7 +235,7 @@ export const EditModalCanceleButton = styled.button`
   width: 170px;
   height: 60px;
   background: black;
-  border: 1px solid ;
+  border: 1px solid;
   border-radius: 8px;
   /* Title Text */
   font-family: GmarketSansMedium;
@@ -259,7 +255,7 @@ export const EditModalCompleteButton = styled.button`
   width: 170px;
   height: 60px;
   background-color: black;
-  border: 1px solid ;
+  border: 1px solid;
   border-radius: 8px;
   font-family: GmarketSansMedium;
   font-size: 16px;
@@ -273,7 +269,7 @@ export const EditModalCompleteButton = styled.button`
 export const EditModalEmailInput = styled.input`
   width: 370px;
   height: 45px;
-  border: 1px solid ;
+  border: 1px solid;
   border-radius: 8px;
   font-size: 16px;
   box-sizing: border-box;
@@ -307,10 +303,8 @@ export const MyProfileStar2 = styled.img`
 export const ReportWrap = styled.div`
   width: 100%;
 `;
-export const BookMarkStore = styled.div`
-`
-export const MyBookmarkReportBox = styled.div`
-`
+export const BookMarkStore = styled.div``;
+export const MyBookmarkReportBox = styled.div``;
 
 export const MyTitleTabBtn = styled.button`
   background-color: transparent;
@@ -328,42 +322,68 @@ export const MyTitleTabBtn = styled.button`
   width: 50%;
   &.active {
     color: black;
-    border-bottom: 2px solid
+    border-bottom: 2px solid;
   }
 `;
 
 export const MyBookmarkReportTabMenu = styled.ul`
-padding: 0;
-height: 50px;
-display: flex;
-border-bottom: 0;
-`
+  padding: 0;
+  height: 50px;
+  display: flex;
+  border-bottom: 0;
+`;
 export const PostContainer = styled.div`
-  height: 300px;
-  width: 250px;
+  height: 360px;
+  width: 300px;
   padding: 0px;
-  margin: 10px;  
-  margin-bottom: 50PX;
+  margin: 10px;
+  margin-bottom: 50px;
   border: solid grey;
   border-radius: 10px;
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  
-`
- export const ReviewContainer = styled.div`
+`;
+
+export const PostContainerBtn = styled.button`
+  padding: 10px;
+  margin: 10px auto;
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+  text-decoration: underline;
+  font-weight: bold;
+  font-family: GmarketSansMedium;
+  font-size: 20px;
+
+  border: 0;
+  background-color: transparent;
+  border: none;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+`;
+
+export const ReviewContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(20%, auto));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   place-items: center;
-	/* gap: 10px 20px; */
-`
+  /* gap: 10px 20px; */
+`;
 export const AllPostContainer = styled.div`
+  padding-left: 300px;
+  padding-right: 300px;
 `;
 
 export const TitleContainer = styled.div`
-  margin-left: 83px;
-  padding: 13px;
+  margin-left: 0px;
+  padding: 25px;
 
   text-decoration: underline;
   font-weight: bold;
@@ -378,30 +398,28 @@ export const TextContainer = styled.div`
   border-radius: 7px;
   position: absolute;
   bottom: 0px;
-  vertical-align: initial;
+  /* vertical-align: initial; */
 
-  /* visibility: visible; */
-  background-color: gray;
-  opacity: 0.7;
+  /* background-color: #5C5C55; */
+  background-color: rgba( 255, 255, 255, 0.5);
+
+  text-overflow: clip;
 `;
 
+export const PostImgContainer = styled.img`
+`;
 
-export const TextEmail = styled.div`
-margin: 10px;
+export const TextTitle = styled.div`
+  margin: 10px;
+  color: black;
+
+  font-size: 20px;
+  font-weight: bold;
 `;
 export const TextIndex = styled.div`
-margin: 10px;
-
+  margin: 10px;
+  color: black;
 `;
-export const TextItem = styled.div`
-margin: 10px;
-`;
-
-
-
-
-
-
 
 // NoPosts
 export const NoPostsWarp = styled.div``;
@@ -412,5 +430,3 @@ export const NoPostsText = styled.p``;
 export const MyPageTabWrap = styled.div``;
 export const MyPageTablist = styled.ul``;
 export const MyPageTebBtn = styled.button``;
-
-

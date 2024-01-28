@@ -3,79 +3,113 @@ import * as S from './style';
 import { db } from '../../Firebase';
 import { auth } from '../../Firebase';
 import { collection, getDocs } from 'firebase/firestore';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
-export type Review = {
+export type Post = {
   id: string;
-  email: string;
-  index: number;
-  itemName: string;
+  content: string;
+  title: string;
+  imageUrl: string;
+  createdAt: any;
 };
 
 const MyPagePost = () => {
-
-  const [reviews, setReviews] = useState<Review[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [email, setEmail] = useState<any>(auth.currentUser?.email);
   const currentUserInfos = auth.currentUser; // 현재 로그인한 사용자의 정보들(파이어베이스)
-  // const [currentUser, setCurrentUser] = useState<any>(''); // 현재 로그인한 사용자 가져오기
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [isall, setIsall] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchReviews = async () => {
+    const fetchPosts = async () => {
       try {
-        const q = collection(db, 'reviews');
+        const q = collection(db, 'posts');
         const querySnapshot = await getDocs(q);
-
-        const reviewsData: Review[] = [];
+        const postData: Post[] = [];
         querySnapshot.forEach(doc => {
           const data = doc.data();
           if (data.email === currentUserInfos?.email) {
-            reviewsData.push({
+            postData.push({
               id: doc.id,
-              email: data.email,
-              index: data.index,
-              itemName: data.itemName,
+              content: data.content,
+              title: data.title,
+              imageUrl: data.imageUrl,
+              createdAt: data.any,
             });
           }
         });
-        setReviews(reviewsData);
+        setPosts(postData);
         setLoading(false);
       } catch (error) {
-        console.error('Error fetching reviews:', error);
+        console.error('Error fetching posts:', error);
         setLoading(false);
       }
     };
 
-    fetchReviews();
+    fetchPosts();
   }, [currentUserInfos]);
 
   if (loading) {
     return <p>Loading...</p>;
   }
 
+  const viewAllHandler = (e: any) => {
+    isall === false ? setIsall(true) : setIsall(false);
+  };
+
   return (
     <S.AllPostContainer>
       <S.TitleContainer>등록게시글</S.TitleContainer>
-      {reviews.length > 0 ? (
-        <S.ReviewContainer>
-          {reviews.map(review => (
-            <S.PostContainer
-              key={review.id}
-            >
-              <S.TextContainer>
-                <S.TextEmail> {review.email}</S.TextEmail>
-                <S.TextIndex> {review.index}</S.TextIndex>
-                <S.TextItem> {review.itemName}</S.TextItem>
-              </S.TextContainer>
-            </S.PostContainer>
-          ))}
-        </S.ReviewContainer>
+      {posts.length > 0 ? (
+        <>
+          <S.ReviewContainer>
+            {posts.length < 5
+              ? posts.map(post => (
+                  <S.PostContainer key={post.id}>
+                    <S.PostImgContainer src={post.imageUrl} />
+                    <S.TextContainer>
+                      <S.TextTitle> {post.title}</S.TextTitle>
+                      <S.TextIndex> {post.content}</S.TextIndex>
+                    </S.TextContainer>
+                  </S.PostContainer>
+                ))
+              : isall === true
+              ? posts.map(post => (
+                  <S.PostContainer key={post.id}>
+                    <S.PostImgContainer src={post.imageUrl} />
+                    <S.TextContainer>
+                      <S.TextTitle> {post.title}</S.TextTitle>
+                      <S.TextIndex> {post.content}</S.TextIndex>
+                    </S.TextContainer>
+                  </S.PostContainer>
+                ))
+              : posts.map((post, i) =>
+                  i < 4 ? (
+                    <S.PostContainer key={post.id}>
+                      <S.PostImgContainer src={post.imageUrl} />
+                      <S.TextContainer>
+                        <S.TextTitle> {post.title}</S.TextTitle>
+                        <S.TextIndex> {post.content}</S.TextIndex>
+                      </S.TextContainer>
+                    </S.PostContainer>
+                  ) : (
+                    <></>
+                  )
+                )}
+          </S.ReviewContainer>
+          <>
+            {isall === false ? (
+              <S.PostContainerBtn onClick={viewAllHandler}>펼치기</S.PostContainerBtn>
+            ) : (
+              <S.PostContainerBtn onClick={viewAllHandler}>접기</S.PostContainerBtn>
+            )}
+          </>
+        </>
       ) : (
         <S.NoPostsContainer>
           <h2>등록된 게시글이 없습니다</h2>
-          <Link to="Community">
+          {/* <Link to="Community">
             <>게시글 등록하기</>
-          </Link>
+          </Link> */}
         </S.NoPostsContainer>
       )}
     </S.AllPostContainer>
