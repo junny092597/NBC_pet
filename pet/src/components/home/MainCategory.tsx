@@ -9,8 +9,6 @@ interface CategoryProps {
   onClick: () => void;
 }
 
-
-
 const MainCategory: React.FC<CategoryProps> = ({ title, imageSrc, description, buttonText, onClick }) => {
   return (
     <MainCategoryContainer onClick={onClick}>
@@ -26,7 +24,6 @@ const MainCategory: React.FC<CategoryProps> = ({ title, imageSrc, description, b
 const Categories = () => {
   const handleClick = () => {
     // 카테고리 클릭 이벤트 처리
-
   };
 
   return (
@@ -67,9 +64,9 @@ const MainCategoryContainer = styled.div`
   flex: 1;
   margin: 10px 70px;
   text-align: center;
-  width: 500px; 
+  width: 500px;
   height: auto; /* 높이를 자동으로 조절 */
-  position: relative; 
+  position: relative;
   cursor: pointer;
   overflow: visible; /* 버튼이 잘리지 않도록 설정 */
 `;
@@ -79,7 +76,7 @@ const CategoryImage = styled.img`
   height: 500px; /* 이미지 높이 고정 */
   object-fit: cover;
   border-radius: 8px;
-  transition: filter 0.3s ease; 
+  transition: filter 0.3s ease;
 
   &:hover {
     filter: blur(8px);
