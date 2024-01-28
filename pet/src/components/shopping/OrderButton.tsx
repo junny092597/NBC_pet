@@ -30,6 +30,10 @@ function OrderButton({ renderData, setRenderData }: OrderButtonProps): JSX.Eleme
     setRenderData(sorted);
   };
 
+  const searchOnclickHandler = () => {
+    alert('추후 업데이트 예정입니다.');
+  };
+
   return (
     <>
       <SProductsButtonContainer>
@@ -44,7 +48,7 @@ function OrderButton({ renderData, setRenderData }: OrderButtonProps): JSX.Eleme
         </SProductsButton>
         <SinputWrapper>
           <SsearchInput placeholder="제품을 검색해주세요" />
-          <SsearchButton>검색하기</SsearchButton>
+          <SsearchButton onClick={searchOnclickHandler}>검색하기</SsearchButton>
         </SinputWrapper>
       </SProductsButtonContainer>
     </>

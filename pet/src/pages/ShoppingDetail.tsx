@@ -163,6 +163,10 @@ function ShoppingDetail() {
     );
   }
 
+  const addToCartOnclickHandler = () => {
+    alert('추후 업데이트 예정입니다.');
+  };
+
   return (
     <>
       <SProductContainer>
@@ -189,7 +193,7 @@ function ShoppingDetail() {
             <SItemTotalPrice>총 금액 : {totalPrice}원</SItemTotalPrice>
           </SItemTotalPriceBox>
           <SOrderButtonBox>
-            <SAddToCartButton>ADD Tod Cart</SAddToCartButton>
+            <SAddToCartButton onClick={addToCartOnclickHandler}>ADD Tod Cart</SAddToCartButton>
             <SOrderButton
               onClick={() => {
                 if (data.userEmail !== '') {
