@@ -40,11 +40,14 @@ const categories: CategoryItem[] = [
   { title: '채팅', imageSrc: '/4.jpg', description: '내가 모르던 꿀팁을 \n바로 실시간으로?\n 퍼펫트의 모든 사람들과 \n내 상황을 공유하고,\n 실시간으로 솔류션을 \n받아보세요!', buttonText: '이야기하기', url: '/' },
 ];
 const Main: React.FC = () => {
-  const handleCategoryClick = (url: string) => {
-    window.location.href = url;
+  const handleCategoryClick = (url: string, title: string) => {
+    if (title === '채팅') {
+      alert('추후 업데이트 예정입니다');
+    } else {
+      window.location.href = url;
+    }
   };
   const EmptyArrow = () => null;
-
   const settings = {
     dots: true,
     infinite: true,
@@ -99,7 +102,7 @@ const Main: React.FC = () => {
             imageSrc={category.imageSrc}
             description={category.description} // 추가된 부분
             buttonText={category.buttonText}   // 추가된 부분
-            onClick={() => handleCategoryClick(category.url)}
+            onClick={() => handleCategoryClick(category.url, category.title)}
           />
         ))}
       </CategoriesContainer>
