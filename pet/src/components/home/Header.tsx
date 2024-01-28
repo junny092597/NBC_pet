@@ -109,6 +109,12 @@ const Headerbtn = styled.button`
     border: none;
     border-radius: 10px;
 
+    @media (max-width: 768px) {
+      width: 100px;
+      height: 35px;
+      font-size: 16px;
+    }
+
     &:hover {
       transform: scale(1.05);
     }
@@ -122,6 +128,11 @@ const HeaderContainer = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 const Image = styled.img`
@@ -142,8 +153,8 @@ const Navigation = styled.nav`
   li {
     margin-right: 60px;
 
-    &:hover {
-      transform: scale(1.05);
+    @media (max-width: 768px) {
+      margin-right: 20px;
     }
   }
 
@@ -153,6 +164,10 @@ const Navigation = styled.nav`
     font-family: GmarketSansMedium;
     gap: 20px;
     color: #312b2b;
+
+    @media (max-width: 768px) {
+      font-size: 18px;
+    }
 
     &:hover {
       transform: scale(1.05);

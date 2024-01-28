@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { db } from '../../Firebase';
+import { db, auth } from '../../Firebase';
 import { collection, query, onSnapshot } from 'firebase/firestore';
+import { onAuthStateChanged, User } from 'firebase/auth';
 
 const BoardContainer = styled.div`
   background-color: #ffffff;
@@ -66,35 +67,49 @@ interface Post {
   imageUrl?: string;
 }
 
-const DailyBoard = () => {
+const DailyBoard: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
+  const [user, setUser] = useState<User | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Set up auth state changed listener
+    const unsubscribeAuth = onAuthStateChanged(auth, currentUser => {
+      setUser(currentUser);
+    });
+
     const q = query(collection(db, 'posts'));
-    const unsubscribe = onSnapshot(q, querySnapshot => {
-      const postsArray: Post[] = [];
-      querySnapshot.forEach(doc => {
+    const unsubscribePosts = onSnapshot(q, querySnapshot => {
+      const postsArray = querySnapshot.docs.map(doc => {
         const data = doc.data();
-        postsArray.push({
+        const createdAt = data.createdAt?.toDate ? data.createdAt.toDate() : new Date();
+        return {
           id: doc.id,
           title: data.title,
-          createdAt: data.createdAt.toDate(),
+          createdAt,
           imageUrl: data.imageUrl,
-        });
+        } as Post;
       });
-
       setPosts(postsArray);
     });
-    return () => unsubscribe();
+
+    return () => {
+      unsubscribeAuth();
+      unsubscribePosts();
+    };
   }, []);
 
   const handleMoreClick = (postId: string) => {
-    console.log(`More button clicked for post ${postId}`);
+    navigate(`/posts/${postId}`);
   };
 
   const handleWriteButtonClick = () => {
-    navigate('/write-post');
+    if (user) {
+      navigate('/write-post');
+    } else {
+      alert('게시글을 작성하려면 로그인이 필요합니다. 로그인 페이지로 이동합니다.');
+      navigate('/signin'); // Redirect to login page
+    }
   };
 
   return (
@@ -102,7 +117,7 @@ const DailyBoard = () => {
       <WriteButton onClick={handleWriteButtonClick}>게시글 작성</WriteButton>
       {posts.map(post => (
         <PostContainer key={post.id} onClick={() => handleMoreClick(post.id)}>
-          <CircleImage src={post.imageUrl} alt="Post image" />
+          {post.imageUrl && <CircleImage src={post.imageUrl} alt="Post image" />}
           <PostTitle>{post.title}</PostTitle>
         </PostContainer>
       ))}

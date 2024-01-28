@@ -5,63 +5,41 @@ import { db } from '../../Firebase';
 import { storage } from '../../Firebase';
 import { collection, addDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { AiOutlineCloudUpload } from 'react-icons/ai';
 
 const FormContainer = styled.div`
   background-color: #ffffff;
   padding: 30px;
   width: 80%;
   margin: auto;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
 `;
 
 const Input = styled.input`
   width: 100%;
   padding: 10px;
-  margin-bottom: 10px;
+  margin: 10px 0;
   border: 1px solid #ddd;
   border-radius: 4px;
-`;
-
-const ContentContainer = styled.div`
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  margin-bottom: 20px;
-`;
-
-const FileInput = styled.input`
-  display: none;
 `;
 
 const Textarea = styled.textarea`
-  width: calc(100% - 20px);
+  width: 100%;
   height: 150px;
   padding: 10px;
-  border: none;
-  border-bottom: 1px solid #ddd;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
 `;
 
 const SubmitButton = styled.button`
-  display: block;
-  width: 100%;
-  padding: 10px 0;
+  padding: 10px 15px;
   background-color: #4caf50;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  margin-top: 20px;
 `;
 
-const Toolbar = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 5px;
-  background-color: #f8f8f8;
-`;
-
-const WritePost = () => {
+const WriteQuestionPost = () => {
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
   const [file, setFile] = useState<File | null>(null);
@@ -73,19 +51,19 @@ const WritePost = () => {
       let imageUrl = '';
 
       if (file) {
-        const fileRef = ref(storage, `posts/${file.name}`);
+        const fileRef = ref(storage, `questions/${file.name}`);
         const snapshot = await uploadBytes(fileRef, file);
         imageUrl = await getDownloadURL(snapshot.ref);
       }
 
-      await addDoc(collection(db, 'posts'), {
+      await addDoc(collection(db, 'questions'), {
         title: title,
         content: content,
         imageUrl: imageUrl,
         createdAt: new Date(),
       });
 
-      navigate('/daily');
+      navigate('/questions'); // 질문 게시판 목록으로 리디렉션
     } catch (error) {
       console.error('Error adding document: ', error);
     }
@@ -98,24 +76,21 @@ const WritePost = () => {
     }
   };
 
-  const handleFileClick = () => {
-    document.getElementById('fileInput')?.click();
-  };
-
   return (
     <FormContainer>
       <form onSubmit={handleSubmit}>
-        <Input type="text" placeholder="제목을 입력하세요" value={title} onChange={e => setTitle(e.target.value)} />
-        <ContentContainer>
-          <Textarea placeholder="내용을 입력하세요" value={content} onChange={e => setContent(e.target.value)} />
-          <Toolbar>
-            <AiOutlineCloudUpload size="24px" onClick={handleFileClick} />
-            <FileInput id="fileInput" type="file" onChange={handleFileChange} />
-          </Toolbar>
-        </ContentContainer>
-        <SubmitButton type="submit">게시글 제출</SubmitButton>
+        <Input
+          type="text"
+          placeholder="질문의 제목을 입력하세요"
+          value={title}
+          onChange={e => setTitle(e.target.value)}
+        />
+        <Textarea placeholder="질문의 내용을 입력하세요" value={content} onChange={e => setContent(e.target.value)} />
+        <Input type="file" onChange={handleFileChange} />
+        <SubmitButton type="submit">질문 게시글 제출</SubmitButton>
       </form>
     </FormContainer>
   );
 };
-export default WritePost;
+
+export default WriteQuestionPost;
