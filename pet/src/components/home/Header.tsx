@@ -123,8 +123,8 @@ const HeaderContainer = styled.header`
 `;
 
 const Image = styled.img`
-  width: 17%;
-  height: 17%;
+  width: 10%;
+  height: 8%;
   margin-right: 0px;
 `;
 
