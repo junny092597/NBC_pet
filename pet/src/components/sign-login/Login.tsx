@@ -152,8 +152,7 @@ const Login = () => {
     <Container>
       <form onSubmit={localLogin}>
         <>
-          <Title>로
-            그인</Title>
+          <Title>로그인</Title>
           <InputContainer>
             <Inputcat type="email" name="email" placeholder="이메일 (6~30글자)" value={email} onChange={onChange} />
             <Inputdog
