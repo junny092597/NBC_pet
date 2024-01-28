@@ -37,7 +37,7 @@ const categories: CategoryItem[] = [
   buttonText: '지도 보기', 
   url: '/map' 
 },
-  { title: '가족찾기', imageSrc: '/4.jpg', description: '가족찾기 설명', buttonText: '찾아보기', url: '/' },
+  { title: '채팅', imageSrc: '/4.jpg', description: '내가 모르던 꿀팁을 \n바로 실시간으로?\n 퍼펫트의 모든 사람들과 \n내 상황을 공유하고,\n 실시간으로 솔류션을 \n받아보세요!', buttonText: '이야기하기', url: '/' },
 ];
 const Main: React.FC = () => {
   const handleCategoryClick = (url: string) => {
@@ -64,7 +64,7 @@ const Main: React.FC = () => {
           <BannerImage src={banner1} alt="Banner 1" />
           <BannerText>
             <BannerTitle>우리 아이 아플땐 어디로?</BannerTitle>
-            <BannerDescription>가까운 병원 찾기</BannerDescription>
+            <BannerDescription>가까운 병원 찾기:'맵'을 이용해보세요</BannerDescription>
           </BannerText>
         </BannerSlide>
         <BannerSlide>
@@ -84,8 +84,8 @@ const Main: React.FC = () => {
         <BannerSlide>
           <BannerImage src={banner2} alt="Banner 4" />
           <BannerText>
-            <BannerTitle>큰 제목 4</BannerTitle>
-            <BannerDescription>내용 4</BannerDescription>
+            <BannerTitle>지금 같이 '댕댕이' 이야기 할사람?</BannerTitle>
+            <BannerDescription>지금 다른 반려인들과 실시간으로 채팅을 하고, 정보를 나누세요!</BannerDescription>
           </BannerText>
         </BannerSlide>
       </Slider>
@@ -109,9 +109,12 @@ const Main: React.FC = () => {
           <img src={perpet} alt="설명" />
         </ImageContainer>
         <TextContainer>
-          <Title>For Pet</Title>
-          <Description>Pet들을 위한 Perfect한 정보</Description>
-          // ... 추가적인 텍스트나 요소들 ...
+          <Title>For Pet: Pet들을 위한 Perfect한 정보</Title>
+          <Description></Description>
+          For Pet에서는 반려동물과 그들의 가족에게 꼭 필요한 정보와 지식을 공유합니다.<br/><br/>
+          우리는 반려동물의 건강, 행복, 그리고 장수를 위한 실용적인 조언과 전문적인 인사이트를 나눕니다.<br/><br/>
+          여러분의 소중한 친구들이 더욱 건강하고 행복한 삶을 누릴 수 있도록, 더욱 함께하는 서비스를 제공합니다.<br/><br/>
+          함께 성장하고, 배우고, 사랑을 나누세요. 여러분과 여러분의 반려동물이 행복한 순간을 만들어 가는 데에 For Pet가 도움이 되기를 바랍니다.<br/><br/>
         </TextContainer>
       </ContentSection>
     </MainContainer>
@@ -173,7 +176,7 @@ const BannerDescription = styled.p`
 
 const ImageContainer = styled.div`
   flex: 0 0 auto; // 이미지 크기를 유지
-  margin-right: -20px; // 이미지와 텍스트 사이 간격
+  margin-right: -250px; // 이미지와 텍스트 사이 간격
 
   img {
     width: 300px; // 이미지 너비 조절
@@ -195,10 +198,12 @@ const TextContainer = styled.div`
 `;
 
 const Title = styled.h1`
-  // 제목 스타일
+font-size: 2.5em; // 제목의 크기를 크게 설정
+font-weight: bold; // 제목을 두껍게 설정
+margin-bottom: 1em; // 제목 아래의 여백 설정
 `;
-
 const Description = styled.p`
-  // 내용 스타일
+font-size: 1.2em; // 본문 글자 크기 증가
+// 추가적으로 원하는 본문 스타일
 `;
 export default Main;
