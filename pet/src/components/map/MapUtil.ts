@@ -3,7 +3,7 @@ import { SetStateAction } from "react";
 // 카테고리별 마커 이미지 경로
 const markerImagePaths: { [key: string]: string } = {
   '반려동물 병원': process.env.PUBLIC_URL + 'HospitalCat.png',
-  '반려동물 샵': process.env.PUBLIC_URL + 'Shopcat.png',
+  '반려동물 샵': process.env.PUBLIC_URL + 'ShopCat.png',
   '산책로': process.env.PUBLIC_URL + 'ParkCat.png'
 };
 
