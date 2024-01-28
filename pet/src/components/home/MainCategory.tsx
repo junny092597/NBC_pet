@@ -10,26 +10,6 @@ interface CategoryProps {
 }
 
 
-const MainCategory: React.FC<CategoryProps> = ({ title, imageSrc }) => {
-  const handleCategoryClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    event.preventDefault(); // 기본 동작 방지
-    // 클릭한 카테고리에 따라 페이지 이동
-    switch (title) {
-      case '커뮤니티':
-        window.location.href = '/community';
-        break;
-      case '쇼핑':
-        window.location.href = '/shopping';
-        break;
-      case '맵':
-        window.location.href = '/map';
-        break;
-      case '가족찾기':
-        window.location.href = '/';
-        break;
-      default:
-        break;
-    }
 
 const MainCategory: React.FC<CategoryProps> = ({ title, imageSrc, description, buttonText, onClick }) => {
   return (
