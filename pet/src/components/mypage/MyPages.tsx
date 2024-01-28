@@ -11,6 +11,7 @@ import * as S from './style';
 import basicProfileImg from '../../assets/images/logo.png';
 import { User } from 'firebase/auth';
 import MyProfileModal from './MyProfileModal';
+import MyPagePost from './MyPagePost';
 
 type CurrentUserProfile = User | null;
 
@@ -52,14 +53,16 @@ const MyProfile = () => {
             onClick={handleOpen}
           />
         </S.ProfileImgWrapper>
-      <S.ProfileNickname>
-          {currentUser.displayName ? currentUser.displayName : user.userInfomation.displayName}
+        <S.ProfileNickname>
+          {currentUser.displayName ? currentUser.displayName : user.userInfomation.nickName}
           <S.ModifyCompleteButton type="button">
             <MyProfileModal />
           </S.ModifyCompleteButton>
         </S.ProfileNickname>
-        </S.ProfileContainer>
-      {/* <S.TabContainer></S.TabContainer> */}
+      </S.ProfileContainer>
+      <S.TabContainer>
+        <MyPagePost />
+      </S.TabContainer>
     </S.MyPageAll>
   );
 };

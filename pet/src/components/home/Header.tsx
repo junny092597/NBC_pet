@@ -3,7 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../../redux/modules/AuthSlice';
 
+import logoutbtn from '../../assets/images/logo3.png';
 import logo from '../../assets/images/logo.png';
+
 import styled from 'styled-components';
 import { BsSearchHeart } from 'react-icons/bs';
 import Swal from 'sweetalert2';
@@ -62,10 +64,10 @@ const Header: React.FC = () => {
                   text: '로그아웃 되셨습니다.',
                   confirmButtonColor: '#20b2aa',
                   confirmButtonText: '확인',
-                  // imageUrl: logo1,
-                  // imageWidth: 130,
-                  // imageHeight: 130,
-                  // imageAlt: "Custom image",
+                  imageUrl: logoutbtn,
+                  imageWidth: 130,
+                  imageHeight: 130,
+                  imageAlt: "Custom image",
                 });
                 dispatch(logout());
                 navigate('/');
