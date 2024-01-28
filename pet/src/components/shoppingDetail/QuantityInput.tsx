@@ -1,12 +1,6 @@
 import React from 'react';
-interface Item {
-  id: number;
-  price: number;
-  name: string;
-  img: string;
-  category: string;
-  type: string;
-}
+import styled from 'styled-components';
+
 interface QuantityInputProps {
   onclickQuantityHandler: (num: number) => void;
   quantity: number;
@@ -14,21 +8,33 @@ interface QuantityInputProps {
 function QuantityInput({ quantity, onclickQuantityHandler }: QuantityInputProps): JSX.Element {
   return (
     <>
-      <button
+      <Button
         onClick={() => {
           onclickQuantityHandler(-1);
         }}>
         -
-      </button>
+      </Button>
       {quantity}
-      <button
+      <Button
         onClick={() => {
           onclickQuantityHandler(1);
         }}>
         +
-      </button>
+      </Button>
     </>
   );
 }
 
 export default QuantityInput;
+
+const Button = styled.button`
+  background: none;
+  border: none;
+  padding: 0; /* 내부 여백을 없애는 속성 추가 */
+  transition: background-color 0.3s; /* 변화를 부드럽게 만들기 위한 트랜지션 속성 추가 */
+  font-size: 20px;
+  &:hover {
+    font-weight: bold;
+    cursor: pointer; /* 호버 시 커서 모양 변경 */
+  }
+`;

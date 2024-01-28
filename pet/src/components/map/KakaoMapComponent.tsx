@@ -72,7 +72,7 @@ const KakaoMapComponent: React.FC = () => {
 
     useEffect(() => {
         if (locationPermission === false) {
-            alert("지도를 사용하려면 우측 상단에서 위치 정보 제공에 동의 후 새로고침을 해주세요.");
+            alert("지도를 사용하려면 상단에서 위치 정보 제공에 동의 후 새로고침을 해주세요.");
         }
     }, [locationPermission]);
 

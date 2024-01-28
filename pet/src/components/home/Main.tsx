@@ -1,40 +1,50 @@
 import React from 'react';
 import styled from 'styled-components';
 import Slider from 'react-slick';
-import Category from './MainCategory';
-import banner1 from '../../assets/images/banner1.png';
-import banner2 from '../../assets/images/banner2.png';
-import banner3 from '../../assets/images/banner3.png';
+import MainCategory from './MainCategory'; // 경로 확인 필요
+import banner1 from '../../assets/images/banner1.png'; // 실제 경로에 따라 다름
+import banner2 from '../../assets/images/banner2.png'; // 실제 경로에 따라 다름
+import banner3 from '../../assets/images/banner3.png'; // 실제 경로에 따라 다름
+import perpet from '../../assets/images/perpet.png';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 interface CategoryItem {
   title: string;
   imageSrc: string;
+  description: string;  // 추가된 속성
+  buttonText: string; 
+  url: string;
 }
 
 const categories: CategoryItem[] = [
-  { title: '커뮤니티', imageSrc: '/1.jpg' },
-  { title: '쇼핑', imageSrc: '/2.jpg' },
-  { title: '맵', imageSrc: '/3.jpg' },
-  { title: '가족찾기', imageSrc: '/4.jpg' },
+  {
+    title: '커뮤니티',
+    imageSrc: '/CommunityCard.png',
+    description: '유튜브 Shorts, \n다른 사람들과의 소통으로 \n나만의 꿑팁을 전수하고, \n다른 반려인들과 \n즐거운 시간을 보내세요!',
+    buttonText: '커뮤니티',
+    url: '/community'
+  },
+  { title: '쇼핑', 
+  imageSrc: '/ShoppingCard.png', 
+  description: '아이들이 가장 좋아하는, \n그리고 영양만점의 사료와 \n간식들을 담았습니다! \n맛과 영양을 모두 잡은 \n제품들을 만나보세요!', 
+  buttonText: '쇼핑 하기', 
+  url: '/shopping' 
+},
+  { title: '맵', 
+  imageSrc: '/HospitalCard.png', 
+  description: '당장 아이에게 \n필요한 것은 많고, \n이 동네는 잘 모르겠고, \n뭘 해야할지 모르겠다면?\n지도로 내 위치를 파악하고, \n근처에 있는 \n여러 가게와 \n병원들을 탐색하세요!', 
+  buttonText: '지도 보기', 
+  url: '/map' 
+},
+  { title: '채팅', imageSrc: '/4.jpg', description: '내가 모르던 꿀팁을 \n바로 실시간으로?\n 퍼펫트의 모든 사람들과 \n내 상황을 공유하고,\n 실시간으로 솔류션을 \n받아보세요!', buttonText: '이야기하기', url: '/' },
 ];
-
-interface ArrowProps {
-  className?: string;
-  style?: React.CSSProperties;
-  onClick?: React.MouseEventHandler<HTMLDivElement>;
-}
-
-const SampleNextArrow: React.FC<ArrowProps> = ({ className, style, onClick }) => {
-  return <div className={className} style={{ ...style, display: 'block' }} onClick={onClick} />;
-};
-
-const SamplePrevArrow: React.FC<ArrowProps> = ({ className, style, onClick }) => {
-  return <div className={className} style={{ ...style, display: 'block' }} onClick={onClick} />;
-};
-
 const Main: React.FC = () => {
+  const handleCategoryClick = (url: string) => {
+    window.location.href = url;
+  };
+  const EmptyArrow = () => null;
+
   const settings = {
     dots: true,
     infinite: true,
@@ -43,8 +53,8 @@ const Main: React.FC = () => {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
-    nextArrow: <SampleNextArrow />,
-    prevArrow: <SamplePrevArrow />,
+  nextArrow: <EmptyArrow />,
+  prevArrow: <EmptyArrow />,
   };
 
   return (
@@ -54,7 +64,7 @@ const Main: React.FC = () => {
           <BannerImage src={banner1} alt="Banner 1" />
           <BannerText>
             <BannerTitle>우리 아이 아플땐 어디로?</BannerTitle>
-            <BannerDescription>가까운 병원 찾기</BannerDescription>
+            <BannerDescription>가까운 병원 찾기:'맵'을 이용해보세요</BannerDescription>
           </BannerText>
         </BannerSlide>
         <BannerSlide>
@@ -74,79 +84,126 @@ const Main: React.FC = () => {
         <BannerSlide>
           <BannerImage src={banner2} alt="Banner 4" />
           <BannerText>
-            <BannerTitle>큰 제목 4</BannerTitle>
-            <BannerDescription>내용 4</BannerDescription>
+            <BannerTitle>지금 같이 '댕댕이' 이야기 할사람?</BannerTitle>
+            <BannerDescription>지금 다른 반려인들과 실시간으로 채팅을 하고, 정보를 나누세요!</BannerDescription>
           </BannerText>
         </BannerSlide>
       </Slider>
 
-      <Title>카테고리</Title>
+      
       <CategoriesContainer>
         {categories.map((category, index) => (
-          <Category
+          <MainCategory
             key={index}
             title={category.title}
             imageSrc={category.imageSrc}
-            onClick={() => {
-              throw new Error('Function not implemented.');
-            }}
+            description={category.description} // 추가된 부분
+            buttonText={category.buttonText}   // 추가된 부분
+            onClick={() => handleCategoryClick(category.url)}
           />
         ))}
       </CategoriesContainer>
+
+      <ContentSection>
+        <ImageContainer>
+          <img src={perpet} alt="설명" />
+        </ImageContainer>
+        <TextContainer>
+          <Title>For Pet: Pet들을 위한 Perfect한 정보</Title>
+          <Description></Description>
+          For Pet에서는 반려동물과 그들의 가족에게 꼭 필요한 정보와 지식을 공유합니다.<br/><br/>
+          우리는 반려동물의 건강, 행복, 그리고 장수를 위한 실용적인 조언과 전문적인 인사이트를 나눕니다.<br/><br/>
+          여러분의 소중한 친구들이 더욱 건강하고 행복한 삶을 누릴 수 있도록, 더욱 함께하는 서비스를 제공합니다.<br/><br/>
+          함께 성장하고, 배우고, 사랑을 나누세요. 여러분과 여러분의 반려동물이 행복한 순간을 만들어 가는 데에 For Pet가 도움이 되기를 바랍니다.<br/><br/>
+        </TextContainer>
+      </ContentSection>
     </MainContainer>
   );
 };
 
 const MainContainer = styled.main`
-  padding: 2rem;
+padding: 0; 
+  margin: 0; 
+  width: 100%; 
   text-align: center;
   font-family: GmarketSansMedium;
-`;
-
-const Title = styled.p`
-  font-size: 30px;
-  margin: 20px auto;
-  color: #312b2b;
+  background-color: #FAFAF4;
+  
+  
 `;
 
 const CategoriesContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+  width: 95%;
   justify-content: space-around;
   align-items: flex-start;
-  max-width: 900px;
-  margin: 0 auto;
+
+  margin: 80px auto 0;
 `;
 
 const BannerSlide = styled.div`
-  position: relative; // 상대적 위치 설정
+  position: relative;
   width: 100%;
-  height: 500px; // 높이 조정이 필요하다면 변경하세요
+  height: 500px;
+  overflow: hidden;
 `;
 
 const BannerImage = styled.img`
   width: 100%;
   height: 100%;
-  object-fit: cover; // 이미지가 컨테이너를 채우도록 조정
+  object-fit: cover;
 `;
 
 const BannerText = styled.div`
   position: absolute;
   top: 50%;
-  right: 400px; // 우측 간격 조정
-  transform: translateY(-50%); // 세로 중앙 정렬
-  text-align: right; // 텍스트를 오른쪽 정렬
-  color: black; // 글자색은 이미지에 맞게 조정
+  right: 400px;
+  transform: translateY(-50%);
+  text-align: right;
+  color: black;
 `;
 
 const BannerTitle = styled.h1`
-  font-size: 24px; // 제목 크기 조정
-  font-weight: bold; // 글자 두께 조정
-  margin-bottom: 15px; // 제목과 설명 사이의 간격
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
 `;
 
 const BannerDescription = styled.p`
-  font-size: 16px; // 설명 글자 크기 조정
+  font-size: 16px;
 `;
 
+const ImageContainer = styled.div`
+  flex: 0 0 auto; // 이미지 크기를 유지
+  margin-right: -250px; // 이미지와 텍스트 사이 간격
+
+  img {
+    width: 300px; // 이미지 너비 조절
+    height: auto; // 높이 자동 조절
+    margin-left: 150px;
+  }
+`;
+const ContentSection = styled.section`
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  margin-top: 250px; // 필요에 따라 조절
+`;
+
+
+
+const TextContainer = styled.div`
+  flex: 1; // 나머지 공간을 차지
+`;
+
+const Title = styled.h1`
+font-size: 2.5em; // 제목의 크기를 크게 설정
+font-weight: bold; // 제목을 두껍게 설정
+margin-bottom: 1em; // 제목 아래의 여백 설정
+`;
+const Description = styled.p`
+font-size: 1.2em; // 본문 글자 크기 증가
+// 추가적으로 원하는 본문 스타일
+`;
 export default Main;

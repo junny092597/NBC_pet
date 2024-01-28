@@ -3,7 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../../redux/modules/AuthSlice';
 
+import logoutbtn from '../../assets/images/logo3.png';
 import logo from '../../assets/images/logo.png';
+
 import styled from 'styled-components';
 import { BsSearchHeart } from 'react-icons/bs';
 import Swal from 'sweetalert2';
@@ -48,7 +50,7 @@ const Header: React.FC = () => {
             <a href="/map">맵</a>
           </li>
           <li>
-            <a href="/">가족찾기</a>
+            <a href="/">실시간 채팅</a>
           </li>
         </ul>
       </Navigation>
@@ -62,10 +64,10 @@ const Header: React.FC = () => {
                   text: '로그아웃 되셨습니다.',
                   confirmButtonColor: '#20b2aa',
                   confirmButtonText: '확인',
-                  // imageUrl: logo1,
-                  // imageWidth: 130,
-                  // imageHeight: 130,
-                  // imageAlt: "Custom image",
+                  imageUrl: logoutbtn,
+                  imageWidth: 130,
+                  imageHeight: 130,
+                  imageAlt: "Custom image",
                 });
                 dispatch(logout());
                 navigate('/');
@@ -114,7 +116,7 @@ const Headerbtn = styled.button`
 `;
 
 const HeaderContainer = styled.header`
-  background-color: #f6d6d6;
+  background-color: #F6F7C4;
   color: #312b2b;
   padding: 1em;
   display: flex;
@@ -123,8 +125,8 @@ const HeaderContainer = styled.header`
 `;
 
 const Image = styled.img`
-  width: 70%;
-  height: 70%;
+  width: 10%;
+  height: 8%;
   margin-right: 0px;
 `;
 

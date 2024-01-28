@@ -3,9 +3,9 @@ export interface UserInfoState {
     userInfomation: UserInfomation 
 }
 
-export interface UserInfomation {
-    displayName: string | null;
-    emil: string | null;
+export interface UserInfomation  {
+    nickName: string | null;
+    email: string | null;
     photoURL: string | null;
     uid: string | null;
 }

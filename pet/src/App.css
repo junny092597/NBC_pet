@@ -54,22 +54,3 @@
   }
 }
 
-.slick-prev, .slick-next {
-  z-index: 2;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.slick-prev {
-  left: 20px;
-}
-
-.slick-next {
-  right: 20px;
-}
-
-.slick-prev, .slick-next {
-  width: 50px;       /* 버튼의 크기 */
-  height: 50px;      /* 버튼의 크기 */
-  background: white; /* 버튼의 배경색 */
-}

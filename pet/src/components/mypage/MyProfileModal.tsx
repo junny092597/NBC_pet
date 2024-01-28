@@ -112,8 +112,6 @@ const MyProfileEditModal = () => {
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="modal-title"
-        aria-describedby="modal-escription"
       >
         <S.EditModalAll>
           <Box sx={style}>
