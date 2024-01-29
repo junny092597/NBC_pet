@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useState } from 'react';
 
@@ -17,8 +17,15 @@ interface OrderButtonProps {
 
 function OrderButton({ renderData, setRenderData }: OrderButtonProps): JSX.Element {
   const [isActive, setIsActive] = useState(false);
+  const [inputIndex, setInputIndex] = useState<string>('');
+  const [originalData, setOriginalData] = useState<Item[]>([]);
+
+  useEffect(() => {
+    setOriginalData(renderData);
+  }, [renderData]);
+
   const handleSortClick = (sortOrder: 'higePrice' | 'lowPrice' | 'new') => {
-    const sorted = [...renderData];
+    const sorted = [...originalData];
 
     if (sortOrder === 'higePrice') {
       sorted.sort((a, b) => a.price - b.price);
@@ -30,8 +37,18 @@ function OrderButton({ renderData, setRenderData }: OrderButtonProps): JSX.Eleme
     setRenderData(sorted);
   };
 
+  const searchData = (e: { target: { value: React.SetStateAction<string> } }) => {
+    setInputIndex(e.target.value);
+  };
+
   const searchOnclickHandler = () => {
-    alert('추후 업데이트 예정입니다.');
+    // 검색어에 따라 최초의 renderData를 기준으로 데이터를 필터링합니다.
+    const newFilteredData = originalData.filter(item => item.name.includes(inputIndex));
+
+    // 필터링된 데이터로 UI를 업데이트합니다.
+    setOriginalData(newFilteredData);
+    setRenderData(newFilteredData);
+    setInputIndex('');
   };
 
   return (
@@ -47,7 +64,7 @@ function OrderButton({ renderData, setRenderData }: OrderButtonProps): JSX.Eleme
           높은가격순
         </SProductsButton>
         <SinputWrapper>
-          <SsearchInput placeholder="제품을 검색해주세요" />
+          <SsearchInput type="text" value={inputIndex} placeholder="제품을 검색해주세요" onChange={searchData} />
           <SsearchButton onClick={searchOnclickHandler}>검색하기</SsearchButton>
         </SinputWrapper>
       </SProductsButtonContainer>
