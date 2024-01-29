@@ -10,7 +10,7 @@ export const ProfileContainer = styled.div`
 `;
 
 export const ProfileImgWrapper = styled.div`
-  margin-top: 48px;
+  margin-top: 65px;
 `;
 
 export const ProfileImgShow = styled.img`
@@ -52,13 +52,6 @@ export const InfoTitle = styled.p`
   font-size: 16px;
   margin-bottom: 0.2rem;
   color: black;
-`;
-
-export const NicknameModifyBox = styled.div`
-  border-bottom: 2px solid gray;
-  padding: 10px;
-  width: 20%;
-  margin: 2vh 15vh;
 `;
 
 export const InfoHolder = styled.div`
@@ -134,7 +127,8 @@ export const MyBookmarkReportWrap = styled.div``;
  * 프로필 모달창
  */
 
-export const EditModalAll = styled.div``;
+export const EditModalAll = styled.div`
+`;
 
 export const EditModalBtnText = styled.div`
   cursor: pointer;
@@ -225,7 +219,7 @@ export const EditModalBtnWrapper = styled.div`
   display: flex;
   justify-content: space-evenly;
   text-align: center;
-  margin-top: 4rem;
+  margin-top: 3rem;
 `;
 
 export const EditModalCanceleButton = styled.button`
@@ -234,10 +228,9 @@ export const EditModalCanceleButton = styled.button`
   gap: 8px;
   width: 170px;
   height: 60px;
-  background: black;
+  background: #81BE97;
   border: 1px solid;
   border-radius: 8px;
-  /* Title Text */
   font-family: GmarketSansMedium;
   font-size: 16px;
   text-align: center;
@@ -250,11 +243,9 @@ export const EditModalCompleteButton = styled.button`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 8px;
-  gap: 8px;
   width: 170px;
   height: 60px;
-  background-color: black;
+  background: #81BE97;
   border: 1px solid;
   border-radius: 8px;
   font-family: GmarketSansMedium;
@@ -308,14 +299,16 @@ export const MyBookmarkReportBox = styled.div``;
 
 export const MyTitleTabBtn = styled.button`
   background-color: transparent;
+  font-family: GmarketSansMedium;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 25px;
   text-align: center;
   display: block;
   border: none;
   color: black;
-  padding-bottom: 10px;
-  margin-top: 13px;
+  padding-bottom: 1px;
+  margin-top: 7px;
+  margin-right: 16px;
   text-decoration: none;
 
   cursor: pointer;
@@ -326,6 +319,15 @@ export const MyTitleTabBtn = styled.button`
   }
 `;
 
+export const MyTitleTab = styled.h2`
+  font-family: GmarketSansMedium;
+  font-weight: bold;
+  font-size: 25px;
+  color: black;
+  margin-top: 16px;
+  margin-left: 16px;
+`;
+
 export const MyBookmarkReportTabMenu = styled.ul`
   padding: 0;
   height: 50px;
@@ -333,12 +335,15 @@ export const MyBookmarkReportTabMenu = styled.ul`
   border-bottom: 0;
 `;
 export const PostContainer = styled.div`
+  cursor: pointer;
   height: 360px;
   width: 300px;
   padding: 0px;
   margin: 10px;
   margin-bottom: 50px;
-  border: solid grey;
+  border: solid;
+  border: none;
+  box-shadow: 0.5px 2px 2px 0px gray;
   border-radius: 10px;
   position: relative;
   display: flex;
@@ -350,20 +355,15 @@ export const PostContainerBtn = styled.button`
   padding: 10px;
   margin: 10px auto;
   cursor: pointer;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   text-align: center;
   text-decoration: underline;
-  font-weight: bold;
   font-family: GmarketSansMedium;
   font-size: 20px;
-
   border: 0;
   background-color: transparent;
-  border: none;
 
   &:hover {
     transform: scale(1.05);
@@ -384,46 +384,83 @@ export const AllPostContainer = styled.div`
 export const TitleContainer = styled.div`
   margin-left: 0px;
   padding: 25px;
-
   text-decoration: underline;
   font-weight: bold;
+  margin-top: 15px;
   font-family: GmarketSansMedium;
   font-size: 25px;
+  color: #2e2e2b;
 `;
 
 export const TextContainer = styled.div`
-  width: 245px;
+  width: 300px;
   display: grid;
   grid-template-rows: minmax(30px, auto);
   border-radius: 7px;
   position: absolute;
   bottom: 0px;
+  color: #2e2e2b;
+  background-color: rgba(255, 255, 255, 0.5);
+  /* text-overflow: clip; */
+  object-fit: cover;
+
   /* vertical-align: initial; */
-
   /* background-color: #5C5C55; */
-  background-color: rgba( 255, 255, 255, 0.5);
-
-  text-overflow: clip;
 `;
 
 export const PostImgContainer = styled.img`
+  display: block;
+  width: auto;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+
+  border: none;
+  border-radius: 9px;
 `;
 
 export const TextTitle = styled.div`
   margin: 10px;
   color: black;
-
   font-size: 20px;
   font-weight: bold;
+  color: #5c5c55;
 `;
+
 export const TextIndex = styled.div`
   margin: 10px;
-  color: black;
+  font-size: 14px;
+  color: #5c5c55;
 `;
 
 // NoPosts
+export const NoPostsContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 80px;
+  flex-direction: column;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: GmarketSansMedium;
+  color: #2e2e2b;
+`;
+
+export const NoPostsBtn = styled.button`
+  margin-top: 30px;
+  margin-bottom: 50px;
+  font-family: GmarketSansMedium;
+  font-size: 15px;
+  color: #2e2e2b;
+  cursor: pointer;
+  background-color: #a1eebd;
+  border-radius: 7px;
+  border: none;
+  width: 135px;
+  height: 45px;
+`;
+
 export const NoPostsWarp = styled.div``;
-export const NoPostsContainer = styled.div``;
 export const NoPostsImg = styled.img``;
 export const NoPostsText = styled.p``;
 
