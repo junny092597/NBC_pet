@@ -7,8 +7,9 @@ const PageContainer = styled.div`
 `;
 
 const SidebarContainer = styled.div`
+  background-color: #e2faeb;
   width: 200px;
-  border-right: 1px solid #ccc;
+  border-right: 1px solid #f5f5f5;
   display: flex;
   flex-direction: column;
   padding: 10px;
@@ -17,14 +18,14 @@ const SidebarContainer = styled.div`
 const TabButton = styled.button<{ isActive: boolean }>`
   padding: 10px;
   border: none;
-  background-color: ${props => (props.isActive ? '#eee' : 'transparent')};
+  background-color: ${props => (props.isActive ? '#f5f5dc' : 'transparent')};
   cursor: pointer;
   text-align: left;
   width: 100%;
   border-bottom: 1px solid #ddd;
 
   &:hover {
-    background-color: #f5f5f5;
+    background-color: #d9f8e5;
   }
 
   &:last-child {

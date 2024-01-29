@@ -9,26 +9,27 @@ const BoardContainer = styled.div`
   background-color: #ffffff;
   padding: 30px;
   width: 80%;
-  margin-left: 10%;
+  margin-left: 8%;
   position: relative;
-  border: 1px solid red;
+  border: 2px solid #ebebdd; // 테두리 색상 설정
+  border-radius: 10px; // 모서리 둥글게 설정
 `;
 
 const PostContainer = styled.div`
-  width: 100%;
-  background-color: #f0f0f0;
-  border-radius: 8px;
+  width: calc(100% - 100px);
+  background-color: #e6e6d5;
+  border-radius: 30px;
   padding: 30px;
   margin-bottom: 30px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: relative;
+  left: 90px;
   cursor: pointer;
   &:hover {
     background-color: #eaeaea;
   }
-  border: 1px solid blue;
 `;
 
 const PostTitle = styled.h3`
@@ -44,7 +45,7 @@ const CircleImage = styled.img`
   margin-right: 15px;
   border: 1px solid #000;
   position: absolute;
-  left: -100px;
+  left: -85px;
   top: 50%;
   transform: translateY(-50%);
 `;
@@ -73,11 +74,14 @@ const LoadMoreButton = styled.button`
   display: block; // 블록 레벨 요소로 만들어주어야 함
 `;
 
+const defaultImage = process.env.PUBLIC_URL + 'no image.jpg';
+
 interface Post {
   id: string;
   title: string;
   createdAt: Date;
   imageUrl?: string;
+  views: number;
 }
 
 const DailyBoard: React.FC = () => {
@@ -102,6 +106,7 @@ const DailyBoard: React.FC = () => {
           title: data.title,
           createdAt: data.createdAt.toDate(),
           imageUrl: data.imageUrl,
+          views: data.views || 0,
         });
       });
       setPosts(postsArray);
@@ -136,7 +141,7 @@ const DailyBoard: React.FC = () => {
       <WriteButton onClick={handleWriteButtonClick}>게시글 작성</WriteButton>
       {visiblePosts.map(post => (
         <PostContainer key={post.id} onClick={() => handleMoreClick(post.id)}>
-          {post.imageUrl && <CircleImage src={post.imageUrl} alt="Post image" />}
+          <CircleImage src={post.imageUrl || defaultImage} alt="게시물 이미지" />
           <PostTitle>{post.title}</PostTitle>
         </PostContainer>
       ))}

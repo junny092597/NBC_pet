@@ -6,8 +6,8 @@ const ButtonWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 250px;
-  margin-bottom: 20px;
+  width: 500px;
+  margin: 20px 20px;
 `;
 
 const ShortsContainer = styled.div`
@@ -15,10 +15,11 @@ const ShortsContainer = styled.div`
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: center;
-  gap: 200px;
+  gap: 30px;
   padding: 20px;
-  max-width: 1200px;
-  margin: auto;
+  margin: 20px;
+  border: 2px solid #ebebdd; // 테두리 색상 설정
+  border-radius: 10px; // 모서리 둥글게 설정
 `;
 
 const RoundButton = styled.button`
@@ -161,7 +162,7 @@ const YouTubeShorts: React.FC = () => {
         })
         .catch(e => {
           console.error('Error fetching YouTube Shorts IDs:', e);
-          setError('YouTube Shorts를 불러오는 데 실패했습니다.');
+          setError('사용량이 초과되어 YouTube Shorts를 불러오는 데 실패했습니다.');
         });
     }
   }, []);
