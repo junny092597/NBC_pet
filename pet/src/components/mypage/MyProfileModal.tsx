@@ -166,6 +166,6 @@ const style = {
   height: '600px',
   bgcolor: '#F0F0E6',
   border: '2px solid transparent',
-  boxShadow: 24,
+  boxShadow: 23,
   p: 4,
 };
