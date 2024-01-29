@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { db } from '../../Firebase';
-import { collection, query, orderBy, limit, onSnapshot } from 'firebase/firestore';
+import { collection, query, orderBy, limit, getDocs } from 'firebase/firestore';
 
 const Container = styled.div`
   display: flex;
@@ -26,7 +26,7 @@ const ShortsContainer = styled.div`
   padding: 70px 0;
   overflow-x: auto;
   width: 100%;
-  border: 1px solid #ebebdd; // 테두리 색상 설정
+  border: 2px solid #ebebdd; // 테두리 색상 설정
   border-radius: 10px; // 모서리 둥글게 설정
   margin-top: 20px; // 제목과의 간격 설정
 `;
@@ -134,7 +134,7 @@ const Popular: React.FC = () => {
         setVideos(fetchedVideos);
       } catch (error) {
         console.error('Error fetching YouTube Shorts:', error);
-        setError('YouTube Shorts를 불러오는 데 실패했습니다.');
+        setError('사용량이 초과되어 YouTube Shorts를 불러오는 데 실패했습니다.');
       }
       setLoading(false); // 로딩 상태 업데이트
     };
@@ -143,32 +143,23 @@ const Popular: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const fetchPopularPosts = () => {
+    const fetchPopularPosts = async () => {
       const postsQuery = query(collection(db, 'posts'), orderBy('views', 'desc'), limit(3));
-      const unsubscribe = onSnapshot(
-        postsQuery,
-        querySnapshot => {
-          const postsArray = querySnapshot.docs.map(doc => {
-            const data = doc.data();
-            return {
-              id: doc.id,
-              title: data.title,
-              createdAt: data.createdAt.toDate(),
-              imageUrl: data.imageUrl,
-              views: data.views,
-            };
-          });
-          setPosts(postsArray);
-          setLoading(false);
-        },
-        err => {
-          console.error('Error fetching posts:', err);
-          setError('게시글을 불러오는 데 실패했습니다.');
-          setLoading(false);
-        }
-      );
-
-      return () => unsubscribe();
+      try {
+        const querySnapshot = await getDocs(postsQuery);
+        const postsArray = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          title: doc.data().title,
+          createdAt: doc.data().createdAt.toDate(),
+          imageUrl: doc.data().imageUrl,
+          views: doc.data().views,
+        }));
+        setPosts(postsArray);
+      } catch (err) {
+        console.error('Error fetching posts:', err);
+        setError('게시글을 불러오는 데 실패했습니다.');
+      }
+      setLoading(false);
     };
 
     fetchPopularPosts();
@@ -197,7 +188,7 @@ const Popular: React.FC = () => {
           </VideoCard>
         ))}
       </ShortsContainer>
-      <Title>인기 게시글</Title>
+      {/* <Title>인기 게시글</Title> */}
       <div>
         {posts.map(post => (
           <PostContainer key={post.id} onClick={() => navigate(`/posts/${post.id}`)}>
