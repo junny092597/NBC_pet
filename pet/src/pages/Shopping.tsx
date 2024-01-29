@@ -65,19 +65,6 @@ function Shopping() {
     fetchData().then(setItemsData);
   }, [selectedCategory, selectedType]);
 
-  // useEffect(() => {
-  //   const fetchDataPerPage = async () => {
-  //     try {
-  //       const data = await fetchData(page);
-  //       setItemsData(data);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   fetchDataPerPage();
-  // }, [selectedCategory, selectedType, page]);
-
-  //데이터 카테고리 및 타입별 필터링
   useEffect(() => {
     const filteredItmes = itemsData
       .filter(item => {
