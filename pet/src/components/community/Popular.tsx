@@ -112,6 +112,8 @@ interface Post {
 const Popular: React.FC = () => {
   const [videos, setVideos] = useState<Video[]>([]);
   const [posts, setPosts] = useState<Post[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -132,33 +134,53 @@ const Popular: React.FC = () => {
         setVideos(fetchedVideos);
       } catch (error) {
         console.error('Error fetching YouTube Shorts:', error);
+        setError('YouTube Shorts를 불러오는 데 실패했습니다.');
       }
+      setLoading(false); // 로딩 상태 업데이트
     };
 
     fetchVideos();
   }, []);
+
   useEffect(() => {
     const fetchPopularPosts = () => {
       const postsQuery = query(collection(db, 'posts'), orderBy('views', 'desc'), limit(3));
-      const unsubscribe = onSnapshot(postsQuery, querySnapshot => {
-        const postsArray = querySnapshot.docs.map(doc => {
-          const data = doc.data();
-          return {
-            id: doc.id,
-            title: data.title,
-            createdAt: data.createdAt.toDate(),
-            imageUrl: data.imageUrl,
-            views: data.views,
-          };
-        });
-        setPosts(postsArray);
-      });
+      const unsubscribe = onSnapshot(
+        postsQuery,
+        querySnapshot => {
+          const postsArray = querySnapshot.docs.map(doc => {
+            const data = doc.data();
+            return {
+              id: doc.id,
+              title: data.title,
+              createdAt: data.createdAt.toDate(),
+              imageUrl: data.imageUrl,
+              views: data.views,
+            };
+          });
+          setPosts(postsArray);
+          setLoading(false);
+        },
+        err => {
+          console.error('Error fetching posts:', err);
+          setError('게시글을 불러오는 데 실패했습니다.');
+          setLoading(false);
+        }
+      );
 
       return () => unsubscribe();
     };
 
     fetchPopularPosts();
   }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <Container>
@@ -175,6 +197,7 @@ const Popular: React.FC = () => {
           </VideoCard>
         ))}
       </ShortsContainer>
+      <Title>인기 게시글</Title>
       <div>
         {posts.map(post => (
           <PostContainer key={post.id} onClick={() => navigate(`/posts/${post.id}`)}>

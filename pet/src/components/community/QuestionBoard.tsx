@@ -60,6 +60,17 @@ const WriteButton = styled.button`
   z-index: 1000;
 `;
 
+const LoadMoreButton = styled.button`
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 20px auto; // 중앙 정렬을 위한 스타일
+  display: block; // 블록 레벨 요소로 만들어주어야 함
+`;
+
 interface QuestionPost {
   id: string;
   title: string;
@@ -69,6 +80,7 @@ interface QuestionPost {
 
 const QuestionBoard: React.FC = () => {
   const [questions, setQuestions] = useState<QuestionPost[]>([]);
+  const [VisibleQuestions, setVisibleQuestions] = useState<QuestionPost[]>([]);
   const [user, setUser] = useState<User | null>(null); // State to hold the current user
   const navigate = useNavigate();
 
@@ -90,6 +102,7 @@ const QuestionBoard: React.FC = () => {
         });
       });
       setQuestions(questionsArray);
+      setVisibleQuestions(questionsArray.slice(0, 10));
     });
 
     // Cleanup function
@@ -108,19 +121,24 @@ const QuestionBoard: React.FC = () => {
       navigate('/write-question'); // Navigate to question writing page if user is logged in
     } else {
       alert('질문 게시글을 작성하려면 로그인이 필요합니다. 회원가입을 해주세요.');
-      navigate('/signup'); // Redirect to signup page if user is not logged in
+      navigate('/signin'); // Redirect to signup page if user is not logged in
     }
+  };
+
+  const handleLoadMore = () => {
+    setVisibleQuestions(questions); // 모든 게시글을 표시
   };
 
   return (
     <BoardContainer>
       <WriteButton onClick={handleWriteButtonClick}>질문 게시글 작성</WriteButton>
-      {questions.map(post => (
+      {VisibleQuestions.map(post => (
         <PostContainer key={post.id} onClick={() => handleMoreClick(post.id)}>
           <CircleImage src={post.imageUrl} alt="Question image" />
           <PostTitle>{post.title}</PostTitle>
         </PostContainer>
       ))}
+      {questions.length > 10 && <LoadMoreButton onClick={handleLoadMore}>더보기</LoadMoreButton>}
     </BoardContainer>
   );
 };

@@ -6,6 +6,7 @@ import { storage } from '../../Firebase';
 import { collection, addDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { AiOutlineCloudUpload } from 'react-icons/ai';
+import { auth } from '../../Firebase';
 
 const FormContainer = styled.div`
   background-color: #ffffff;
@@ -78,11 +79,13 @@ const WritePost = () => {
         imageUrl = await getDownloadURL(snapshot.ref);
       }
 
+      const userEmail = auth.currentUser?.email || '익명';
       await addDoc(collection(db, 'posts'), {
         title: title,
         content: content,
         imageUrl: imageUrl,
         createdAt: new Date(),
+        email: userEmail,
       });
 
       navigate('/daily');

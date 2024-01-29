@@ -144,13 +144,31 @@ const GenreButton: React.FC<GenreButtonProps> = ({ label, videoId, thumbnailUrl,
 
 const YouTubeShorts: React.FC = () => {
   const [items, setItems] = useState<YouTubeApiResponseItem[]>([]);
+  const [error, setError] = useState<string>('');
 
   useEffect(() => {
     const keyword = '반려견과 함께하는';
-    fetchYouTubeShortsIds(keyword).then(items => {
-      setItems(items);
-    });
+    const cacheKey = `youtube-shorts-${keyword}`;
+    const cachedData = localStorage.getItem(cacheKey);
+
+    if (cachedData) {
+      setItems(JSON.parse(cachedData));
+    } else {
+      fetchYouTubeShortsIds(keyword)
+        .then(items => {
+          localStorage.setItem(cacheKey, JSON.stringify(items));
+          setItems(items);
+        })
+        .catch(e => {
+          console.error('Error fetching YouTube Shorts IDs:', e);
+          setError('YouTube Shorts를 불러오는 데 실패했습니다.');
+        });
+    }
   }, []);
+
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   return (
     <ShortsContainer>
