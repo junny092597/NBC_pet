@@ -29,7 +29,7 @@ const Header: React.FC = () => {
   const navprofile = () => {
     navigate('/Profile');
   };
-
+  
   const showAlert = (e: React.MouseEvent) => {
     e.preventDefault(); // 기본 링크 동작 방지
     alert('추후 업데이트 예정입니다');
@@ -37,9 +37,9 @@ const Header: React.FC = () => {
   
   return (
     <HeaderContainer key={isLogin ? 'loggedIn' : 'loggedOut'}>
-    <StyledLink to={'/'}>
-  <Image src={logo} alt={'logo image'} />
-</StyledLink>
+      <Link to={'/'}>
+        <Image src={logo} alt={'logo image'} />
+      </Link>
       <Navigation>
         <ul>
           <li>
@@ -55,7 +55,7 @@ const Header: React.FC = () => {
             <a href="/map">맵</a>
           </li>
           <li>
-            <a href="/chat" onClick={showAlert}>실시간 채팅</a>
+            <a href="/">실시간 채팅</a>
           </li>
         </ul>
       </Navigation>
@@ -93,11 +93,6 @@ const Header: React.FC = () => {
   );
 };
 
-const StyledLink = styled(Link)`
-  /* 스타일 정의 */
-`;
-
-
 const Headerbtn = styled.button`
   display: flex;
   flex-direction: row;
@@ -113,7 +108,7 @@ const Headerbtn = styled.button`
     width: 120px;
     height: 40px;
     font-family: GmarketSansMedium;
-    font-size: 1.vw;
+    font-size: 18px;
     background-color: #c5abab;
     color: white;
     border: none;
@@ -122,7 +117,7 @@ const Headerbtn = styled.button`
     @media (max-width: 768px) {
       width: 100px;
       height: 35px;
-      font-size: 2vw;
+      font-size: 16px;
     }
 
     &:hover {
@@ -140,8 +135,8 @@ const HeaderContainer = styled.header`
   align-items: center;
 
   @media (max-width: 768px) {
-    flex-direction: row; 
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
   }
 `;
 
@@ -156,7 +151,6 @@ const Navigation = styled.nav`
     padding: 0;
     display: flex;
     justify-content: space-between;
-    flex-direction: row; 
     align-items: center;
     margin: 0;
   }
