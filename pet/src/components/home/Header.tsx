@@ -37,9 +37,9 @@ const Header: React.FC = () => {
   
   return (
     <HeaderContainer key={isLogin ? 'loggedIn' : 'loggedOut'}>
-      <Link to={'/'}>
-        <Image src={logo} alt={'logo image'} />
-      </Link>
+    <StyledLink to={'/'}>
+  <Image src={logo} alt={'logo image'} />
+</StyledLink>
       <Navigation>
         <ul>
           <li>
@@ -93,6 +93,11 @@ const Header: React.FC = () => {
   );
 };
 
+const StyledLink = styled(Link)`
+  /* 스타일 정의 */
+`;
+
+
 const Headerbtn = styled.button`
   display: flex;
   flex-direction: row;
@@ -108,7 +113,7 @@ const Headerbtn = styled.button`
     width: 120px;
     height: 40px;
     font-family: GmarketSansMedium;
-    font-size: 1.1vw;
+    font-size: 1.vw;
     background-color: #c5abab;
     color: white;
     border: none;
