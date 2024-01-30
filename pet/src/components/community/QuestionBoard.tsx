@@ -1,9 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { db, auth } from '../../Firebase'; // Include auth for authentication check
+import { db, auth } from '../../Firebase';
 import { collection, query, onSnapshot, DocumentData, orderBy } from 'firebase/firestore';
-import { onAuthStateChanged, User } from 'firebase/auth'; // Import necessary Firebase modules
+import { onAuthStateChanged, User } from 'firebase/auth';
+
+const TitleHeader = styled.h2`
+  text-align: center;
+  font-size: 2rem;
+  color: #333;
+  padding-top: 20px;
+  margin-bottom: 20px; // 또는 원하는 만큼의 여백 조정
+  margin-right: 70%;
+  font-family: GmarketSansMedium;
+`;
 
 const BoardContainer = styled.div`
   background-color: #ffffff;
@@ -74,27 +84,29 @@ const LoadMoreButton = styled.button`
   display: block; // 블록 레벨 요소로 만들어주어야 함
 `;
 
-const defaultImage = process.env.PUBLIC_URL + 'no image.jpg';
+const defaultImage = process.env.PUBLIC_URL + 'no image.png';
 
 interface QuestionPost {
   id: string;
   title: string;
   createdAt: Date;
   imageUrl?: string;
+  views: number;
 }
 
 const QuestionBoard: React.FC = () => {
   const [questions, setQuestions] = useState<QuestionPost[]>([]);
-  const [VisibleQuestions, setVisibleQuestions] = useState<QuestionPost[]>([]);
-  const [user, setUser] = useState<User | null>(null); // State to hold the current user
+  const [visiblePosts, setVisibleQuestions] = useState<QuestionPost[]>([]);
+  const [user, setUser] = useState<User | null>(null); //
   const navigate = useNavigate();
 
   useEffect(() => {
     const unsubscribeAuth = onAuthStateChanged(auth, currentUser => {
-      setUser(currentUser); // Update user state on auth state change
+      setUser(currentUser);
     });
 
     const q = query(collection(db, 'questions'), orderBy('createdAt', 'desc'));
+
     const unsubscribeQuestions = onSnapshot(q, querySnapshot => {
       const questionsArray: QuestionPost[] = [];
       querySnapshot.forEach(doc => {
@@ -104,6 +116,7 @@ const QuestionBoard: React.FC = () => {
           title: data.title,
           createdAt: data.createdAt.toDate(),
           imageUrl: data.imageUrl,
+          views: data.views || 0,
         });
       });
       setQuestions(questionsArray);
@@ -135,16 +148,32 @@ const QuestionBoard: React.FC = () => {
   };
 
   return (
-    <BoardContainer>
-      <WriteButton onClick={handleWriteButtonClick}>질문 게시글 작성</WriteButton>
-      {VisibleQuestions.map(post => (
-        <PostContainer key={post.id} onClick={() => handleMoreClick(post.id)}>
-          <CircleImage src={post.imageUrl || defaultImage} alt="게시물 이미지" />
-          <PostTitle>{post.title}</PostTitle>
-        </PostContainer>
-      ))}
-      {questions.length > 10 && <LoadMoreButton onClick={handleLoadMore}>더보기</LoadMoreButton>}
-    </BoardContainer>
+    <>
+      <TitleHeader>질문</TitleHeader>
+      <BoardContainer>
+        <WriteButton onClick={handleWriteButtonClick}>게시글 작성</WriteButton>
+        {visiblePosts.map(post => (
+          <PostContainer key={post.id} onClick={() => handleMoreClick(post.id)}>
+            <CircleImage src={post.imageUrl || defaultImage} alt="게시물 이미지" />
+            <PostTitle>{post.title}</PostTitle>
+            <img
+              className="cat-feet"
+              src={process.env.PUBLIC_URL + '/cat-feet.png'}
+              alt="고양이 발바닥 이미지"
+              style={{
+                position: 'absolute',
+                right: '0',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                width: '25px',
+                height: 'auto',
+              }}
+            />
+          </PostContainer>
+        ))}
+        {questions.length > 10 && <LoadMoreButton onClick={handleLoadMore}>더보기</LoadMoreButton>}
+      </BoardContainer>
+    </>
   );
 };
 
