@@ -72,7 +72,7 @@ const Header: React.FC = () => {
                   imageUrl: logoutbtn,
                   imageWidth: 130,
                   imageHeight: 130,
-                  imageAlt: "Custom image",
+                  imageAlt: 'Custom image',
                 });
                 dispatch(logout());
                 navigate('/');
@@ -127,7 +127,7 @@ const Headerbtn = styled.button`
 `;
 
 const HeaderContainer = styled.header`
-  background-color: #F6F7C4;
+  background-color: #f6f7c4;
   color: #312b2b;
   padding: 1em;
   display: flex;
@@ -147,6 +147,8 @@ const Image = styled.img`
 `;
 
 const Navigation = styled.nav`
+  //헤더 네비게이션바 수정부분
+  width: 100%;
   ul {
     padding: 0;
     display: flex;
