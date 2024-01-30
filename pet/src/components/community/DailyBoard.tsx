@@ -39,6 +39,12 @@ const PostContainer = styled.div`
   cursor: pointer;
   &:hover {
     background-color: #eaeaea;
+    & > img.cat-feet {
+      display: none;
+    }
+    & > img.cat {
+      display: block; // 호버 시 새 이미지 보이기
+    }
   }
 `;
 
@@ -156,15 +162,30 @@ const DailyBoard: React.FC = () => {
             <CircleImage src={post.imageUrl || defaultImage} alt="게시물 이미지" />
             <PostTitle>{post.title}</PostTitle>
             <img
+              className="cat-feet"
               src={process.env.PUBLIC_URL + '/cat-feet.png'}
               alt="고양이 발바닥 이미지"
               style={{
                 position: 'absolute',
-                right: '-5px',
+                right: '0',
                 top: '50%',
                 transform: 'translateY(-50%)',
-                width: '25px', // 너비를 50픽셀로 설정
-                height: 'auto', // 높이를 자동으로 조정
+                width: '25px',
+                height: 'auto',
+              }}
+            />
+            <img
+              className="cat"
+              src={process.env.PUBLIC_URL + '/cat.png'}
+              alt="고양이 이미지"
+              style={{
+                position: 'absolute',
+                right: '-4%',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                width: '70px',
+                height: 'auto',
+                display: 'none', // 기본적으로 숨겨진 상태
               }}
             />
           </PostContainer>
