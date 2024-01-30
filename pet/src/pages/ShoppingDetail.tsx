@@ -257,8 +257,8 @@ const SImgBox = styled.div`
 
   img {
     display: block;
-    width: 70vh;
-    height: 70vw;
+    width: 80%;
+    height: 80%;
     object-fit: contain;
     position: absolute;
     margin: 0;
@@ -273,7 +273,8 @@ const STextContainer = styled.div`
 `;
 
 const SCategoryName = styled.div`
-  font-size: 30px;
+  font-size: 20px;
+  margin-bottom: 0.5rem;
 `;
 
 const SItemName = styled.span`
@@ -285,14 +286,14 @@ const SItemName = styled.span`
 `;
 
 const SItemNameBox = styled.div`
-  margin-bottom: 1.5vh;
-  font-size: 20px;
+  margin-bottom: 2rem;
+  font-size: 30px;
   word-wrap: break-word;
   overflow-wrap: break-word;
 `;
 
 const SItemPriceBox = styled.div`
-  margin-bottom: 1.5vh;
+  margin-bottom: 1.5rem;
   font-size: 20px;
 `;
 
