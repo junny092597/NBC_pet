@@ -72,10 +72,10 @@ function Review({ data }: ReviewProps): JSX.Element {
 
   return (
     <>
-      <div>
+      <STextContainer>
         <STextArea placeholder="Review를 작성해주세요" onChange={e => setIndex(e.target.value)} value={index} />
-        <SButton onClick={handleWriteReview}>작성하기</SButton>
-      </div>
+        <STextButton onClick={handleWriteReview}>작성하기</STextButton>
+      </STextContainer>
       {reviews.map(review => (
         <div key={review.id}>
           <SEmailBox>{review.email}</SEmailBox>
@@ -91,16 +91,36 @@ function Review({ data }: ReviewProps): JSX.Element {
 
 export default Review;
 
+const STextContainer = styled.div`
+  display: flex;
+  width: 100%;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+`;
+
 const STextArea = styled.textarea`
-  margin-top: 1vh;
-  width: 20vw;
+  width: 100%;
   height: 6vh;
   resize: none;
 `;
 
+const STextButton = styled.button`
+  width: 5rem;
+  height: 1.5rem;
+  margin-top: 1.8rem;
+  background-color: white;
+  border: none;
+  font-size: 13px;
+  transition: background-color 0.3s; /* 변화를 부드럽게 만들기 위한 트랜지션 속성 추가 */
+
+  &:hover {
+    font-weight: bold;
+    cursor: pointer; /* 호버 시 커서 모양 변경 */
+  }
+`;
 const SButton = styled.button`
-  width: 5vw;
-  height: 3vh;
+  width: 5rem;
+  height: 1.5rem;
   background-color: white;
   border: none;
   font-size: 13px;
@@ -115,12 +135,12 @@ const SButton = styled.button`
 const SIndexContainer = styled.div`
   display: flex;
   align-items: center;
-  width: 25vw;
+  width: 100%;
   margin-bottom: 1rem;
   border-bottom: 1px solid gray;
 `;
 const SIndexBox = styled.span`
-  width: 20vw;
+  width: 100%;
   word-wrap: break-word;
 `;
 
