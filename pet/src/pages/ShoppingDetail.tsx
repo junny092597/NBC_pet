@@ -177,7 +177,7 @@ function ShoppingDetail() {
           <SCategoryName>
             {item.category}-{item.type}
             <FaHeart
-              size={25}
+              size={15}
               onClick={handleHeartIconClick}
               style={{ color: liked ? 'red' : 'black', cursor: 'pointer' }}
             />
