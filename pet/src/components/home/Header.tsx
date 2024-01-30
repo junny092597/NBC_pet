@@ -108,7 +108,7 @@ const Headerbtn = styled.button`
     width: 120px;
     height: 40px;
     font-family: GmarketSansMedium;
-    font-size: 18px;
+    font-size: 1.1vw;
     background-color: #c5abab;
     color: white;
     border: none;
@@ -117,7 +117,7 @@ const Headerbtn = styled.button`
     @media (max-width: 768px) {
       width: 100px;
       height: 35px;
-      font-size: 16px;
+      font-size: 2vw;
     }
 
     &:hover {
@@ -135,8 +135,8 @@ const HeaderContainer = styled.header`
   align-items: center;
 
   @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row; 
+    align-items: center;
   }
 `;
 
@@ -151,6 +151,7 @@ const Navigation = styled.nav`
     padding: 0;
     display: flex;
     justify-content: space-between;
+    flex-direction: row; 
     align-items: center;
     margin: 0;
   }
