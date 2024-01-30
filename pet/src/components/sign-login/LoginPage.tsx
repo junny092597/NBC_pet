@@ -39,7 +39,7 @@ const AllContainer = styled.div`
 const LeftContentContainer = styled.div`
   width: 35%;
   height: 60%;
-`;
+`
 
 const RightContentContainer = styled.div`
   width: 25%;
