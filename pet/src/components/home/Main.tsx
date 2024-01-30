@@ -12,8 +12,8 @@ import 'slick-carousel/slick/slick-theme.css';
 interface CategoryItem {
   title: string;
   imageSrc: string;
-  description: string;  // 추가된 속성
-  buttonText: string; 
+  description: string; // 추가된 속성
+  buttonText: string;
   url: string;
 }
 
@@ -21,23 +21,35 @@ const categories: CategoryItem[] = [
   {
     title: '커뮤니티',
     imageSrc: '/CommunityCard.png',
-    description: '유튜브 Shorts, \n다른 사람들과의 소통으로 \n나만의 꿑팁을 전수하고, \n다른 반려인들과 \n즐거운 시간을 보내세요!',
+    description:
+      '유튜브 Shorts, \n다른 사람들과의 소통으로 \n나만의 꿑팁을 전수하고, \n다른 반려인들과 \n즐거운 시간을 보내세요!',
     buttonText: '커뮤니티',
-    url: '/community'
+    url: '/community',
   },
-  { title: '쇼핑', 
-  imageSrc: '/ShoppingCard.png', 
-  description: '아이들이 가장 좋아하는, \n그리고 영양만점의 사료와 \n간식들을 담았습니다! \n맛과 영양을 모두 잡은 \n제품들을 만나보세요!', 
-  buttonText: '쇼핑 하기', 
-  url: '/shopping' 
-},
-  { title: '맵', 
-  imageSrc: '/HospitalCard.png', 
-  description: '당장 아이에게 \n필요한 것은 많고, \n이 동네는 잘 모르겠고, \n뭘 해야할지 모르겠다면?\n지도로 내 위치를 파악하고, \n근처에 있는 \n여러 가게와 \n병원들을 탐색하세요!', 
-  buttonText: '지도 보기', 
-  url: '/map' 
-},
-  { title: '채팅', imageSrc: '/4.jpg', description: '내가 모르던 꿀팁을 \n바로 실시간으로?\n 퍼펫트의 모든 사람들과 \n내 상황을 공유하고,\n 실시간으로 솔류션을 \n받아보세요!', buttonText: '이야기하기', url: '/' },
+  {
+    title: '쇼핑',
+    imageSrc: '/ShoppingCard.png',
+    description:
+      '아이들이 가장 좋아하는, \n그리고 영양만점의 사료와 \n간식들을 담았습니다! \n맛과 영양을 모두 잡은 \n제품들을 만나보세요!',
+    buttonText: '쇼핑 하기',
+    url: '/shopping',
+  },
+  {
+    title: '맵',
+    imageSrc: '/HospitalCard.png',
+    description:
+      '당장 아이에게 \n필요한 것은 많고, \n이 동네는 잘 모르겠고, \n뭘 해야할지 모르겠다면?\n지도로 내 위치를 파악하고, \n근처에 있는 \n여러 가게와 \n병원들을 탐색하세요!',
+    buttonText: '지도 보기',
+    url: '/map',
+  },
+  {
+    title: '채팅',
+    imageSrc: '/4.jpg',
+    description:
+      '내가 모르던 꿀팁을 \n바로 실시간으로?\n 퍼펫트의 모든 사람들과 \n내 상황을 공유하고,\n 실시간으로 솔류션을 \n받아보세요!',
+    buttonText: '이야기하기',
+    url: '/',
+  },
 ];
 const Main: React.FC = () => {
   const handleCategoryClick = (url: string, title: string) => {
@@ -57,8 +69,8 @@ const Main: React.FC = () => {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
-  nextArrow: <EmptyArrow />,
-  prevArrow: <EmptyArrow />,
+    nextArrow: <EmptyArrow />,
+    prevArrow: <EmptyArrow />,
   };
 
   return (
@@ -94,16 +106,15 @@ const Main: React.FC = () => {
         </BannerSlide>
       </Slider>
 
-      
       <CategoriesContainer>
         {categories.map((category, index) => (
           <MainCategory
-          key={index}
-          title={category.title}
-          imageSrc={category.imageSrc}
-          description={category.description}
-          buttonText={category.buttonText}
-          onClick={() => handleCategoryClick(category.url, category.title)}
+            key={index}
+            title={category.title}
+            imageSrc={category.imageSrc}
+            description={category.description}
+            buttonText={category.buttonText}
+            onClick={() => handleCategoryClick(category.url, category.title)}
           />
         ))}
       </CategoriesContainer>
@@ -115,10 +126,19 @@ const Main: React.FC = () => {
         <TextContainer>
           <Title>For Pet: Pet들을 위한 Perfect한 정보</Title>
           <Description></Description>
-          For Pet에서는 반려동물과 그들의 가족에게 꼭 필요한 정보와 지식을 공유합니다.<br/><br/>
-          우리는 반려동물의 건강, 행복, 그리고 장수를 위한 실용적인 조언과 전문적인 인사이트를 나눕니다.<br/><br/>
-          여러분의 소중한 친구들이 더욱 건강하고 행복한 삶을 누릴 수 있도록, 더욱 함께하는 서비스를 제공합니다.<br/><br/>
-          함께 성장하고, 배우고, 사랑을 나누세요. 여러분과 여러분의 반려동물이 행복한 순간을 만들어 가는 데에 For Pet가 도움이 되기를 바랍니다.<br/><br/>
+          For Pet에서는 반려동물과 그들의 가족에게 꼭 필요한 정보와 지식을 공유합니다.
+          <br />
+          <br />
+          우리는 반려동물의 건강, 행복, 그리고 장수를 위한 실용적인 조언과 전문적인 인사이트를 나눕니다.
+          <br />
+          <br />
+          여러분의 소중한 친구들이 더욱 건강하고 행복한 삶을 누릴 수 있도록, 더욱 함께하는 서비스를 제공합니다.
+          <br />
+          <br />
+          함께 성장하고, 배우고, 사랑을 나누세요. 여러분과 여러분의 반려동물이 행복한 순간을 만들어 가는 데에 For Pet가
+          도움이 되기를 바랍니다.
+          <br />
+          <br />
         </TextContainer>
       </ContentSection>
     </MainContainer>
@@ -126,14 +146,12 @@ const Main: React.FC = () => {
 };
 
 const MainContainer = styled.main`
-padding: 0; 
-  margin: 0; 
-  width: 100%; 
+  padding: 0;
+  margin: 0;
+  width: 100%;
   text-align: center;
   font-family: GmarketSansMedium;
-  background-color: #FAFAF4;
-  
-  
+  background-color: #fafaf4;
 `;
 
 const CategoriesContainer = styled.div`
@@ -195,19 +213,19 @@ const ContentSection = styled.section`
   margin-top: 250px; // 필요에 따라 조절
 `;
 
-
-
 const TextContainer = styled.div`
   flex: 1; // 나머지 공간을 차지
+  position: absolute;
+  left: 28.5rem;
 `;
 
 const Title = styled.h1`
-font-size: 2.5em; // 제목의 크기를 크게 설정
-font-weight: bold; // 제목을 두껍게 설정
-margin-bottom: 1em; // 제목 아래의 여백 설정
+  font-size: 2.5em; // 제목의 크기를 크게 설정
+  font-weight: bold; // 제목을 두껍게 설정
+  margin-bottom: 1em; // 제목 아래의 여백 설정
 `;
 const Description = styled.p`
-font-size: 1.2em; // 본문 글자 크기 증가
-// 추가적으로 원하는 본문 스타일
+  font-size: 1.2em; // 본문 글자 크기 증가
+  // 추가적으로 원하는 본문 스타일
 `;
 export default Main;
