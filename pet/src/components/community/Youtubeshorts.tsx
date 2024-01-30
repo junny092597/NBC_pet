@@ -15,9 +15,11 @@ const ShortsContainer = styled.div`
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: center;
-  gap: 50px;
+  gap: 30px;
   padding: 20px;
-  margin: auto;
+  margin: 20px;
+  border: 2px solid #ebebdd; // 테두리 색상 설정
+  border-radius: 10px; // 모서리 둥글게 설정
 `;
 
 const RoundButton = styled.button`
