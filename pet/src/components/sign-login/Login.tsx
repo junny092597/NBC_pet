@@ -251,9 +251,10 @@ const Inputcat = styled.input`
   border-radius: 20px;
   margin-top: 5px;
   margin-bottom: 5px;
-  cursor: pointer;
+  /* cursor: pointer; */
   text-indent: 20px;
-  padding: 0px;
+  padding: 10px;
+  padding-left: 30px;
   background-image: url(${inputcat});
   background-size: 12%;
   background-position: 5%;
@@ -263,7 +264,7 @@ const Inputcat = styled.input`
     font-family: GmarketSansMedium;
     font-size: 12px;
     color: #949393;
-    transform: translateX(30px);
+    transform: translateX(0px);
   }
 `;
 
@@ -274,10 +275,11 @@ const Inputdog = styled.input`
   border-radius: 20px;
   margin-top: 5px;
   margin-bottom: 5px;
-  cursor: pointer;
+  /* cursor: pointer; */
   text-indent: 20px;
 
   padding: 10px;
+  padding-left: 30px;
   background-image: url(${inputdog});
   background-size: 12%;
   background-position: 5%;
@@ -287,7 +289,7 @@ const Inputdog = styled.input`
     font-family: GmarketSansMedium;
     font-size: 12px;
     color: #949393;
-    transform: translateX(20px);
+    transform: translateX(0px);
   }
 `;
 

@@ -27,6 +27,7 @@ const LoginPage = () => {
 const Container = styled.div`
   max-height: 100vh;
   overflow: hidden;
+  overflow-y: auto;
   `
 
 const AllContainer = styled.div`
