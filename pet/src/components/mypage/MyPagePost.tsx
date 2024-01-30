@@ -72,7 +72,7 @@ const MyPagePost = ({}) => {
             {posts.length < 5
               ? posts.map(post => (
                   <Link key={post.id} to={`/posts/${post.id}`}>
-                    \{' '}
+                    {' '}
                     <S.PostContainer key={post.id}>
                       <S.PostImgContainer src={post.imageUrl} onError={addDefaultImg} />
                       <S.TextContainer>
