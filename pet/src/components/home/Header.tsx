@@ -72,7 +72,7 @@ const Header: React.FC = () => {
                   imageUrl: logoutbtn,
                   imageWidth: 130,
                   imageHeight: 130,
-                  imageAlt: "Custom image",
+                  imageAlt: 'Custom image',
                 });
                 dispatch(logout());
                 navigate('/');
@@ -108,7 +108,7 @@ const Headerbtn = styled.button`
     width: 120px;
     height: 40px;
     font-family: GmarketSansMedium;
-    font-size: 18px;
+    font-size: 1.1vw;
     background-color: #c5abab;
     color: white;
     border: none;
@@ -117,7 +117,7 @@ const Headerbtn = styled.button`
     @media (max-width: 768px) {
       width: 100px;
       height: 35px;
-      font-size: 16px;
+      font-size: 2vw;
     }
 
     &:hover {
@@ -127,7 +127,7 @@ const Headerbtn = styled.button`
 `;
 
 const HeaderContainer = styled.header`
-  background-color: #F6F7C4;
+  background-color: #f6f7c4;
   color: #312b2b;
   padding: 1em;
   display: flex;
@@ -135,8 +135,8 @@ const HeaderContainer = styled.header`
   align-items: center;
 
   @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row; 
+    align-items: center;
   }
 `;
 
@@ -147,10 +147,14 @@ const Image = styled.img`
 `;
 
 const Navigation = styled.nav`
+  //헤더 네비게이션바 수정부분
+  width: 100%;
   ul {
     padding: 0;
     display: flex;
     justify-content: space-between;
+    flex-direction: row; 
+
     align-items: center;
     margin: 0;
   }
