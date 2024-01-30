@@ -22,7 +22,6 @@ const TabButton = styled.button<{ isActive: boolean }>`
   cursor: pointer;
   text-align: left;
   width: 100%;
-  border-bottom: 1px solid #ddd;
 
   &:hover {
     background-color: #d9f8e5;
@@ -31,6 +30,7 @@ const TabButton = styled.button<{ isActive: boolean }>`
   &:last-child {
     border-bottom: none;
   }
+  font-family: GmarketSansMedium;
 `;
 
 const ContentContainer = styled.div`
