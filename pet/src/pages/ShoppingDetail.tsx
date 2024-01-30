@@ -241,24 +241,25 @@ export default ShoppingDetail;
 
 const SProductContainer = styled.div`
   display: flex;
-  width: 100vw;
-  min-height: 80vh;
+  width: 100rem;
+  min-height: 38rem;
   max-height: auto;
 `;
 
 const SImgBox = styled.div`
   width: 50%; /* 반의 너비를 차지하도록 50%로 설정 */
-  margin-top: 5vh;
-  margin-bottom: 5vh;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-
+  position: absolute;
+  top: 22rem;
+  left: 3rem;
   img {
     display: block;
-    width: 80%;
-    height: 80%;
+    width: 500px;
+    height: auto;
     object-fit: contain;
     position: absolute;
     margin: 0;
@@ -266,10 +267,12 @@ const SImgBox = styled.div`
 `;
 
 const STextContainer = styled.div`
-  margin-top: 5vh;
+  margin-top: 2%;
   width: 35%; /* 반의 너비를 차지하도록 50%로 설정 */
   height: 70%;
-  padding: 20px;
+  padding: 2rem;
+  position: relative;
+  left: 48rem;
 `;
 
 const SCategoryName = styled.div`
