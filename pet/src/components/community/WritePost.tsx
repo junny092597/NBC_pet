@@ -41,6 +41,7 @@ const Textarea = styled.textarea`
   padding: 10px;
   border: none;
   border-bottom: 1px solid #ddd;
+  resize: none;
 `;
 
 const SubmitButton = styled.button`
