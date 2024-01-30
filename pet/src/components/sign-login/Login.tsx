@@ -251,7 +251,6 @@ const Inputcat = styled.input`
   border-radius: 20px;
   margin-top: 5px;
   margin-bottom: 5px;
-  /* cursor: pointer; */
   text-indent: 20px;
   padding: 10px;
   padding-left: 30px;
@@ -275,7 +274,6 @@ const Inputdog = styled.input`
   border-radius: 20px;
   margin-top: 5px;
   margin-bottom: 5px;
-  /* cursor: pointer; */
   text-indent: 20px;
 
   padding: 10px;
