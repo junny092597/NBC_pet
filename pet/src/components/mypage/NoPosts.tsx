@@ -1,15 +1,19 @@
-import * as S from './style';
-import test1 from '../../assets/images/logo.png';
+import * as S from './MyPagePoststyle';
+import { useNavigate } from 'react-router-dom';
 
 const NoPosts = () => {
+  const navigate = useNavigate();
+
+  const navcommunity = () => {
+    navigate('/community');
+  };
+
   return (
-    <S.NoPostsWarp>
-      <S.NoPostsContainer>
-        <S.NoPostsImg src={test1} />
-        <S.NoPostsText>게시글을 등록해주세요</S.NoPostsText>
-      </S.NoPostsContainer>
-    </S.NoPostsWarp>
+    <S.NoPostsContainer>
+        <h2>등록된 게시글이 없습니다</h2>
+        <S.NoPostsBtn onClick={navcommunity}>게시글 등록하기</S.NoPostsBtn>
+    </S.NoPostsContainer>
   );
 };
 
-export default NoPosts
+export default NoPosts;
