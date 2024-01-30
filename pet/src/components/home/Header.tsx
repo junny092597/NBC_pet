@@ -30,6 +30,11 @@ const Header: React.FC = () => {
     navigate('/Profile');
   };
 
+  const showAlert = (e: React.MouseEvent) => {
+    e.preventDefault(); // 기본 링크 동작 방지
+    alert('추후 업데이트 예정입니다');
+  };
+  
   return (
     <HeaderContainer key={isLogin ? 'loggedIn' : 'loggedOut'}>
       <Link to={'/'}>
@@ -50,7 +55,7 @@ const Header: React.FC = () => {
             <a href="/map">맵</a>
           </li>
           <li>
-            <a href="/">실시간 채팅</a>
+            <a href="/chat" onClick={showAlert}>실시간 채팅</a>
           </li>
         </ul>
       </Navigation>
