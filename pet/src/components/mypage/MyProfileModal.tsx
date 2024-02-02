@@ -10,8 +10,19 @@ import { v4 as uuidv4 } from 'uuid';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import * as S from './style';
+import Swal from 'sweetalert2';
 import testimg from '../../assets/images/logo.png';
+import success from '../../assets/images/성공.webp';
+import error from '../../assets/images/erroricon.png';
+import { createGlobalStyle } from 'styled-components';
+
 import { PiPencilLineFill } from 'react-icons/pi';
+
+const GlobalStyle = createGlobalStyle`
+  .swal2-container {
+    z-index: 10000; /* 또는 필요한 z-index 값으로 설정하세요 */
+  }
+`;
 
 const MyProfileEditModal = () => {
   const [profileUrl, setProfileUrl] = useRecoilState(profileState);
@@ -28,7 +39,7 @@ const MyProfileEditModal = () => {
 
   // 이미지
   const [imgProfileUrl, setImgProfileUrl] = useRecoilState(profileState);
-  const [imgFile, setImgFile] = useState<string>(imgProfileUrl); // 이미지 파일 엄청 긴 이름
+  const [imgFile, setImgFile] = useState<string>(''); // 이미지 파일 엄청 긴 이름
   const [imgUploadUrl, setImgUploadUrl] = useRecoilState<string>(userUrl); // 변경된 이미지 url
 
   // 현재 로그인한 사용자 가져오기
@@ -51,16 +62,31 @@ const MyProfileEditModal = () => {
   // 수정 확인 시 유효성 검사.
   const nicknameChangeOnClick: any = async () => {
     if (nickname.length < 2 || nickname.length > 8) {
-      alert('2글자 이상 5글자 이하로 입력해주세요.');
+      Swal.fire({
+        title: '2글자 이상 8글자 이하로 </br>입력해주세요.',
+        confirmButtonColor: '#A1EEBD',
+        confirmButtonText: '확인',
+        imageUrl: error,
+        imageWidth: 130,
+        imageHeight: 130,
+        imageAlt: 'Custom image',
+      });
       return;
     }
-
     if (imgFile.length === 0) {
       try {
         await updateProfile(currentUser, {
           displayName: nickname,
         });
-        alert('프로필 수정 완료!');
+        Swal.fire({
+          title: '프로필 수정 완료',
+          confirmButtonColor: '#A1EEBD',
+          confirmButtonText: '확인',
+          imageUrl: success,
+          imageWidth: 130,
+          imageHeight: 130,
+          imageAlt: 'Custom image',
+        });
         setOpen(false);
       } catch (error) {
         console.log(error);
@@ -80,8 +106,17 @@ const MyProfileEditModal = () => {
         setImgUploadUrl(downloadImageUrl);
         setProfileUrl(downloadImageUrl);
         setImgProfileUrl(downloadImageUrl);
-        alert('프로필 수정 완료!');
         setOpen(false);
+        setImgFile('');
+        Swal.fire({
+          title: '프로필 수정 완료',
+          confirmButtonColor: '#A1EEBD',
+          confirmButtonText: '확인',
+          imageUrl: success,
+          imageWidth: 130,
+          imageHeight: 130,
+          imageAlt: 'Custom image',
+        });
       } catch (error) {
         console.log(error);
       }
@@ -103,6 +138,7 @@ const MyProfileEditModal = () => {
 
   return (
     <>
+      <GlobalStyle />
       <S.EditModalBtnText onClick={handleOpen}>
         <PiPencilLineFill />
       </S.EditModalBtnText>
@@ -168,4 +204,5 @@ const style = {
   border: '2px solid transparent',
   boxShadow: 23,
   p: 4,
+  zIndex: 10000,
 };

@@ -3,7 +3,7 @@ import Swal from 'sweetalert2';
 import inputcat from '../../assets/images/Caticon.png';
 import inputdog from '../../assets/images/Dogicon.png';
 import erroricon from '../../assets/images/erroricon.png';
-import { PiGoogleLogoFill } from 'react-icons/pi';
+import { FcGoogle } from 'react-icons/fc';
 
 import { auth } from '../../Firebase';
 import {
@@ -188,7 +188,7 @@ const Login = () => {
               <p>소셜로그인으로 계속하기</p>
             </GoogleBtn>
             <GoogleButton type="button" onClick={GoogleLogin}>
-              <PiGoogleLogoFill />
+              <FcGoogle />
             </GoogleButton>
           </ButtonContainer>
         </>
@@ -309,7 +309,7 @@ const Button = styled.button`
 `;
 
 const GoogleButton = styled.button`
-  color: #8a8a80;
+  /* color: #8a8a80; */
   font-size: 45px;
   border: none;
   cursor: pointer;
@@ -319,7 +319,7 @@ const GoogleButton = styled.button`
   background-color: transparent;
 
   &:hover {
-    transform: scale(1.05);
+    transform: scale(1.15);
   }
 `;
 

@@ -335,6 +335,8 @@ export const MyBookmarkReportTabMenu = styled.ul`
   border-bottom: 0;
 `;
 
+
+
 export const MyPageTabWrap = styled.div``;
 export const MyPageTablist = styled.ul``;
 export const MyPageTebBtn = styled.button``;
