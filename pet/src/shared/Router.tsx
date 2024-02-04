@@ -19,7 +19,7 @@ import QuestionDetail from '../components/community/QuestionDetail';
 import Sidebar from '../components/community/Sidebar';
 import Popular from '../components/community/Popular';
 import EditPost from '../components/community/EditPost';
-
+import ChatContainer from '../components/Chat/ChatContainer'; 
 const Router = () => {
   return (
     <Routes>
@@ -44,6 +44,7 @@ const Router = () => {
           <Route path="/write-question" element={<WriteQuestionPost />} />
           <Route path="/questions/:questionId" element={<QuestionDetail />} />
           <Route path="/edit/:postId" element={<EditPost />} />
+          <Route path="/chat" element={<ChatContainer />} />
         </Route>
       </Route>
       <Route path="/CheckoutPage" element={<CheckoutPage />} />
