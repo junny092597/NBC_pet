@@ -61,6 +61,12 @@ function OrderButton({ selectedType, selectedCategory, renderData, setRenderData
     setInputIndex('');
   };
 
+  const handleEnterKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      searchOnclickHandler();
+    }
+  };
+
   return (
     <>
       <SProductsButtonContainer>
@@ -74,7 +80,13 @@ function OrderButton({ selectedType, selectedCategory, renderData, setRenderData
           높은가격순
         </SProductsButton>
         <SinputWrapper>
-          <SsearchInput type="text" value={inputIndex} placeholder="제품을 검색해주세요" onChange={searchData} />
+          <SsearchInput
+            type="text"
+            value={inputIndex}
+            placeholder="제품을 검색해주세요"
+            onChange={searchData}
+            onKeyDown={handleEnterKey}
+          />
           <SsearchButton onClick={searchOnclickHandler}>검색하기</SsearchButton>
         </SinputWrapper>
       </SProductsButtonContainer>
