@@ -187,7 +187,7 @@ const BannerText = styled.div`
 `;
 
 const BannerTitle = styled.h1`
-  font-size: 24px;
+  font-size: 48px;
   font-weight: bold;
   margin-bottom: 15px;
 `;

@@ -55,8 +55,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "start-server": "cd server && tsc -p tsconfig.server.json && node ../build_server/index.js",
-    "dev-server": "cd server && tsc -w -p tsconfig.server.json"
+    "build:server": "yarn tsc -p tsconfig.server.json",
+    "start-server": "tsc -p tsconfig.server.json && node ./dist/index.js",
+    "dev-server": "tsc -w -p tsconfig.server.json"
   },
   "eslintConfig": {
     "extends": [
