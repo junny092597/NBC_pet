@@ -46,22 +46,15 @@ const Sidebar = () => {
   return (
     <PageContainer>
       <SidebarContainer>
-        <TabButton isActive={currentPath.includes('/popular')} onClick={() => navigate('/popular')}>
-          인기
-        </TabButton>
         <TabButton isActive={currentPath.includes('/daily')} onClick={() => navigate('/daily')}>
           일상
-        </TabButton>
-        <TabButton isActive={currentPath.includes('/questions')} onClick={() => navigate('/questions')}>
-          질문
         </TabButton>
         <TabButton isActive={currentPath === '/shorts'} onClick={() => navigate('/shorts')}>
           shorts
         </TabButton>
-        {/* 다른 탭 버튼들이 필요하면 여기에 추가 */}
       </SidebarContainer>
       <ContentContainer>
-        <Outlet /> {/* 자식 라우트가 렌더링될 위치 */}
+        <Outlet />
       </ContentContainer>
     </PageContainer>
   );

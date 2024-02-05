@@ -10,7 +10,7 @@ const TitleHeader = styled.h2`
   font-size: 2rem;
   color: #333;
   padding-top: 20px;
-  margin-bottom: 20px; // 또는 원하는 만큼의 여백 조정
+  margin-bottom: 20px;
   margin-right: 70%;
   font-family: GmarketSansMedium;
 `;
@@ -21,8 +21,8 @@ const BoardContainer = styled.div`
   width: 80%;
   margin-left: 8%;
   position: relative;
-  border: 2px solid #ebebdd; // 테두리 색상 설정
-  border-radius: 10px; // 모서리 둥글게 설정
+  border: 2px solid #ebebdd;
+  border-radius: 10px;
 `;
 
 const PostContainer = styled.div`
@@ -34,7 +34,7 @@ const PostContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: relative;
+  position: relative; // This is important for absolutely positioned children
   left: 90px;
   cursor: pointer;
   &:hover {
@@ -80,8 +80,8 @@ const LoadMoreButton = styled.button`
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  margin: 20px auto; // 중앙 정렬을 위한 스타일
-  display: block; // 블록 레벨 요소로 만들어주어야 함
+  margin: 20px auto;
+  display: block;
 `;
 
 const defaultImage = process.env.PUBLIC_URL + 'no image.png';
@@ -99,7 +99,7 @@ const DailyBoard: React.FC = () => {
   const [visiblePosts, setVisiblePosts] = useState<Post[]>([]);
   const [user, setUser] = useState<User | null>(null);
   const navigate = useNavigate();
-
+  console.log('DailyBoard');
   useEffect(() => {
     const unsubscribeAuth = onAuthStateChanged(auth, currentUser => {
       setUser(currentUser);
@@ -138,12 +138,12 @@ const DailyBoard: React.FC = () => {
       navigate('/write-post');
     } else {
       alert('게시글을 작성하려면 로그인이 필요합니다. 로그인 페이지로 이동합니다.');
-      navigate('/signin'); // Redirect to login page
+      navigate('/signin');
     }
   };
 
   const handleLoadMore = () => {
-    setVisiblePosts(posts); // 모든 게시글을 표시
+    setVisiblePosts(posts);
   };
 
   return (

@@ -1,39 +1,95 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { db, auth } from '../../Firebase';
-import { doc, getDoc, deleteDoc } from 'firebase/firestore';
+import { doc, getDoc, deleteDoc, Timestamp, updateDoc } from 'firebase/firestore';
 import { onAuthStateChanged, User as FirebaseUser } from 'firebase/auth';
 import styled from 'styled-components';
+import CommentsList from '../community/CommentsList';
+import defaultProfilePic from '../../../src/assets/images/logo3.png';
 
+function linkify(inputText: string): string {
+  const linkRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#/%?=~_|!:,.;]*[-A-Z0-9+&@#/%=~_|])/gi;
+  return inputText.replace(linkRegex, (url: string) => {
+    return `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`;
+  });
+}
 const DetailContainer = styled.div`
-  background: #fff8f0; // 밝은 살구색 배경
-  padding: 2rem; // 패딩을 rem 단위로 변경
-  margin: 2rem auto; // 마진을 rem 단위로 변경
-  max-width: 800px;
-  border-radius: 10px; // 둥근 모서리
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // 부드러운 그림자 효과
-  border: 1px solid #f0e6d6; // 테두리 색상 변경
+  max-width: 80%;
+  margin: 2rem auto;
+  border-bottom: 2px solid black;
+`;
+
+const Header = styled.header`
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 30px;
+  border-bottom: 1px solid black;
 `;
 
 const Title = styled.h1`
-  font-size: 2.5rem; // 크기 증가
-  margin-bottom: 1.5rem; // 마진 변경
-  color: #ff4500; // 타이틀 색상 변경
-  text-align: center; // 중앙 정렬
+  font-family: 'GmarketSansMedium'; // Set the custom font
+  color: #000; // Set text color to black
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
 `;
 
-const Content = styled.p`
-  font-size: 1.125rem; // 콘텐츠 폰트 크기 변경
-  line-height: 1.6; // 줄 간격
-  color: #555; // 글자 색상 변경
-  margin-bottom: 1.5rem; // 마진 변경
-  text-align: justify; // 정렬 변경
+const UserInfo = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ProfilePic = styled.img`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 30px;
+`;
+
+const UserNameAndDate = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  line-height: 30px;
+`;
+
+const Username = styled.span`
+  font-family: 'GmarketSansMedium'; // Set the custom font
+  color: #000; // Set text color to black
+  font-size: 1rem;
+  font-weight: bold;
+`;
+
+const PostDate = styled.span`
+  font-family: 'GmarketSansMedium'; // Set the custom font
+  color: #000; // Set text color to black
+  font-size: 0.875rem;
+`;
+
+const ViewsCount = styled.span`
+  font-family: 'GmarketSansMedium'; // Set the custom font
+  color: #000; // Set text color to black
+  font-size: 0.875rem;
+  margin-left: auto;
+  padding-left: 20px;
+`;
+
+const Content = styled.div`
+  font-family: 'GmarketSansMedium'; // Set the custom font
+  color: #000; // Set text color to black
+  font-size: 1.125rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  text-align: justify;
+  white-space: pre-wrap;
+  margin-top: 50px;
 `;
 
 const Image = styled.img`
   max-width: 100%;
   margin-top: 1.5rem;
-  border-radius: 5px; // 이미지 둥근 모서리
+  border-radius: 5px;
 `;
 
 const ButtonContainer = styled.div``;
@@ -57,7 +113,12 @@ const DeleteButton = styled.button`
   cursor: pointer;
 `;
 
-// 게시물 데이터 인터페이스
+interface Author {
+  id: string;
+  name: string;
+  profilePic: string;
+}
+
 interface Post {
   id: string;
   title: string;
@@ -65,8 +126,10 @@ interface Post {
   createdAt: Date;
   imageUrl?: string;
   authorId?: string;
+  author: Author;
+  views: number;
+  commentsCount: number;
 }
-
 const PostDetail: React.FC = () => {
   const { postId } = useParams<{ postId: string }>();
   const navigate = useNavigate();
@@ -74,6 +137,10 @@ const PostDetail: React.FC = () => {
   const [currentUser, setCurrentUser] = useState<FirebaseUser | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>('');
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    e.currentTarget.onerror = null;
+    e.currentTarget.src = defaultProfilePic;
+  };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, user => {
@@ -89,14 +156,24 @@ const PostDetail: React.FC = () => {
 
           if (docSnap.exists()) {
             const postData = docSnap.data() as Post;
+            const createdAtDate =
+              postData.createdAt instanceof Timestamp ? postData.createdAt.toDate() : postData.createdAt;
+            const authorData = postData.author || { id: '', name: '익명', profilePic: '' };
+            const viewsCount = postData.views || 0;
+            const commentsCount = postData.commentsCount || 0;
+            const newViewsCount = viewsCount + 1;
+            await updateDoc(postRef, { views: newViewsCount });
 
             setPost({
               id: docSnap.id,
               title: postData.title,
               content: postData.content,
-              createdAt: postData.createdAt,
+              createdAt: createdAtDate,
               imageUrl: postData.imageUrl,
               authorId: postData.authorId,
+              author: authorData,
+              views: viewsCount,
+              commentsCount: commentsCount,
             });
           } else {
             setError('문서가 존재하지 않습니다');
@@ -124,8 +201,7 @@ const PostDetail: React.FC = () => {
     }
   };
   if (!postId) {
-    // postId가 undefined인 경우의 처리
-    console.error('No postId provided');
+    console.error('제공된 게시물 ID가 없습니다.');
     return;
   }
 
@@ -135,13 +211,10 @@ const PostDetail: React.FC = () => {
       return;
     }
 
-    // 사용자에게 확인
     if (window.confirm('이 게시글을 정말 삭제하시겠습니까?')) {
       setLoading(true);
       try {
-        // 문서를 삭제
         await deleteDoc(doc(db, 'posts', postId));
-        // 사용자를 홈페이지로 리다이렉션
         navigate('/');
       } catch (error) {
         console.error('문서 삭제 오류: ', error);
@@ -159,18 +232,41 @@ const PostDetail: React.FC = () => {
     return <div>No post found</div>;
   }
   return (
-    <DetailContainer>
-      <Title>{post.title}</Title>
-      <Content>{post.content}</Content>
-      {post.imageUrl && <Image src={post.imageUrl} alt="Post image" />}
-      {isAuthor && (
-        <ButtonContainer>
-          <EditButton onClick={handleEdit}>수정</EditButton>
-          <DeleteButton onClick={handleDelete}>삭제</DeleteButton>
-        </ButtonContainer>
+    <>
+      {loading && <div>Loading...</div>}
+      {error && <div>Error: {error}</div>}
+      {!post && !loading && <div>No post found</div>}
+      {post && (
+        <DetailContainer>
+          <Header>
+            <Title>{post.title}</Title>
+            <UserInfo>
+              <ProfilePic
+                src={post.author.profilePic || defaultProfilePic}
+                alt="Profile image"
+                onError={handleImageError}
+              />
+              <UserNameAndDate>
+                <Username>{post.author.name}</Username>
+                <PostDate>
+                  {post.createdAt.toLocaleDateString()} {post.createdAt.toLocaleTimeString()}
+                </PostDate>
+              </UserNameAndDate>
+              <ViewsCount>조회수 {post.views}</ViewsCount>
+            </UserInfo>
+          </Header>
+          {post.imageUrl && <Image src={post.imageUrl} alt="Post image" />}
+          {isAuthor && (
+            <ButtonContainer>
+              <EditButton onClick={handleEdit}>수정</EditButton>
+              <DeleteButton onClick={handleDelete}>삭제</DeleteButton>
+            </ButtonContainer>
+          )}
+          <Content dangerouslySetInnerHTML={{ __html: linkify(post.content) }} />
+        </DetailContainer>
       )}
-    </DetailContainer>
+      {postId && <CommentsList postId={postId} />}
+    </>
   );
 };
-
 export default PostDetail;
