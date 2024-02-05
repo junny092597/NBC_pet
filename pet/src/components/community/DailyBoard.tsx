@@ -5,6 +5,16 @@ import { db, auth } from '../../Firebase';
 import { collection, query, onSnapshot, DocumentData, orderBy } from 'firebase/firestore';
 import { onAuthStateChanged, User } from 'firebase/auth';
 
+const TitleHeader = styled.h2`
+  text-align: center;
+  font-size: 2rem;
+  color: #333;
+  padding-top: 20px;
+  margin-bottom: 20px; // 또는 원하는 만큼의 여백 조정
+  margin-right: 70%;
+  font-family: GmarketSansMedium;
+`;
+
 const BoardContainer = styled.div`
   background-color: #ffffff;
   padding: 30px;
@@ -16,7 +26,7 @@ const BoardContainer = styled.div`
 `;
 
 const PostContainer = styled.div`
-  width: calc(100% - 100px);
+  width: calc(100% - 120px);
   background-color: #e6e6d5;
   border-radius: 30px;
   padding: 30px;
@@ -74,7 +84,7 @@ const LoadMoreButton = styled.button`
   display: block; // 블록 레벨 요소로 만들어주어야 함
 `;
 
-const defaultImage = process.env.PUBLIC_URL + 'no image.jpg';
+const defaultImage = process.env.PUBLIC_URL + 'no image.png';
 
 interface Post {
   id: string;
@@ -137,16 +147,32 @@ const DailyBoard: React.FC = () => {
   };
 
   return (
-    <BoardContainer>
-      <WriteButton onClick={handleWriteButtonClick}>게시글 작성</WriteButton>
-      {visiblePosts.map(post => (
-        <PostContainer key={post.id} onClick={() => handleMoreClick(post.id)}>
-          <CircleImage src={post.imageUrl || defaultImage} alt="게시물 이미지" />
-          <PostTitle>{post.title}</PostTitle>
-        </PostContainer>
-      ))}
-      {posts.length > 10 && <LoadMoreButton onClick={handleLoadMore}>더보기</LoadMoreButton>}
-    </BoardContainer>
+    <>
+      <TitleHeader>일상 게시글</TitleHeader>
+      <BoardContainer>
+        <WriteButton onClick={handleWriteButtonClick}>게시글 작성</WriteButton>
+        {visiblePosts.map(post => (
+          <PostContainer key={post.id} onClick={() => handleMoreClick(post.id)}>
+            <CircleImage src={post.imageUrl || defaultImage} alt="게시물 이미지" />
+            <PostTitle>{post.title}</PostTitle>
+            <img
+              className="cat-feet"
+              src={process.env.PUBLIC_URL + '/cat-feet.png'}
+              alt="고양이 발바닥 이미지"
+              style={{
+                position: 'absolute',
+                right: '0',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                width: '25px',
+                height: 'auto',
+              }}
+            />
+          </PostContainer>
+        ))}
+        {posts.length > 10 && <LoadMoreButton onClick={handleLoadMore}>더보기</LoadMoreButton>}
+      </BoardContainer>
+    </>
   );
 };
 

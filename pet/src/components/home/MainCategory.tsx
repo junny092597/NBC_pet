@@ -114,6 +114,7 @@ const ButtonText = styled.div`
   background-color: #ffffff;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 24px;
   /* 필요한 추가 스타일링 */
 `;
 

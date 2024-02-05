@@ -16,6 +16,7 @@ const Title = styled.h2`
   font-weight: bold; // 글자 굵기를 bold로 설정
   color: #333;
   margin: 20px 0 0 30px; // 상단 마진 추가
+  font-family: GmarketSansMedium;
 `;
 // Styled components
 const ShortsContainer = styled.div`

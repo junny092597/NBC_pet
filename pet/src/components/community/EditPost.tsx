@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
-import { db } from '../../Firebase';
-import { storage } from '../../Firebase';
-import { collection, addDoc } from 'firebase/firestore';
+import { useNavigate, useParams } from 'react-router-dom';
+import { db, storage } from '../../Firebase';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { AiOutlineCloudUpload } from 'react-icons/ai';
-import { auth } from '../../Firebase';
 
 const FormContainer = styled.div`
   background-color: #ffffff;
@@ -41,7 +39,6 @@ const Textarea = styled.textarea`
   padding: 10px;
   border: none;
   border-bottom: 1px solid #ddd;
-  resize: none;
 `;
 
 const SubmitButton = styled.button`
@@ -63,36 +60,70 @@ const Toolbar = styled.div`
   background-color: #f8f8f8;
 `;
 
-const WritePost = () => {
-  const [title, setTitle] = useState<string>('');
-  const [content, setContent] = useState<string>('');
-  const [file, setFile] = useState<File | null>(null);
+interface Post {
+  id: string;
+  title: string;
+  content: string;
+  createdAt: Date;
+  imageUrl?: string;
+  authorId?: string;
+}
+
+const EditPost = () => {
+  const { postId } = useParams<{ postId: string }>();
   const navigate = useNavigate();
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const [file, setFile] = useState<File | null>(null);
+  const [existingImageUrl, setExistingImageUrl] = useState('');
+
+  useEffect(() => {
+    if (!postId) return; // postId가 없으면 early return
+
+    const fetchPost = async () => {
+      try {
+        const postRef = doc(db, 'posts', postId);
+        const docSnap = await getDoc(postRef);
+        if (docSnap.exists()) {
+          const postData = docSnap.data() as Post;
+          setTitle(postData.title);
+          setContent(postData.content);
+          setExistingImageUrl(postData.imageUrl || '');
+        } else {
+          console.error('No such document!');
+          navigate('/'); // 문서가 없으면 홈으로 리다이렉트
+        }
+      } catch (error) {
+        console.error('Error fetching post:', error);
+      }
+    };
+
+    fetchPost();
+  }, [postId, navigate]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    let imageUrl = existingImageUrl;
+
+    if (file) {
+      const fileRef = ref(storage, `posts/${file.name}`);
+      const snapshot = await uploadBytes(fileRef, file);
+      imageUrl = await getDownloadURL(snapshot.ref);
+    }
+
     try {
-      let imageUrl = '';
-
-      if (file) {
-        const fileRef = ref(storage, `posts/${file.name}`);
-        const snapshot = await uploadBytes(fileRef, file);
-        imageUrl = await getDownloadURL(snapshot.ref);
-      }
-
-      const userEmail = auth.currentUser?.email || '익명';
-      await addDoc(collection(db, 'posts'), {
-        title: title,
-        content: content,
-        imageUrl: imageUrl,
-        createdAt: new Date(),
-        email: userEmail,
-        authorId: auth.currentUser?.uid,
+      const postRef = doc(db, 'posts', `${postId}`);
+      await updateDoc(postRef, {
+        title,
+        content,
+        imageUrl,
+        updatedAt: new Date(),
       });
 
-      navigate('/daily');
+      navigate(`/posts/${postId}`); // 수정 후 상세 페이지로 리다이렉트
     } catch (error) {
-      console.error('Error adding document: ', error);
+      console.error('Error updating document:', error);
     }
   };
 
@@ -123,4 +154,4 @@ const WritePost = () => {
     </FormContainer>
   );
 };
-export default WritePost;
+export default EditPost;

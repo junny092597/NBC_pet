@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 
+const Container = styled.div`
+  text-align: center;
+`;
 const ButtonWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -58,10 +61,16 @@ const Title = styled.h3`
   width: 200px;
   font-weight: bold;
   margin: 0 0 5px 0;
-  padding: 0 5px;
+  padding: 5px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-family: GmarketSansMedium;
+`;
+
+const MainTitle = styled.h1`
+  font-size: 2.5rem;
+  color: #333;
 `;
 
 const ChannelTitle = styled.p`
@@ -172,24 +181,29 @@ const YouTubeShorts: React.FC = () => {
   }
 
   return (
-    <ShortsContainer>
-      {items.map((item, index) => {
-        const { videoId } = item.id;
-        const { title, channelTitle, thumbnails } = item.snippet;
-        const thumbnailUrl = thumbnails.high.url;
+    <>
+      <Container>
+        <Title>YouTube Shorts</Title>
+      </Container>
+      <ShortsContainer>
+        {items.map((item, index) => {
+          const { videoId } = item.id;
+          const { title, channelTitle, thumbnails } = item.snippet;
+          const thumbnailUrl = thumbnails.high.url;
 
-        return (
-          <GenreButton
-            key={videoId}
-            label={`Video ${index + 1}`}
-            videoId={videoId}
-            thumbnailUrl={thumbnailUrl}
-            title={title}
-            channelTitle={channelTitle}
-          />
-        );
-      })}
-    </ShortsContainer>
+          return (
+            <GenreButton
+              key={videoId}
+              label={`Video ${index + 1}`}
+              videoId={videoId}
+              thumbnailUrl={thumbnailUrl}
+              title={title}
+              channelTitle={channelTitle}
+            />
+          );
+        })}
+      </ShortsContainer>
+    </>
   );
 };
 
