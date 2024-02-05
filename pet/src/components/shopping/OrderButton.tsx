@@ -11,18 +11,25 @@ interface Item {
   type: string;
 }
 interface OrderButtonProps {
+  selectedCategory: string;
+  selectedType: string;
   renderData: Item[];
   setRenderData: React.Dispatch<React.SetStateAction<Item[]>>;
 }
 
-function OrderButton({ renderData, setRenderData }: OrderButtonProps): JSX.Element {
-  const [isActive, setIsActive] = useState(false);
+function OrderButton({ selectedType, selectedCategory, renderData, setRenderData }: OrderButtonProps): JSX.Element {
+  const [activeSort, setActiveSort] = useState<'new' | 'higePrice' | 'lowPrice' | null>(null);
   const [inputIndex, setInputIndex] = useState<string>('');
   const [originalData, setOriginalData] = useState<Item[]>([]);
 
   useEffect(() => {
     setOriginalData(renderData);
+    setInputIndex('');
   }, [renderData]);
+
+  useEffect(() => {
+    setActiveSort(null);
+  }, [selectedCategory, selectedType]);
 
   const handleSortClick = (sortOrder: 'higePrice' | 'lowPrice' | 'new') => {
     const sorted = [...originalData];
@@ -35,7 +42,10 @@ function OrderButton({ renderData, setRenderData }: OrderButtonProps): JSX.Eleme
       sorted.sort((a, b) => a.id - b.id);
     }
     setRenderData(sorted);
+    setActiveSort(prevSort => (prevSort === sortOrder ? null : sortOrder));
   };
+  console.log('activeSort');
+  console.log(activeSort);
 
   const searchData = (e: { target: { value: React.SetStateAction<string> } }) => {
     setInputIndex(e.target.value);
@@ -54,13 +64,13 @@ function OrderButton({ renderData, setRenderData }: OrderButtonProps): JSX.Eleme
   return (
     <>
       <SProductsButtonContainer>
-        <SProductsButton active={isActive} onClick={() => handleSortClick('new')}>
+        <SProductsButton active={activeSort === 'new'} onClick={() => handleSortClick('new')}>
           최신순
         </SProductsButton>
-        <SProductsButton active={isActive} onClick={() => handleSortClick('higePrice')}>
+        <SProductsButton active={activeSort === 'higePrice'} onClick={() => handleSortClick('higePrice')}>
           낮은가격순
         </SProductsButton>
-        <SProductsButton active={isActive} onClick={() => handleSortClick('lowPrice')}>
+        <SProductsButton active={activeSort === 'lowPrice'} onClick={() => handleSortClick('lowPrice')}>
           높은가격순
         </SProductsButton>
         <SinputWrapper>
@@ -90,10 +100,11 @@ const SProductsButton = styled.button<{ active?: boolean }>`
   background-color: transparent;
   border: none;
   cursor: pointer;
-  color: ${({ active }) => (active ? 'yello' : 'black')};
+  color: ${({ active }) => (active ? 'gray' : 'black')};
   text-decoration: ${({ active }) => (active ? 'underline' : 'none')};
 
   &:hover {
+    color: ${({ active }) => (active ? 'gray' : 'black')};
     text-decoration: underline; /* 마우스 호버 시 텍스트에 밑줄 추가 */
   }
 `;
