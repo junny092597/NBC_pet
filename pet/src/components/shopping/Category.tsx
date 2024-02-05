@@ -50,19 +50,19 @@ function Category({
     <SCategoryContainer>
       <SCategoryBox>
         {CATEGORIES.map(category => (
-          <div key={category}>
+          <SCategoryButtonContainer key={category}>
             <SButtonContainer>
               <SCatagoryButton onClick={() => onClickCategory(category)} active={category === selectedCategory}>
                 {category}
               </SCatagoryButton>
               {category === selectedCategory &&
                 TYPES[category].map(item => (
-                  <SItemButton key={item} onClick={() => onClickItem(item)}>
+                  <SItemButton key={item} onClick={() => onClickItem(item)} active={item === selectedType}>
                     {item}
                   </SItemButton>
                 ))}
             </SButtonContainer>
-          </div>
+          </SCategoryButtonContainer>
         ))}
       </SCategoryBox>
     </SCategoryContainer>
@@ -99,7 +99,6 @@ const SButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-
   gap: 0.3vh;
 `;
 
@@ -110,8 +109,13 @@ const SItemButton = styled.button<{ active?: boolean }>`
   border: none;
   cursor: pointer;
   color: ${({ active }) => (active ? 'gray' : 'black')};
+  text-decoration: ${({ active }) => (active ? 'underline' : 'none')};
 
   &:hover {
     text-decoration: underline; /* 마우스 호버 시 텍스트에 밑줄 추가 */
   }
+`;
+
+const SCategoryButtonContainer = styled.div`
+  margin-bottom: 35%;
 `;

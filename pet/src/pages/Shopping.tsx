@@ -87,7 +87,13 @@ function Shopping() {
           selectedType={selectedType}
           setSelectedType={setSelectedType}
         />
-        <Products renderData={renderData} setRenderData={setRenderData} page={page} />
+        <Products
+          renderData={renderData}
+          setRenderData={setRenderData}
+          page={page}
+          selectedCategory={selectedCategory}
+          selectedType={selectedType}
+        />
       </SComponentsContainer>
     </>
   );

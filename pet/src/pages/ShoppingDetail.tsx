@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Review from '../components/shoppingDetail/Review';
 import QuantityInput from '../components/shoppingDetail/QuantityInput';
+import ShoppingBasket from '../components/shoppingDetail/ShoppingBasket';
 import styled from 'styled-components';
 import { auth } from '../Firebase';
 import QuestionAndAnswer from '../components/shoppingDetail/QuestionAndAnswer';
@@ -52,6 +53,8 @@ function ShoppingDetail() {
     });
     return () => userData();
   }, []);
+  console.log('item');
+  console.log(item);
 
   //게시글 데이터베이스에 추가기능
   const [like, setLike] = useState<boolean>(false);
@@ -163,10 +166,6 @@ function ShoppingDetail() {
     );
   }
 
-  const addToCartOnclickHandler = () => {
-    alert('추후 업데이트 예정입니다.');
-  };
-
   return (
     <>
       <SProductContainer>
@@ -193,7 +192,8 @@ function ShoppingDetail() {
             <SItemTotalPrice>총 금액 : {totalPrice}원</SItemTotalPrice>
           </SItemTotalPriceBox>
           <SOrderButtonBox>
-            <SAddToCartButton onClick={addToCartOnclickHandler}>ADD Tod Cart</SAddToCartButton>
+            {/* 장바구니기능 */}
+            <ShoppingBasket data={data} item={item} />
             <SOrderButton
               onClick={() => {
                 if (data.userEmail !== '') {

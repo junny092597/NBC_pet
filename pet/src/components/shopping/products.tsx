@@ -12,12 +12,14 @@ interface Item {
   type: string;
 }
 interface ProductsProps {
+  selectedCategory: string;
+  selectedType: string;
   renderData: Item[];
   setRenderData: React.Dispatch<React.SetStateAction<Item[]>>;
   page: number;
 }
 
-function Products({ renderData, setRenderData, page }: ProductsProps): JSX.Element {
+function Products({ selectedCategory, selectedType, renderData, setRenderData, page }: ProductsProps): JSX.Element {
   const handlePageChange = (page: React.SetStateAction<number>) => {
     // setPage(page);
   };
@@ -31,7 +33,12 @@ function Products({ renderData, setRenderData, page }: ProductsProps): JSX.Eleme
       <SItemBoxContainer>
         {/* UI에 제품이 보이게 해주는 코드 */}
         <OrderButtonBox>
-          <OrderButton renderData={renderData} setRenderData={setRenderData} />
+          <OrderButton
+            selectedCategory={selectedCategory}
+            selectedType={selectedType}
+            renderData={renderData}
+            setRenderData={setRenderData}
+          />
         </OrderButtonBox>
         <SItemContainer>
           {renderData.map(Product => (
