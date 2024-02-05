@@ -364,7 +364,7 @@ const GoogleButton = styled.button`
   /* color: #8a8a80; */
   font-size: 45px;
   border: none;
-  padding: 10px;
+  /* padding: 10px; */
   cursor: pointer;
   outline: none;
   background-color: transparent;
@@ -376,9 +376,9 @@ const GoogleButton = styled.button`
 
 const FacebookButton = styled.button`
   color: #4267b2;
-  font-size: 43px;
+  font-size: 45px;
   border: none;
-  padding: 10px;
+  /* padding: 10px; */
   cursor: pointer;
   outline: none;
   background-color: transparent;

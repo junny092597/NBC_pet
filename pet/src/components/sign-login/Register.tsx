@@ -196,7 +196,6 @@ export default function Register() {
   border-radius: 20px;
   margin-top: 5px;
   margin-bottom: 5px;
-  cursor: pointer;
   text-indent: 10px;
   padding: 15px;
   margin: 6px 0;
