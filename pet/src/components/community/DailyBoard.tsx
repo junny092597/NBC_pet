@@ -99,7 +99,6 @@ const DailyBoard: React.FC = () => {
   const [visiblePosts, setVisiblePosts] = useState<Post[]>([]);
   const [user, setUser] = useState<User | null>(null);
   const navigate = useNavigate();
-console.log
 
   useEffect(() => {
     const unsubscribeAuth = onAuthStateChanged(auth, currentUser => {
