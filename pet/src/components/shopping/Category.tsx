@@ -57,7 +57,7 @@ function Category({
               </SCatagoryButton>
               {category === selectedCategory &&
                 TYPES[category].map(item => (
-                  <SItemButton key={item} onClick={() => onClickItem(item)}>
+                  <SItemButton key={item} onClick={() => onClickItem(item)} active={item === selectedType}>
                     {item}
                   </SItemButton>
                 ))}
@@ -109,6 +109,7 @@ const SItemButton = styled.button<{ active?: boolean }>`
   border: none;
   cursor: pointer;
   color: ${({ active }) => (active ? 'gray' : 'black')};
+  text-decoration: ${({ active }) => (active ? 'underline' : 'none')};
 
   &:hover {
     text-decoration: underline; /* 마우스 호버 시 텍스트에 밑줄 추가 */
