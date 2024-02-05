@@ -185,11 +185,11 @@ function ShoppingDetail() {
             <SItemName>{item.name}</SItemName>
           </SItemNameBox>
           <SItemPriceBox>
-            <span>가격 : {item.price}원 </span>
+            <span>{parseInt(item.price).toLocaleString()} </span>
           </SItemPriceBox>
           <SItemTotalPriceBox>
             <QuantityInput quantity={quantity} onclickQuantityHandler={onclickQuantityHandler} />
-            <SItemTotalPrice>총 금액 : {totalPrice}원</SItemTotalPrice>
+            <SItemTotalPrice>{`총 가격 : ${totalPrice.toLocaleString()}원`}</SItemTotalPrice>
           </SItemTotalPriceBox>
           <SOrderButtonBox>
             {/* 장바구니기능 */}
@@ -298,6 +298,12 @@ const SItemNameBox = styled.div`
 const SItemPriceBox = styled.div`
   margin-bottom: 1.5rem;
   font-size: 20px;
+  ::before {
+    content: '가격: ';
+  }
+  ::after {
+    content: '원';
+  }
 `;
 
 const SItemTotalPriceBox = styled.div`
@@ -309,6 +315,12 @@ const SItemTotalPriceBox = styled.div`
 
 const SItemTotalPrice = styled.span`
   font-size: 25px;
+  :before {
+    content: '가격: ';
+  }
+  ::after {
+    content: '원';
+  }
 `;
 
 const SOrderButtonBox = styled.div`
