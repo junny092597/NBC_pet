@@ -51,6 +51,8 @@ const Div = styled.div`
 const P = styled.p`
 margin-top: 20px;
 margin-left: 140px;
+font-family: GmarketSansMedium;
+
 `;
 const Links = styled.p`
 margin-top: 20px;
