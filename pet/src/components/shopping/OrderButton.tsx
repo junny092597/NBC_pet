@@ -44,8 +44,6 @@ function OrderButton({ selectedType, selectedCategory, renderData, setRenderData
     setRenderData(sorted);
     setActiveSort(prevSort => (prevSort === sortOrder ? null : sortOrder));
   };
-  console.log('activeSort');
-  console.log(activeSort);
 
   const searchData = (e: { target: { value: React.SetStateAction<string> } }) => {
     setInputIndex(e.target.value);
