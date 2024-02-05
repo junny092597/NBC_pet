@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { db } from '../../Firebase';
-import { storage } from '../../Firebase';
+import { db, storage, auth } from '../../Firebase';
 import { collection, addDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { AiOutlineCloudUpload } from 'react-icons/ai';
-import { auth } from '../../Firebase';
 
 const FormContainer = styled.div`
   background-color: #ffffff;
@@ -82,9 +80,9 @@ const WritePost = () => {
 
       const userEmail = auth.currentUser?.email || '익명';
       await addDoc(collection(db, 'posts'), {
-        title: title,
-        content: content,
-        imageUrl: imageUrl,
+        title,
+        content,
+        imageUrl,
         createdAt: new Date(),
         email: userEmail,
         authorId: auth.currentUser?.uid,
@@ -123,4 +121,5 @@ const WritePost = () => {
     </FormContainer>
   );
 };
+
 export default WritePost;
