@@ -48,7 +48,7 @@ function Products({ selectedCategory, selectedType, renderData, setRenderData, p
               </SImgBox>
               <STextBox>
                 <SProductName>{Product.name}</SProductName>
-                <SProductPrice>가격: {Product.price}원</SProductPrice>
+                <SProductPrice>{`가격: ${Product.price.toLocaleString()}원`}</SProductPrice>
                 {/* <button onClick={() => moveToDeatailPageHandler(Product)}>구매하기</button> */}
               </STextBox>
             </SItemBox>
@@ -166,4 +166,11 @@ const SProductPrice = styled.div`
   font-size: 16px;
   font-weight: bold; /* 글자를 찐하게 만듭니다 */
   color: #5b5b5b; /* 글자 색상을 지정합니다 */
+
+  ::before {
+    content: '가격: ';
+  }
+  ::after {
+    content: '원';
+  }
 `;
