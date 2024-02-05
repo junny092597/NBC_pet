@@ -1,7 +1,8 @@
 import { useRecoilState } from 'recoil';
 import { mypagemenu } from '../../atom';
+
 // component
-import MyPagePost from './MyPagePost';
+import MyPagePost from './postpage/MyPagePost';
 // style
 import * as S from './style';
 

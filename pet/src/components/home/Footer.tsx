@@ -10,11 +10,12 @@ const Footer = () => {
         <FooterLogo>
           <img src={logo} alt={'footer logo'} />
         </FooterLogo>
-        <P>© {currentYear} </P>
         <Links>
           <a href="/">쿠키 정책</a>
           <a href="/">고객 서비스 가이드</a>
+          <P>© {currentYear} </P>
         </Links>
+
       </Div>
     </Footers>
   );
@@ -23,13 +24,14 @@ const Footer = () => {
 const Footers = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 20px;
+  /* align-items: center; */
+  padding: 16px;
   background-color: #f6f7c4;
 `;
 
 const FooterLogo = styled.div`
-  justify-content: flex-start;
+left: 30px;
+
 
   img {
     width: 100px; // 로고 이미지의 너비 조정
@@ -38,17 +40,24 @@ const FooterLogo = styled.div`
 `;
 const Div = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
+  /* align-items: center;
+  justify-content: center; */
   margin: 0 auto;
   width: 96%;
   max-width: 1100px;
   height: 100%;
 `;
 
-const P = styled.p``;
+const P = styled.p`
+margin-top: 20px;
+margin-left: 140px;
+font-family: GmarketSansMedium;
+
+`;
 const Links = styled.p`
-  margin-right: 10px;
+margin-top: 20px;
+
+  margin-left: 650px;
   text-decoration: none;
   color: #333;
   font-family: GmarketSansMedium;

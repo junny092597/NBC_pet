@@ -11,7 +11,7 @@ import * as S from './style';
 import basicProfileImg from '../../assets/images/logo.png';
 import { User } from 'firebase/auth';
 import MyProfileModal from './MyProfileModal';
-import MyPagePost from './MyPagePost';
+import MyPagePost from './postpage/MyPagePost';
 
 type CurrentUserProfile = User | null;
 
@@ -31,6 +31,7 @@ const MyProfile = () => {
       if (user) {
         setCurrentUser(auth.currentUser);
         setImgUploadUrl(user.photoURL);
+        setOpen(false)
       } else {
         return;
       }

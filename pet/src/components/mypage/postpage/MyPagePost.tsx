@@ -1,21 +1,23 @@
 import { SyntheticEvent, useEffect, useState } from 'react';
 import * as S from './MyPagePoststyle';
-import { db } from '../../Firebase';
-import { auth } from '../../Firebase';
-import { collection, getDocs } from 'firebase/firestore';
+import Swal from 'sweetalert2';
+
+import { db } from '../../../Firebase';
+import { auth } from '../../../Firebase';
+import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
-import defaultImg from '../../assets/images/Caticon1.png';
-import NoPosts from './NoPosts';
+import defaultImg from '../../../assets/images/Caticon1.png';
+import NoPosts from '../NoPosts';
 
 export type Post = {
   id: string;
   content: string;
   title: string;
   imageUrl: string;
-  createdAt: any;
+  createdAt: Date;
 };
 
-const MyPagePost = ({}) => {
+const MyPagePost = () => {
   const currentUserInfos = auth.currentUser; // 현재 로그인한 사용자의 정보들(파이어베이스)
   const [posts, setPosts] = useState<Post[]>([]);
   const [isall, setIsall] = useState(false);
@@ -24,7 +26,7 @@ const MyPagePost = ({}) => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const q = collection(db, 'posts');
+        const q = query(collection(db, 'posts'), orderBy('createdAt', 'desc'));
         const querySnapshot = await getDocs(q);
         const postData: Post[] = [];
         querySnapshot.forEach(doc => {
@@ -35,7 +37,7 @@ const MyPagePost = ({}) => {
               content: data.content,
               title: data.title,
               imageUrl: data.imageUrl,
-              createdAt: data.any,
+              createdAt: data.createdAt.toDate(),
             });
           }
         });
@@ -72,7 +74,6 @@ const MyPagePost = ({}) => {
             {posts.length < 5
               ? posts.map(post => (
                   <Link key={post.id} to={`/posts/${post.id}`}>
-                    {' '}
                     <S.PostContainer key={post.id}>
                       <S.PostImgContainer src={post.imageUrl} onError={addDefaultImg} />
                       <S.TextContainer>
