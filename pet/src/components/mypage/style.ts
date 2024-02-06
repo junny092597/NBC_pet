@@ -7,6 +7,11 @@ export const ProfileContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media screen and (max-width: 768px) {
+    /* 모바일 화면일 때의 스타일 */
+    align-items: flex-start;
+  }
 `;
 
 export const ProfileImgWrapper = styled.div`
@@ -19,6 +24,12 @@ export const ProfileImgShow = styled.img`
   border-radius: 20%;
   border: none;
   cursor: pointer;
+
+  @media screen and (max-width: 768px) {
+    /* 모바일 화면일 때의 스타일 */
+    width: 150px;
+    height: 150px;
+  }
 `;
 
 export const ProfileNickname = styled.h3`
@@ -31,6 +42,11 @@ export const ProfileNickname = styled.h3`
   justify-content: center;
   align-items: center;
   order: 1;
+
+  @media screen and (max-width: 768px) {
+    /* 모바일 화면일 때의 스타일 */
+    font-size: 20px;
+  }
 `;
 
 export const ModifyCompleteButton = styled.button`
@@ -42,53 +58,6 @@ export const ModifyCompleteButton = styled.button`
 
 export const TabContainer = styled.div``;
 
-// MyProfileModal
-export const Text = styled.div`
-  font-size: 20px;
-`;
-
-export const InfoTitle = styled.p`
-  font-family: GmarketSansMedium;
-  font-size: 16px;
-  margin-bottom: 0.2rem;
-  color: black;
-`;
-
-export const InfoHolder = styled.div`
-  width: 252px;
-  height: 48px;
-  border: 1px solid;
-  background-color: black;
-  border-radius: 8px;
-  font-size: 16px;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 8px 16px;
-  gap: 8px;
-`;
-
-export const ButtonContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 8px;
-  margin: 90px 0 36px;
-
-  @media screen and (max-width: 1150px) {
-    margin-top: 30px;
-  }
-`;
-
-export const ModifyDeleteButton = styled.button``;
-
-// 이미지 수정, 업로드 관련 스타일링
-export const ImgModifyButton = styled.button``;
-
-/*
- * 이미지 라벨
- */
 export const ProfileImgLabel = styled.label`
   width: 200px;
   height: 200px;
@@ -101,32 +70,6 @@ export const ProfileImgLabel = styled.label`
 `;
 
 export const ProfileImgInput = styled.input``;
-
-export const InfoWrapper = styled.div`
-  margin-top: 21px;
-`;
-
-export const EmailInputDiv = styled.div`
-  width: 80%;
-  height: 48px;
-  border: 1px solid;
-  border-radius: 8px;
-  font-size: 16px;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 8px 16px;
-  gap: 8px;
-  background-color: black;
-`;
-
-export const MyBookmarkReportWrap = styled.div``;
-
-/*
- * 프로필 모달창
- */
-
 export const EditModalAll = styled.div`
 `;
 
@@ -136,11 +79,14 @@ export const EditModalBtnText = styled.div`
   font-size: 25px;
 `;
 
-export const EditModalTitle = styled.div`
-  font-family: GmarketSansMedium;
-  font-weight: 800;
-  font-size: 23px;
-  color: black;
+export const EditModalTitle = styled.ul`
+  padding: 0;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  list-style: none;
 `;
 
 export const EditModalImgInputWrapper = styled.div`
@@ -150,13 +96,10 @@ export const EditModalImgInputWrapper = styled.div`
   margin: 20px 0 5px;
 `;
 
-export const EnterInputPasswordWrapper = styled.div``;
-
 export const EditModalProfileImgLabel = styled.label`
-  width: 160px;
-  height: 160px;
-  border-radius: 70%;
-  border: 1px solid;
+  width: 180px;
+  height: 180px;
+  border: 1px solid #F0F0E6;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -173,14 +116,7 @@ export const EditModalProfileImgShow = styled.img`
 export const EditModalProfileImgInput = styled.input``;
 
 export const EditModalNicknameInputWrapper = styled.div`
-  margin-top: 30px;
-`;
-
-export const EditModalText = styled.p`
-  font-family: GmarketSansMedium;
-  font-size: 16px;
-  margin-bottom: 0.3rem;
-  color: black;
+  margin-top: 15px;
 `;
 
 export const EditModalNicknameInput = styled.input`
@@ -203,14 +139,12 @@ export const EditModalEmailInputWrpper = styled.div`
 
 export const EditModalEmailText = styled.p`
   font-family: GmarketSansMedium;
-  font-style: normal;
   font-weight: 700;
   font-size: 16px;
-  line-height: 19px;
-  margin-bottom: 0.4rem;
+  /* line-height: 19px; */
+  margin-bottom: 0.2rem;
   color: black;
 `;
-
 /*
  * 모달창 버튼
  */
@@ -278,65 +212,24 @@ export const MyContentBox = styled.div`
   align-items: center;
 `;
 
-export const MyProfileStar1 = styled.img`
-  position: relative;
-  top: -80px;
-  left: 58px;
-`;
-
-export const MyProfileStar2 = styled.img`
-  position: relative;
-  bottom: -65px;
-  right: 40px;
-`;
-
-// MyPagePost
-export const ReportWrap = styled.div`
-  width: 100%;
-`;
-export const BookMarkStore = styled.div``;
-export const MyBookmarkReportBox = styled.div``;
-
-export const MyTitleTabBtn = styled.button`
-  background-color: transparent;
+export const MyTitleTab = styled.h2`
   font-family: GmarketSansMedium;
+  background-color: transparent;
   font-weight: bold;
-  font-size: 25px;
+  font-size: 20px;
   text-align: center;
   display: block;
   border: none;
   color: black;
-  padding-bottom: 1px;
-  margin-top: 7px;
-  margin-right: 16px;
+  padding-bottom: 10px;
+  margin-top: 13px;
   text-decoration: none;
 
   cursor: pointer;
-  width: 50%;
+  width: 40%;
   &.active {
-    color: black;
-    border-bottom: 2px solid;
+    color: #405F4C;
+    border-bottom: 2px solid #405F4C;
   }
 `;
 
-export const MyTitleTab = styled.h2`
-  font-family: GmarketSansMedium;
-  font-weight: bold;
-  font-size: 25px;
-  color: black;
-  margin-top: 16px;
-  margin-left: 16px;
-`;
-
-export const MyBookmarkReportTabMenu = styled.ul`
-  padding: 0;
-  height: 50px;
-  display: flex;
-  border-bottom: 0;
-`;
-
-
-
-export const MyPageTabWrap = styled.div``;
-export const MyPageTablist = styled.ul``;
-export const MyPageTebBtn = styled.button``;

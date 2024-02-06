@@ -160,7 +160,6 @@ const CategoriesContainer = styled.div`
   width: 95%;
   justify-content: space-around;
   align-items: flex-start;
-
   margin: 90px auto 0;
 `;
 

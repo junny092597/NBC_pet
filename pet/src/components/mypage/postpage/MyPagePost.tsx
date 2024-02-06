@@ -1,6 +1,5 @@
 import { SyntheticEvent, useEffect, useState } from 'react';
 import * as S from './MyPagePoststyle';
-import Swal from 'sweetalert2';
 
 import { db } from '../../../Firebase';
 import { auth } from '../../../Firebase';

@@ -21,6 +21,12 @@ export const ReviewContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   place-items: center;
+
+  @media only screen and (max-width: 600px) {
+  .App-header {
+    font-size: calc(8px + 2vmin);
+  }
+}
 `;
 
 export const PostContainer = styled.div`
@@ -38,6 +44,11 @@ export const PostContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  @media only screen and (max-width: 600px) {
+    width: 90%; /* 화면이 작을 때 가로 너비를 90%로 조정 */
+    max-width: 300px; /* 최대 가로 너비는 300px로 유지 */
+  }
 `;
 
 export const PostImgContainer = styled.img`
@@ -59,10 +70,8 @@ export const TextContainer = styled.div`
   bottom: 0px;
   color: #2e2e2b;
   background-color: rgba(255, 255, 255, 0.5);
-  /* text-overflow: clip; */
   object-fit: cover;
-  /* vertical-align: initial; */
-  /* background-color: #5C5C55; */
+
 `;
 
 export const TextTitle = styled.div`

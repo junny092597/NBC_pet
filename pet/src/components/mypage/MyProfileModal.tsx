@@ -17,6 +17,7 @@ import error from '../../assets/images/erroricon.png';
 import { createGlobalStyle } from 'styled-components';
 
 import { PiPencilLineFill } from 'react-icons/pi';
+import Password from './postpage/Password';
 
 const GlobalStyle = createGlobalStyle`
   .swal2-container {
@@ -26,6 +27,9 @@ const GlobalStyle = createGlobalStyle`
 
 const MyProfileEditModal = () => {
   const [profileUrl, setProfileUrl] = useRecoilState(profileState);
+  // const [isActive, setIsActive] = useState<boolean>(true);
+  const [isActiveTab1, setIsActiveTab1] = useState(true);
+  const [isActiveTab2, setIsActiveTab2] = useState(false);
 
   // 모달
   const [open, setOpen] = useRecoilState(editModal);
@@ -142,11 +146,26 @@ const MyProfileEditModal = () => {
       <S.EditModalBtnText onClick={handleOpen}>
         <PiPencilLineFill />
       </S.EditModalBtnText>
-      <Modal open={open} onClose={handleClose}>
+      <Modal open={open} onClose={handleClose}
+       aria-labelledby="modal-modal-title"
+       aria-describedby="modal-modal-description">
         <S.EditModalAll>
           <Box sx={style}>
-            <>
-              <S.MyTitleTab>회원정보수정</S.MyTitleTab>
+          <S.EditModalTitle>
+              <S.MyTitleTab
+              className={isActiveTab1 ? 'active' : ''}
+               onClick={()=> {setIsActiveTab1(true); setIsActiveTab2(false);}}
+               >
+               회원정보수정
+               </S.MyTitleTab>
+               <S.MyTitleTab
+              className={isActiveTab2 ? 'active' : ''}
+               onClick={()=> {setIsActiveTab1(false); setIsActiveTab2(true);}}
+               >
+              비밀번호변경
+               </S.MyTitleTab>
+               </S.EditModalTitle>
+               {isActiveTab1 ? (
               <S.MyContentBox>
                 <S.EditModalImgInputWrapper>
                   <S.EditModalProfileImgLabel htmlFor="modalProfileUploadImg">
@@ -184,7 +203,9 @@ const MyProfileEditModal = () => {
                   </S.EditModalCompleteButton>
                 </S.EditModalBtnWrapper>
               </S.MyContentBox>
-            </>
+              ):(
+                <Password handleClose={handleClose} />
+              )}
           </Box>
         </S.EditModalAll>
       </Modal>
