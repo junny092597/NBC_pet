@@ -205,7 +205,7 @@ export const EditModalEmailInput = styled.input`
   gap: 8px;
 `;
 
-export const MyContentBox = styled.div`
+export const MyContentBox1 = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -231,5 +231,67 @@ export const MyTitleTab = styled.h2`
     color: #405F4C;
     border-bottom: 2px solid #405F4C;
   }
+`;
+
+
+//////////////////////////////////////////////
+export const MyBookmarkReportWrap = styled.div``;
+
+export const MyBookmarkReportContainer = styled.div``;
+
+export const MyBookmarkReportBox = styled.div`
+  /* background: gray;
+  border: 1px solid gray; */
+  border-radius: 0px 8px 8px 0px;
+  padding: 0 15px;
+`;
+
+export const MyBookmarkReportTabMenu = styled.ul`
+  padding: 0;
+  height: 50px;
+  display: flex;
+  /* flex-direction: row; */
+  /* justify-content: space-around; */
+  align-items: center;
+  /* border-bottom: 2px solid gray; */
+`;
+
+export const MyTitleTabTitleBox = styled.div``;
+
+export const MyTitleTabBtn = styled.button`
+  background-color: transparent;
+  font-family: 'Apple SD Gothic Neo';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  display: block;
+  border: none;
+  color: gray;
+  padding-bottom: 10px;
+  margin-top: 13px;
+  text-decoration: none;
+  cursor: pointer;
+  width: 50%;
+  &.active {
+    padding-bottom: 12.5px;
+    color: green;
+    border-bottom: 4px solid green;
+  }
+`;
+
+export const MyContentBox = styled.div`
+  /* height: 800px;
+  margin-left: 10px;
+  overflow-y: auto;
+  overflow-x: auto;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    background: gray;
+  } */
 `;
 
