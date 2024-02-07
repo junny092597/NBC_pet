@@ -1,9 +1,9 @@
 import { SetStateAction } from "react";
 
 const markerImagePaths: { [key: string]: string } = {
-  '반려동물 병원': process.env.PUBLIC_URL + '/images/HospitalCat.png',
-  '반려동물 샵': process.env.PUBLIC_URL + '/images/ShopCat.png',
-  '산책로': process.env.PUBLIC_URL + '/images/ParkCat.png',
+  '반려동물 병원': process.env.PUBLIC_URL + 'HospitalCat.png',
+  '반려동물 샵': process.env.PUBLIC_URL + 'ShopCat.png',
+  '산책로': process.env.PUBLIC_URL + 'ParkCat.png',
 };
 
 const categoryKeywords: { [category: string]: string[] } = {
