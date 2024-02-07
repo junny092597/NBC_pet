@@ -30,10 +30,7 @@ const Header: React.FC = () => {
     navigate('/Profile');
   };
   
-  const showAlert = (e: React.MouseEvent) => {
-    e.preventDefault(); // 기본 링크 동작 방지
-    alert('추후 업데이트 예정입니다');
-  };
+
   
   return (
     <HeaderContainer key={isLogin ? 'loggedIn' : 'loggedOut'}>
@@ -55,7 +52,7 @@ const Header: React.FC = () => {
             <a href="/map">맵</a>
           </li>
           <li>
-          <a href="/chat" onClick={showAlert}>실시간 채팅</a>
+          <a href="/chat"> 실시간 채팅</a>
           </li>
         </ul>
       </Navigation>
@@ -163,6 +160,12 @@ const Navigation = styled.nav`
 
     @media (max-width: 768px) {
       margin-right: 20px;
+    }
+
+    &:not(:last-child)::after {
+      content: '|';
+      margin-left: 85px;
+      font-weight: bold;
     }
   }
 

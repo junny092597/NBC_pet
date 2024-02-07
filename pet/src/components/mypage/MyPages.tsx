@@ -11,7 +11,7 @@ import * as S from './style';
 import basicProfileImg from '../../assets/images/logo.png';
 import { User } from 'firebase/auth';
 import MyProfileModal from './MyProfileModal';
-import MyPageTab from './MyPageTab';
+import MyPagePost from './postpage/MyPagePost';
 
 type CurrentUserProfile = User | null;
 
@@ -62,7 +62,7 @@ const MyProfile = () => {
         </S.ProfileNickname>
       </S.ProfileContainer>
       <S.TabContainer>
-        <MyPageTab />
+        <MyPagePost />
       </S.TabContainer>
     </S.MyPageAll>
   );
