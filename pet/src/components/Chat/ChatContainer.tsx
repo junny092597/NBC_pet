@@ -13,6 +13,7 @@ const socket = io('https://nbc-pet-server-hyungjun.koyeb.app'); // 실제 서버
 const ChatContainer = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-between; /* 내용을 상단과 하단에 배치 */
   height: 80vh;
   max-width: 600px;
   margin: auto;
@@ -89,6 +90,21 @@ const ChatContainerComponent: React.FC = () => {
     };
   }, [setUserState]);
 
+  const handleSendMessage = (messageText: string, attachmentUrl: string | null) => {
+    if (userState.isLogin) {
+      const { uid, nickName } = userState.userInfomation;
+      const photoURL = userState.userInfomation.photoURL || basicProfileImg;
+
+      socket.emit('chat message', {
+        text: messageText,
+        sender: uid,
+        senderName: nickName,
+        senderPhotoURL: photoURL,
+        attachmentUrl, // 첨부 파일 URL 추가
+      });
+    }
+  };
+
   return (
     <ChatContainer>
       <MessageList>
@@ -103,15 +119,13 @@ const ChatContainerComponent: React.FC = () => {
               {message.attachmentUrl && message.attachmentUrl.endsWith('.mp4') ? (
                 <video src={message.attachmentUrl} controls />
               ) : (
-                message.attachmentUrl && <img src={message.attachmentUrl} alt="Attached Image" style={{maxWidth: '100%', height: 'auto'}} />
+                message.attachmentUrl && <img src={message.attachmentUrl} alt="Attached Image" />
               )}
             </MessageContent>
           </MessageItem>
         ))}
       </MessageList>
-      <ChatInput onSendMessage={(messageText, attachmentUrl) => {
-        // 로직은 ChatInput 컴포넌트에서 구현됩니다.
-      }} />
+      <ChatInput onSendMessage={handleSendMessage} />
     </ChatContainer>
   );
 };
