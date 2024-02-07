@@ -7,9 +7,9 @@ const markerImagePaths: { [key: string]: string } = {
 };
 
 const categoryKeywords: { [category: string]: string[] } = {
-  '반려동물 병원': ['동물 병원', '반려 동물 병원', '애완동물 병원', '수의사'],
-  '반려동물 샵': ['애견 용품', '반려 동물 샵', '애완동물 샵'],
-  '산책로': ['공원', '산책'],
+  '반려동물 병원': ['동물 병원',],
+  '반려동물 샵': ['애견 용품', ],
+  '산책로': ['공원', ],
 };
 
 let ps: kakao.maps.services.Places | null = null;
