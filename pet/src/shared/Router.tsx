@@ -15,11 +15,12 @@ import WritePost from '../components/community/WritePost';
 import PostDetail from '../components/community/PostDetail';
 import Sidebar from '../components/community/Sidebar';
 import EditPost from '../components/community/EditPost';
-import ChatContainer from '../components/Chat/ChatContainer';
+import ChatContainer from '../components/Chat/ChatContainer'; 
 const Router = () => {
   return (
     <Routes>
       <Route element={<Layout children={undefined} />}>
+      <Route path="/chat" element={<ChatContainer />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/shopping" element={<Shopping />}>
           <Route path="/shopping/:category" element={<Shopping />} />
@@ -36,8 +37,8 @@ const Router = () => {
           <Route path="/write-post" element={<WritePost />} />
           <Route path="/posts/:postId" element={<PostDetail />} />
           <Route path="/edit/:postId" element={<EditPost />} />
+  
         </Route>
-        <Route path="/chat" element={<ChatContainer />} />
       </Route>
       <Route path="/CheckoutPage" element={<CheckoutPage />} />
     </Routes>
