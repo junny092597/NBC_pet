@@ -4,11 +4,12 @@ import styled from 'styled-components';
 
 const PageContainer = styled.div`
   display: flex;
+  height: 100%;
 `;
 
 const SidebarContainer = styled.div`
   background-color: #e2faeb;
-  width: 200px;
+  width: 10%;
   border-right: 1px solid #f5f5f5;
   display: flex;
   flex-direction: column;
@@ -16,11 +17,12 @@ const SidebarContainer = styled.div`
 `;
 
 const TabButton = styled.button<{ isActive: boolean }>`
+  font-size: 20px;
   padding: 10px;
   border: none;
   background-color: ${props => (props.isActive ? '#f5f5dc' : 'transparent')};
   cursor: pointer;
-  text-align: left;
+  text-align: center;
   width: 100%;
 
   &:hover {

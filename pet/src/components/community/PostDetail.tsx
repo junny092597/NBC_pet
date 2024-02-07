@@ -97,20 +97,22 @@ const ButtonContainer = styled.div``;
 const EditButton = styled.button`
   padding: 10px 20px;
   margin-right: 10px;
-  background-color: #f0ad4e;
-  color: white;
+  background-color: #f6f7c4;
+  color: black;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  font-family: 'GmarketSansMedium';
 `;
 
 const DeleteButton = styled.button`
   padding: 10px 20px;
-  background-color: #d9534f;
-  color: white;
+  background-color: #d9f8e5;
+  color: black;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  font-family: 'GmarketSansMedium';
 `;
 
 interface Author {
@@ -258,8 +260,8 @@ const PostDetail: React.FC = () => {
           {post.imageUrl && <Image src={post.imageUrl} alt="Post image" />}
           {isAuthor && (
             <ButtonContainer>
-              <EditButton onClick={handleEdit}>수정</EditButton>
-              <DeleteButton onClick={handleDelete}>삭제</DeleteButton>
+              <EditButton onClick={handleEdit}>수정하기</EditButton>
+              <DeleteButton onClick={handleDelete}>삭제하기</DeleteButton>
             </ButtonContainer>
           )}
           <Content dangerouslySetInnerHTML={{ __html: linkify(post.content) }} />
