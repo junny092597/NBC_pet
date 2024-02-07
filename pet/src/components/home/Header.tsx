@@ -159,6 +159,12 @@ const Navigation = styled.nav`
     @media (max-width: 768px) {
       margin-right: 20px;
     }
+
+    &:not(:last-child)::after {
+      content: '|';
+      margin-left: 85px;
+      font-weight: bold;
+    }
   }
 
   a {
