@@ -3,13 +3,14 @@ import styled from 'styled-components';
 import axios from 'axios';
 
 const Container = styled.div`
+  margin-top: 20px;
   text-align: center;
 `;
 const ButtonWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 500px;
+  width: 210px;
   margin: 20px 20px;
 `;
 
@@ -26,12 +27,11 @@ const ShortsContainer = styled.div`
 `;
 
 const RoundButton = styled.button`
-  width: 300px;
-  height: 300px;
+  width: 200px;
+  height: 200px;
+  border: none;
   border-radius: 50%;
-  border: 2px solid #ccc;
   background-color: #fff;
-  box-shadow: 0 0 0 6px #dda0dd;
   cursor: pointer;
   font-size: 1rem;
   color: #333;
@@ -40,8 +40,24 @@ const RoundButton = styled.button`
   align-items: center;
   position: relative;
   overflow: hidden;
+  transition: transform 0.3s ease; /* Add transition to the transform property */
+
   &:hover {
     background-color: #f2f2f2;
+    transform: scale(0.95); /* Add scaling transformation */
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    border-radius: 50%;
+    background: linear-gradient(140deg, #f6f7c4, #a1eebd);
+    z-index: 1;
+    transition: transform 0.3s ease; /* Ensure the pseudo-element also transitions smoothly */
   }
 `;
 
@@ -99,12 +115,13 @@ interface YouTubeApiResponseItem {
 
 const fetchYouTubeShortsIds = async (keyword: string): Promise<YouTubeApiResponseItem[]> => {
   const apiKey = process.env.REACT_APP_YOUTUBE_API_KEY;
-  const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=6&type=video&videoDefinition=high&q=${encodeURIComponent(
+  const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=12&type=video&videoDefinition=high&q=${encodeURIComponent(
     keyword
   )} shorts&key=${apiKey}`;
 
   try {
     const response = await axios.get(searchUrl);
+    console.log('API Response:', response.data);
     return response.data.items;
   } catch (error) {
     console.error('Error fetching YouTube Shorts IDs:', error);
@@ -129,12 +146,14 @@ const GenreButton: React.FC<GenreButtonProps> = ({ label, videoId, thumbnailUrl,
       <RoundButton onClick={handleClick} aria-label={`Watch ${title}`}>
         <div
           style={{
+            position: 'relative',
+            zIndex: 1, // 이 값은 ::before 요소보다 높아야 합니다.
+            borderRadius: '50%',
+            width: '95%',
+            height: '90%',
             backgroundImage: `url(${thumbnailUrl})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            borderRadius: '50%',
-            width: '100%',
-            height: '100%',
             transition: 'transform 0.3s ease',
           }}
         />

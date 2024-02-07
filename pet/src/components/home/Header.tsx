@@ -29,9 +29,7 @@ const Header: React.FC = () => {
   const navprofile = () => {
     navigate('/Profile');
   };
-  
 
-  
   return (
     <HeaderContainer key={isLogin ? 'loggedIn' : 'loggedOut'}>
       <Link to={'/'}>
@@ -43,7 +41,7 @@ const Header: React.FC = () => {
             <a href="/">Home</a>
           </li>
           <li>
-            <a href="/Community">커뮤니티</a>
+            <a href="/daily">커뮤니티</a>
           </li>
           <li>
             <a href="/Shopping">쇼핑</a>
@@ -52,7 +50,7 @@ const Header: React.FC = () => {
             <a href="/map">맵</a>
           </li>
           <li>
-          <a href="/chat"> 실시간 채팅</a>
+            <a href="/chat"> 실시간 채팅</a>
           </li>
         </ul>
       </Navigation>
@@ -150,7 +148,7 @@ const Navigation = styled.nav`
     padding: 0;
     display: flex;
     justify-content: space-between;
-    flex-direction: row; 
+    flex-direction: row;
     align-items: center;
     margin: 0;
   }
@@ -160,6 +158,12 @@ const Navigation = styled.nav`
 
     @media (max-width: 768px) {
       margin-right: 20px;
+    }
+
+    &:not(:last-child)::after {
+      content: '|';
+      margin-left: 85px;
+      font-weight: bold;
     }
   }
 

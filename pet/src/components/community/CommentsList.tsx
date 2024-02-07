@@ -16,24 +16,29 @@ const Container = styled.div`
 const CommentBubble = styled.div`
   border: 1px solid gray;
   border-radius: 20px;
-  padding: 10px 15px;
+  padding: 10px;
   margin-bottom: 30px;
   width: 80%;
+  display: flex; // flex 속성 추가
+  justify-content: space-between; // 내용을 양쪽 끝으로 정렬
+  align-items: center; // 수직 정렬
+  font-family: 'GmarketSansMedium';
+`;
+const CommentTextContainer = styled.div`
+  flex-grow: 1; // 댓글 내용이 차지할 수 있는 최대 공간을 차지하도록 설정
 `;
 
 const CommentContent = styled.p`
   margin: 0;
+  white-space: pre-wrap; /* 공백과 줄바꿈을 유지하면서 텍스트를 표시합니다. */
+  word-break: break-word; /* 단어가 너무 길면 자동으로 줄바꿈합니다. */
 `;
 
 const CommentDetails = styled.div`
   display: flex;
+  justify-content: flex-end; /* 오른쪽 끝으로 정렬 */
   align-items: center;
   margin-top: 5px;
-`;
-
-const CommentAuthor = styled.span`
-  font-weight: bold;
-  margin-right: 10px;
 `;
 
 const CommentDate = styled.span`
@@ -55,7 +60,6 @@ interface CommentsListProps {
   postId: string;
 }
 
-// Component
 const CommentsList: React.FC<CommentsListProps> = ({ postId }) => {
   const [comments, setComments] = useState<Comment[]>([]);
 
@@ -69,7 +73,6 @@ const CommentsList: React.FC<CommentsListProps> = ({ postId }) => {
     }
   };
 
-  // Fetch all comments and their sub-comments
   const fetchCommentsAndSubComments = useCallback(async () => {
     const commentsQuery = query(
       collection(db, 'comments'),
@@ -86,7 +89,7 @@ const CommentsList: React.FC<CommentsListProps> = ({ postId }) => {
         ...commentData,
         authorName: authorDetails.name,
         authorProfilePic: authorDetails.profilePic,
-        subComments: [], // 이 부분은 기존 로직을 그대로 사용
+        subComments: [],
       });
     }
     setComments(fetchedComments);
@@ -96,34 +99,22 @@ const CommentsList: React.FC<CommentsListProps> = ({ postId }) => {
     fetchCommentsAndSubComments();
   }, [fetchCommentsAndSubComments]);
 
-  // Add a new sub-comment to the database
-
-  // Render
   return (
     <Container>
       <CommentForm postId={postId} onCommentAdded={fetchCommentsAndSubComments} />
       {comments.length > 0 ? (
         comments.map(comment => (
           <CommentBubble key={comment.id}>
-            <CommentContent>{comment.content}</CommentContent>
+            <CommentTextContainer>
+              <CommentContent>{comment.content}</CommentContent>
+            </CommentTextContainer>
             <CommentDetails>
               <CommentDate>{comment.createdAt?.toDate().toLocaleString()}</CommentDate>
             </CommentDetails>
-            {/* <ReplyForm onSubmit={e => handleReplySubmit(comment.id, e)}>
-              <ReplyInput
-                type="text"
-                value={replies[comment.id] || ''}
-                onChange={e => handleReplyChange(comment.id, e)}
-                placeholder="구현중입니다."
-              />
-              <Button type="submit">댓글 달기</Button>
-            </ReplyForm> */}
             {comment.subComments &&
               comment.subComments.map(subComment => (
                 <CommentBubble key={subComment.id}>
-                  <CommentContent>{subComment.content}</CommentContent>
                   <CommentDetails>
-                    <CommentAuthor>{subComment.authorId}</CommentAuthor>
                     <CommentDate>{subComment.createdAt?.toDate().toLocaleString()}</CommentDate>
                   </CommentDetails>
                 </CommentBubble>

@@ -23,6 +23,7 @@ const BoardContainer = styled.div`
   position: relative;
   border: 2px solid #ebebdd;
   border-radius: 10px;
+  font-family: 'GmarketSansMedium';
 `;
 
 const PostContainer = styled.div`
@@ -62,8 +63,8 @@ const CircleImage = styled.img`
 
 const WriteButton = styled.button`
   padding: 10px 15px;
-  background-color: #4caf50;
-  color: white;
+  background-color: #e6e6d5;
+  color: black;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -71,17 +72,19 @@ const WriteButton = styled.button`
   right: -10%;
   top: 1%;
   z-index: 1000;
+  font-family: 'GmarketSansMedium';
 `;
 
 const LoadMoreButton = styled.button`
   padding: 10px 20px;
-  background-color: #4caf50;
-  color: white;
+  background-color: #e6e6d5;
+  color: black;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   margin: 20px auto;
   display: block;
+  font-family: 'GmarketSansMedium';
 `;
 
 const defaultImage = process.env.PUBLIC_URL + 'no image.png';

@@ -9,9 +9,10 @@ const Form = styled.form`
   gap: 50px;
   margin: 0 0 30px 30px;
   width: 80%;
+  font-family: 'GmarketSansMedium';
 `;
 
-const Input = styled.input`
+const Textarea = styled.textarea`
   flex-grow: 1;
   padding: 8px 16px;
   border: 1px solid #ccc;
@@ -20,18 +21,23 @@ const Input = styled.input`
   &:focus {
     border-color: #007bff;
   }
+  resize: vertical; // 사용자가 수직으로 크기 조절을 할 수 있게 함
+  font-family: 'GmarketSansMedium';
+  height: 50px; // 초기 높이 설정
+  overflow-y: auto; // 내용이 많아지면 스크롤바가 생기도록 설정
 `;
 
 const Button = styled.button`
   padding: 8px 16px;
-  background-color: #007bff;
-  color: white;
+  background-color: #f6f7c4;
+  color: black;
   border: none;
   border-radius: 20px;
   cursor: pointer;
   &:hover {
-    background-color: #0056b3;
+    background-color: #d9f8e5;
   }
+  font-family: 'GmarketSansMedium';
 `;
 
 interface CommentFormProps {
@@ -63,13 +69,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId, onCommentAdded }) => 
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Input
-        type="text"
-        placeholder="댓글을 입력하세요"
-        value={comment}
-        onChange={e => setComment(e.target.value)}
-        required
-      />
+      <Textarea placeholder="댓글을 입력하세요" value={comment} onChange={e => setComment(e.target.value)} required />
       <Button type="submit">댓글 달기</Button>
     </Form>
   );
