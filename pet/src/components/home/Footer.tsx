@@ -10,11 +10,12 @@ const Footer = () => {
         <FooterLogo>
           <img src={logo} alt={'footer logo'} />
         </FooterLogo>
-        <P>© {currentYear} </P>
         <Links>
           <a href="/">쿠키 정책</a>
           <a href="/">고객 서비스 가이드</a>
+          <P>© {currentYear} </P>
         </Links>
+
       </Div>
     </Footers>
   );
@@ -23,32 +24,47 @@ const Footer = () => {
 const Footers = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 20px;
+  padding: 16px;
   background-color: #f6f7c4;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 const FooterLogo = styled.div`
-  justify-content: flex-start;
-
+left: 30px;
   img {
     width: 100px; // 로고 이미지의 너비 조정
     height: auto; // 높이를 자동으로 조절하여 비율 유지
   }
+  @media (max-width: 768px) {
+    margin-left: 0; // 가운데 정렬
+    margin-bottom: 1em; // 아래 여백 추가
+  }
 `;
 const Div = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
   margin: 0 auto;
   width: 96%;
   max-width: 1100px;
   height: 100%;
 `;
 
-const P = styled.p``;
+const P = styled.p`
+margin-top: 20px;
+margin-left: 140px;
+font-family: GmarketSansMedium;
+
+@media (max-width: 768px) {
+    margin-left: 0; // 모바일에서 가운데 정렬
+    text-align: center;
+  }
+`;
 const Links = styled.p`
-  margin-right: 10px;
+  margin-top: 20px;
+  margin-left: 730px;
   text-decoration: none;
   color: #333;
   font-family: GmarketSansMedium;

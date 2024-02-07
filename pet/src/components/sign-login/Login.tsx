@@ -3,7 +3,8 @@ import Swal from 'sweetalert2';
 import inputcat from '../../assets/images/Caticon.png';
 import inputdog from '../../assets/images/Dogicon.png';
 import erroricon from '../../assets/images/erroricon.png';
-import { PiGoogleLogoFill } from 'react-icons/pi';
+import { FcGoogle } from 'react-icons/fc';
+import { FaFacebook } from 'react-icons/fa';
 
 import { auth } from '../../Firebase';
 import {
@@ -11,6 +12,7 @@ import {
   UserCredential as FirebaseAuthUserCredential,
   GoogleAuthProvider,
   signInWithPopup,
+  FacebookAuthProvider,
 } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -122,13 +124,51 @@ const Login = () => {
         imageUrl: inputcat,
         imageWidth: 130,
         imageHeight: 130,
-        imageAlt: "Custom image",
+        imageAlt: 'Custom image',
       });
       navigate('/');
     } catch (error: any) {
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log('error with googleLogIn', errorCode, errorMessage);
+    }
+  };
+
+  const FacebookLogin = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+
+    const Provider = new FacebookAuthProvider();
+    Provider.setCustomParameters({
+      prompt: 'select_account',
+    });
+    try {
+      const result = await signInWithPopup(auth, Provider);
+      dispatch(
+        login({
+          email: result.user.email,
+          displayName: result.user.displayName,
+          uid: result.user.uid,
+          photoURL: null,
+          isLogin: false,
+        })
+      );
+      navigate('/');
+
+      Swal.fire({
+        title: '로그인 성공',
+        text: result.user.displayName + `님 환영합니다!`,
+        confirmButtonColor: '#20b2aa',
+        confirmButtonText: '확인',
+        imageUrl: inputcat,
+        imageWidth: 130,
+        imageHeight: 130,
+        imageAlt: 'Custom image',
+      });
+      navigate('/');
+    } catch (error: any) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log('error with facebookLogIn', errorCode, errorMessage);
     }
   };
 
@@ -187,9 +227,14 @@ const Login = () => {
               </p>
               <p>소셜로그인으로 계속하기</p>
             </GoogleBtn>
-            <GoogleButton type="button" onClick={GoogleLogin}>
-              <PiGoogleLogoFill />
-            </GoogleButton>
+            <SocialButtons>
+              <GoogleButton type="button" onClick={GoogleLogin}>
+                <FcGoogle />
+              </GoogleButton>
+              <FacebookButton type="button" onClick={FacebookLogin}>
+                <FaFacebook />
+              </FacebookButton>
+            </SocialButtons>
           </ButtonContainer>
         </>
       </form>
@@ -202,15 +247,15 @@ const GoogleBtn = styled.div`
   font-size: 12px;
   font-family: GmarketSansMedium;
   button {
-  font-family: GmarketSansMedium;
-  color: red;
-  font-size: 12px;
-  border: none;
-  cursor: pointer;
-  margin-top: 30px;
-  margin-bottom: 13px;
-  outline: none;
-  background-color: transparent;
+    font-family: GmarketSansMedium;
+    color: red;
+    font-size: 12px;
+    border: none;
+    cursor: pointer;
+    margin-top: 30px;
+    margin-bottom: 13px;
+    outline: none;
+    background-color: transparent;
   }
 `;
 
@@ -308,18 +353,38 @@ const Button = styled.button`
   font-family: GmarketSansMedium;
 `;
 
-const GoogleButton = styled.button`
-  color: #8a8a80;
-  font-size: 45px;
-  border: none;
-  cursor: pointer;
+const SocialButtons = styled.div`
   margin-top: 30px;
   margin-bottom: 2px;
+  display: inline-block;
+  text-align: center;
+`;
+
+const GoogleButton = styled.button`
+  /* color: #8a8a80; */
+  font-size: 45px;
+  border: none;
+  /* padding: 10px; */
+  cursor: pointer;
   outline: none;
   background-color: transparent;
 
   &:hover {
-    transform: scale(1.05);
+    transform: scale(1.15);
+  }
+`;
+
+const FacebookButton = styled.button`
+  color: #4267b2;
+  font-size: 45px;
+  border: none;
+  /* padding: 10px; */
+  cursor: pointer;
+  outline: none;
+  background-color: transparent;
+
+  &:hover {
+    transform: scale(1.15);
   }
 `;
 

@@ -78,7 +78,7 @@ const EditPost = () => {
   const [existingImageUrl, setExistingImageUrl] = useState('');
 
   useEffect(() => {
-    if (!postId) return; // postId가 없으면 early return
+    if (!postId) return;
 
     const fetchPost = async () => {
       try {
@@ -91,7 +91,7 @@ const EditPost = () => {
           setExistingImageUrl(postData.imageUrl || '');
         } else {
           console.error('No such document!');
-          navigate('/'); // 문서가 없으면 홈으로 리다이렉트
+          navigate('/');
         }
       } catch (error) {
         console.error('Error fetching post:', error);
@@ -121,7 +121,7 @@ const EditPost = () => {
         updatedAt: new Date(),
       });
 
-      navigate(`/posts/${postId}`); // 수정 후 상세 페이지로 리다이렉트
+      navigate(`/posts/${postId}`);
     } catch (error) {
       console.error('Error updating document:', error);
     }

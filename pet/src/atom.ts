@@ -55,14 +55,4 @@ export const selectedTabData = atom<any>({
   default: null,
 });
 
-type Review = {
-  category: string;
-  emil: string;
-  index: number;
-};
 
-// 리뷰 데이터를 담는 Recoil 상태(atom) 정의
-export const reviewsState = atom<Review[]>({
-  key: 'reviewsState',
-  default: [], // 초기 값은 빈 배열
-});

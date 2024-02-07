@@ -1,4 +1,4 @@
-import * as S from './MyPagePoststyle';
+import * as S from './postpage/MyPagePoststyle';
 import { useNavigate } from 'react-router-dom';
 
 const NoPosts = () => {

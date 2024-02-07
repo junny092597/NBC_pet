@@ -85,7 +85,7 @@ const Header: React.FC = () => {
           </>
         )}
       </Headerbtn>
-      <BsSearchHeart />
+      {/* <BsSearchHeart /> */}
     </HeaderContainer>
   );
 };
@@ -138,8 +138,8 @@ const HeaderContainer = styled.header`
 `;
 
 const Image = styled.img`
-  width: 10%;
-  height: 8%;
+  width: 17%;
+  height: 10%;
   margin-right: 0px;
 `;
 
@@ -156,7 +156,7 @@ const Navigation = styled.nav`
   }
 
   li {
-    margin-right: 60px;
+    margin-right: 40px;
 
     @media (max-width: 768px) {
       margin-right: 20px;

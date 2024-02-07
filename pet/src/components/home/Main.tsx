@@ -160,14 +160,18 @@ const CategoriesContainer = styled.div`
   width: 95%;
   justify-content: space-around;
   align-items: flex-start;
+  margin: 90px auto 0;
 
-  margin: 80px auto 0;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const BannerSlide = styled.div`
   position: relative;
   width: 100%;
-  height: 500px;
+  height: 510px;
   overflow: hidden;
 `;
 
@@ -180,43 +184,76 @@ const BannerImage = styled.img`
 const BannerText = styled.div`
   position: absolute;
   top: 50%;
-  right: 400px;
+  right: 350px;
   transform: translateY(-50%);
   text-align: right;
   color: black;
+
+  @media (max-width: 768px) {
+    right: 0; // 모바일에서 가운데 정렬
+    left: 0;
+    text-align: center;
+  }
 `;
 
 const BannerTitle = styled.h1`
   font-size: 48px;
   font-weight: bold;
-  margin-bottom: 15px;
+  margin-bottom: 22px;
+
+  @media (max-width: 768px) {
+    font-size: 36px;
+  }
 `;
 
 const BannerDescription = styled.p`
   font-size: 16px;
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+  }
 `;
 
 const ImageContainer = styled.div`
   flex: 0 0 auto; // 이미지 크기를 유지
   margin-right: -250px; // 이미지와 텍스트 사이 간격
+  margin-bottom: 70px;
 
   img {
     width: 300px; // 이미지 너비 조절
     height: auto; // 높이 자동 조절
-    margin-left: 150px;
+    margin-left: 270px;
+
+    @media (max-width: 768px) {
+      margin-left: auto;
+      margin-right: auto;
+    }
   }
 `;
 const ContentSection = styled.section`
   display: flex;
   align-items: center;
   justify-content: start;
-  margin-top: 250px; // 필요에 따라 조절
+  margin-top: 180px; // 필요에 따라 조절
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const TextContainer = styled.div`
   flex: 1; // 나머지 공간을 차지
   position: absolute;
-  left: 28.5rem;
+  left: 40.5rem;
+  text-align: left;
+
+  @media (max-width: 768px) {
+    position: static;
+    margin-top: 1rem;
+    text-align: center;
+    padding: 0 1rem;
+  }
 `;
 
 const Title = styled.h1`

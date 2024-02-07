@@ -21,8 +21,8 @@ const ShortsContainer = styled.div`
   gap: 30px;
   padding: 20px;
   margin: 20px;
-  border: 2px solid #ebebdd; // 테두리 색상 설정
-  border-radius: 10px; // 모서리 둥글게 설정
+  border: 2px solid #ebebdd;
+  border-radius: 10px;
 `;
 
 const RoundButton = styled.button`
@@ -66,11 +66,6 @@ const Title = styled.h3`
   overflow: hidden;
   text-overflow: ellipsis;
   font-family: GmarketSansMedium;
-`;
-
-const MainTitle = styled.h1`
-  font-size: 2.5rem;
-  color: #333;
 `;
 
 const ChannelTitle = styled.p`

@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Review from '../components/shoppingDetail/Review';
 import QuantityInput from '../components/shoppingDetail/QuantityInput';
+import ShoppingBasket from '../components/shoppingDetail/ShoppingBasket';
 import styled from 'styled-components';
 import { auth } from '../Firebase';
 import QuestionAndAnswer from '../components/shoppingDetail/QuestionAndAnswer';
@@ -52,6 +53,8 @@ function ShoppingDetail() {
     });
     return () => userData();
   }, []);
+  console.log('item');
+  console.log(item);
 
   //게시글 데이터베이스에 추가기능
   const [like, setLike] = useState<boolean>(false);
@@ -163,10 +166,6 @@ function ShoppingDetail() {
     );
   }
 
-  const addToCartOnclickHandler = () => {
-    alert('추후 업데이트 예정입니다.');
-  };
-
   return (
     <>
       <SProductContainer>
@@ -186,14 +185,15 @@ function ShoppingDetail() {
             <SItemName>{item.name}</SItemName>
           </SItemNameBox>
           <SItemPriceBox>
-            <span>가격 : {item.price}원 </span>
+            <span>{parseInt(item.price).toLocaleString()} </span>
           </SItemPriceBox>
           <SItemTotalPriceBox>
             <QuantityInput quantity={quantity} onclickQuantityHandler={onclickQuantityHandler} />
-            <SItemTotalPrice>총 금액 : {totalPrice}원</SItemTotalPrice>
+            <SItemTotalPrice>{`총 가격 : ${totalPrice.toLocaleString()}원`}</SItemTotalPrice>
           </SItemTotalPriceBox>
           <SOrderButtonBox>
-            <SAddToCartButton onClick={addToCartOnclickHandler}>ADD Tod Cart</SAddToCartButton>
+            {/* 장바구니기능 */}
+            <ShoppingBasket data={data} item={item} />
             <SOrderButton
               onClick={() => {
                 if (data.userEmail !== '') {
@@ -298,6 +298,12 @@ const SItemNameBox = styled.div`
 const SItemPriceBox = styled.div`
   margin-bottom: 1.5rem;
   font-size: 20px;
+  ::before {
+    content: '가격: ';
+  }
+  ::after {
+    content: '원';
+  }
 `;
 
 const SItemTotalPriceBox = styled.div`
@@ -309,6 +315,12 @@ const SItemTotalPriceBox = styled.div`
 
 const SItemTotalPrice = styled.span`
   font-size: 25px;
+  :before {
+    content: '가격: ';
+  }
+  ::after {
+    content: '원';
+  }
 `;
 
 const SOrderButtonBox = styled.div`

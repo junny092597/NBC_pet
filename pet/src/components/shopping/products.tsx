@@ -12,12 +12,14 @@ interface Item {
   type: string;
 }
 interface ProductsProps {
+  selectedCategory: string;
+  selectedType: string;
   renderData: Item[];
   setRenderData: React.Dispatch<React.SetStateAction<Item[]>>;
   page: number;
 }
 
-function Products({ renderData, setRenderData, page }: ProductsProps): JSX.Element {
+function Products({ selectedCategory, selectedType, renderData, setRenderData, page }: ProductsProps): JSX.Element {
   const handlePageChange = (page: React.SetStateAction<number>) => {
     // setPage(page);
   };
@@ -31,7 +33,12 @@ function Products({ renderData, setRenderData, page }: ProductsProps): JSX.Eleme
       <SItemBoxContainer>
         {/* UI에 제품이 보이게 해주는 코드 */}
         <OrderButtonBox>
-          <OrderButton renderData={renderData} setRenderData={setRenderData} />
+          <OrderButton
+            selectedCategory={selectedCategory}
+            selectedType={selectedType}
+            renderData={renderData}
+            setRenderData={setRenderData}
+          />
         </OrderButtonBox>
         <SItemContainer>
           {renderData.map(Product => (
@@ -41,7 +48,7 @@ function Products({ renderData, setRenderData, page }: ProductsProps): JSX.Eleme
               </SImgBox>
               <STextBox>
                 <SProductName>{Product.name}</SProductName>
-                <SProductPrice>가격: {Product.price}원</SProductPrice>
+                <SProductPrice>{`가격: ${Product.price.toLocaleString()}원`}</SProductPrice>
                 {/* <button onClick={() => moveToDeatailPageHandler(Product)}>구매하기</button> */}
               </STextBox>
             </SItemBox>
@@ -159,4 +166,11 @@ const SProductPrice = styled.div`
   font-size: 16px;
   font-weight: bold; /* 글자를 찐하게 만듭니다 */
   color: #5b5b5b; /* 글자 색상을 지정합니다 */
+
+  ::before {
+    content: '가격: ';
+  }
+  ::after {
+    content: '원';
+  }
 `;
