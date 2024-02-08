@@ -241,7 +241,7 @@ const ContentSection = styled.section`
   display: flex;
   align-items: center;
   justify-content: start;
-  margin-top: 180px; // 필요에 따라 조절
+  margin-top: 180px; 
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -264,12 +264,11 @@ const TextContainer = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 2.5em; // 제목의 크기를 크게 설정
-  font-weight: bold; // 제목을 두껍게 설정
-  margin-bottom: 1em; // 제목 아래의 여백 설정
+  font-size: 2.5em; 
+  font-weight: bold;
+  margin-bottom: 1em;
 `;
 const Description = styled.p`
-  font-size: 1.2em; // 본문 글자 크기 증가
-  // 추가적으로 원하는 본문 스타일
+  font-size: 1.2em; 
 `;
 export default Main;
