@@ -32,7 +32,7 @@ const ChatListContainer = styled.div`
 const ChatRoomItem = styled.div`
   padding: 10px;
   margin-bottom: 10px;
-  border: 3px solid #ccc; /* 선의 굵기를 더 굵게 변경 */
+  border: 3px solid #000000; /* 선의 굵기를 더 굵게 변경 */
   border-radius: 8px;
   background-color: #FFF8E3; /* 필요하다면 채팅방 아이템의 배경색도 설정할 수 있습니다 */
   cursor: pointer;
@@ -63,18 +63,15 @@ const MessageList = styled.ul`
 
 const MessageItem = styled.li<{ isMine: boolean }>`
   display: flex;
-  justify-content: ${(props) => (props.isMine ? 'flex-end' : 'flex-start')};
-  flex-direction: row;
-  padding: 5px;
+  flex-direction: column; /* 요소들을 세로로 쌓음 */
+  align-items: ${(props) => (props.isMine ? 'flex-end' : 'flex-start')}; /* 메시지 소유자에 따라 정렬 조절 */
+  margin-bottom: 12px; /* 메시지 간의 간격 */
   max-width: 60%;
-  margin-left: ${(props) => (props.isMine ? 'auto' : '0')};
-  margin-right: ${(props) => (props.isMine ? '0' : 'auto')};
 `;
 
 const SenderInfo = styled.div`
   display: flex;
-  align-items: center;
-  margin-bottom: 4px;
+  align-items: center; /* 프로필 사진과 닉네임을 가운데 정렬 */
 `;
 
 const SenderPhoto = styled.img`
@@ -90,8 +87,9 @@ const SenderName = styled.span`
 
 const MessageContent = styled.div<{ isMine: boolean }>`
   padding: 10px;
+  margin-top: 4px; /* SenderInfo와의 간격을 조정 */
   border-radius: 20px;
-  background-color: ${(props) => (props.isMine ? "#FFFBEE" : "#C7F5D7")}; /* 조건부 스타일 적용 */
+  background-color: ${(props) => (props.isMine ? "#FFFBEE" : "#C7F5D7")};
   word-wrap: break-word;
 `;
 
