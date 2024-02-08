@@ -62,10 +62,12 @@ const MessageList = styled.ul`
 
 const MessageItem = styled.li<{ isMine: boolean }>`
   display: flex;
-  flex-direction: column;
-  align-items: ${(props) => (props.isMine ? 'flex-end' : 'flex-start')};
+  justify-content: ${(props) => (props.isMine ? 'flex-end' : 'flex-start')};
+  flex-direction: row; // 추가: 메시지를 행 방향으로 정렬
   padding: 5px;
   max-width: 60%;
+  margin-left: ${(props) => (props.isMine ? 'auto' : '0')}; // 사용자 메시지를 오른쪽 정렬
+  margin-right: ${(props) => (props.isMine ? '0' : 'auto')}; // 다른 사용자 메시지를 왼쪽 정렬
 `;
 
 const SenderInfo = styled.div`
