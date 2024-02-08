@@ -28,6 +28,18 @@ const ChatListContainer = styled.div`
   background-color: #fafafa;
 `;
 
+const ChatRoomItem = styled.div`
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  &:hover {
+    background-color: #e2e2e2;
+  }
+`;
+
 const ChatContainer = styled.div`
   flex: 8;
   display: flex;
@@ -37,16 +49,6 @@ const ChatContainer = styled.div`
   border: 1px solid #e1e1e1;
   border-radius: 8px;
   overflow: hidden;
-  background-color: #fafafa;
-`;
-
-const OnlineUsersContainer = styled.div`
-  flex: 1;
-  margin-left: 20px;
-  padding: 10px;
-  border: 1px solid #e1e1e1;
-  border-radius: 8px;
-  overflow-y: auto;
   background-color: #fafafa;
 `;
 
@@ -90,11 +92,21 @@ const MessageContent = styled.div<{ isMine: boolean }>`
   word-wrap: break-word;
 `;
 
+const OnlineUsersContainer = styled.div`
+  flex: 1;
+  margin-left: 20px;
+  padding: 10px;
+  border: 1px solid #e1e1e1;
+  border-radius: 8px;
+  overflow-y: auto;
+  background-color: #fafafa;
+`;
+
 const ChatContainerComponent: React.FC = () => {
   const [userState, setUserState] = useRecoilState(userInfo);
   const [messages, setMessages] = useState<any[]>([]);
-  const [onlineUsers, setOnlineUsers] = useState<string[]>([]);
-  const [chatRooms, setChatRooms] = useState<string[]>(['추가 채팅방은', '추후에', '업데이트됩니다']); // 예시 채팅방 목록
+  const [onlineUsersInfo, setOnlineUsersInfo] = useState<{ id: string, nickname: string }[]>([]);
+  const [chatRooms, setChatRooms] = useState<string[]>(['추가 채팅방은', '추후에', '업데이트됩니다']);
 
   useEffect(() => {
     const auth = getAuth();
@@ -118,8 +130,9 @@ const ChatContainerComponent: React.FC = () => {
       setMessages(prevMessages => [...prevMessages, message]);
     });
 
-    socket.on('online users', (users: string[]) => {
-      setOnlineUsers(users);
+    socket.on('online users', (users: any[]) => {
+      // Assume server sends an array of objects with id and nickname
+      setOnlineUsersInfo(users);
     });
 
     return () => {
@@ -147,7 +160,7 @@ const ChatContainerComponent: React.FC = () => {
     <PageContainer>
       <ChatListContainer>
         {chatRooms.map((room, index) => (
-          <div key={index}>{room}</div>
+          <ChatRoomItem key={index}>{room}</ChatRoomItem>
         ))}
       </ChatListContainer>
       <ChatContainer>
@@ -172,8 +185,8 @@ const ChatContainerComponent: React.FC = () => {
         <ChatInput onSendMessage={handleSendMessage} />
       </ChatContainer>
       <OnlineUsersContainer>
-        {onlineUsers.map((user, index) => (
-          <div key={index}>{user}</div>
+        {onlineUsersInfo.map((user, index) => (
+          <div key={index}>{user.nickname}</div> // Display the nickname
         ))}
       </OnlineUsersContainer>
     </PageContainer>
