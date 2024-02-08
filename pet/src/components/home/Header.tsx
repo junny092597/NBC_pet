@@ -26,9 +26,7 @@ const Header: React.FC = () => {
   const navprofile = () => {
     navigate('/Profile');
   };
-  
 
-  
   return (
     <HeaderContainer key={isLogin ? 'loggedIn' : 'loggedOut'}>
       <Link to={'/'}>
@@ -150,7 +148,7 @@ const Navigation = styled.nav`
     padding: 0;
     display: flex;
     justify-content: space-between;
-    flex-direction: row; 
+    flex-direction: row;
     align-items: center;
     margin: 0;
   }

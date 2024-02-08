@@ -20,6 +20,7 @@ const Router = () => {
   return (
     <Routes>
       <Route element={<Layout children={undefined} />}>
+      <Route path="/chat" element={<ChatContainer />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/shopping" element={<Shopping />}>
           <Route path="/shopping/:category" element={<Shopping />} />
@@ -36,7 +37,7 @@ const Router = () => {
           <Route path="/write-post" element={<WritePost />} />
           <Route path="/posts/:postId" element={<PostDetail />} />
           <Route path="/edit/:postId" element={<EditPost />} />
-          <Route path="/chat" element={<ChatContainer />} />
+  
         </Route>
       </Route>
       <Route path="/CheckoutPage" element={<CheckoutPage />} />

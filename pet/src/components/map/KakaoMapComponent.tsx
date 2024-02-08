@@ -35,23 +35,24 @@ const FloatingButton = styled.button`
     background-color: #45a049;
   }
 `;
+
 const MapContainer = styled.div`
   position: relative;
-  width: 100%; // 부모 컨테이너에 꽉 차게
-  height: 700px; // 최소 높이 설정, 필요에 따라 조정 가능
-  // 필요한 경우 min-width와 min-height도 설정할 수 있습니다.
+  width: 100%;
+  height: 700px;
 `;
 
 const InstructionText = styled.div`
   position: absolute;
-  top: 60px; // 헤더의 높이에 따라 조정
-  right: 10px; // 우측 여백
-  background-color: rgba(255, 255, 255, 0.8); // 배경색 설정, 약간의 투명도
-  padding: 8px 12px; // 내부 여백
-  border-radius: 8px; // 경계선 둥글게
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2); // 그림자 효과
-  z-index: 20; // 지도 위에 띄우기
+  top: 60px;
+  right: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 8px 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  z-index: 20;
 `;
+
 const KakaoMapComponent: React.FC = () => {
     const [map, setMap] = useState<kakao.maps.Map | null>(null);
     const [markers, setMarkers] = useState<kakao.maps.Marker[]>([]);
@@ -92,9 +93,14 @@ const KakaoMapComponent: React.FC = () => {
         }
     }, [locationPermission]);
 
+    useEffect(() => {
+        markers.forEach(marker => marker.setMap(map));
+
+        return () => markers.forEach(marker => marker.setMap(null));
+    }, [markers, map]);
+
     const handleCategorySearch = (category: string) => {
-        if (map && center && locationPermission === true) {
-            markers.forEach(marker => marker.setMap(null)); // 기존 마커 제거
+        if (map && center) {
             searchPlaces(map, category, center).then(newMarkers => {
                 setMarkers(newMarkers);
             }).catch(error => console.error(error));
@@ -121,7 +127,7 @@ const KakaoMapComponent: React.FC = () => {
                 <CategoryButton onClick={() => handleCategorySearch('반려동물 샵')} label="반려동물 샵" highlightColor="#D247E6" />
                 <CategoryButton onClick={() => handleCategorySearch('산책로')} label="산책로" highlightColor="#AD7969" />
             </ButtonContainer>
-            </MapContainer>
+        </MapContainer>
     );
 };
 

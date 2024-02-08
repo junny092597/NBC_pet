@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Category from '../components/shopping/Category';
 import Products from '../components/shopping/products';
-import { collection, query, getDocs } from '@firebase/firestore';
+import { collection, query, getDocs } from 'firebase/firestore';
 import { db } from '../Firebase';
-import { startAt, endBefore } from 'firebase/firestore';
 
 interface Item {
   id: number;

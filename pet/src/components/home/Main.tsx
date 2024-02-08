@@ -223,13 +223,12 @@ const BannerDescription = styled.p`
 
 const ImageContainer = styled.div`
   flex: 0 0 auto; // 이미지 크기를 유지
-  margin-right: 0px; // 이미지와 텍스트 사이 간격
-  margin-bottom: 70px;
-
+  margin-right: 30px; // 이미지와 텍스트 사이 간격
+  margin-bottom: 70px;    
   img {
-    width: 100%; // 이미지 너비 조절
+    width: 70%; // 이미지 너비 조절
     height: auto; // 높이 자동 조절
-    /* margin-left: 270px; */
+    margin-left: 110px;
 
     @media (max-width: 768px) {
       margin-left: auto;
@@ -237,6 +236,7 @@ const ImageContainer = styled.div`
     }
   }
 `;
+
 const ContentSection = styled.section`
   display: flex;
   align-items: center;
@@ -252,7 +252,7 @@ const ContentSection = styled.section`
 const TextContainer = styled.div`
   flex: 1; // 나머지 공간을 차지
   position: absolute;
-  left: 40.5rem;
+  left: 42.5rem;
   text-align: left;
 
   @media (max-width: 768px) {

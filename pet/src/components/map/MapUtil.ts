@@ -1,15 +1,15 @@
 import { SetStateAction } from "react";
 
 const markerImagePaths: { [key: string]: string } = {
-  '반려동물 병원': process.env.PUBLIC_URL + '/images/HospitalCat.png',
-  '반려동물 샵': process.env.PUBLIC_URL + '/images/ShopCat.png',
-  '산책로': process.env.PUBLIC_URL + '/images/ParkCat.png',
+  '반려동물 병원': process.env.PUBLIC_URL + 'HospitalCat.png',
+  '반려동물 샵': process.env.PUBLIC_URL + 'ShopCat.png',
+  '산책로': process.env.PUBLIC_URL + 'ParkCat.png',
 };
 
 const categoryKeywords: { [category: string]: string[] } = {
-  '반려동물 병원': ['동물 병원', '반려 동물 병원', '애완동물 병원', '수의사'],
-  '반려동물 샵': ['애견 용품', '반려 동물 샵', '애완동물 샵'],
-  '산책로': ['공원', '산책'],
+  '반려동물 병원': ['동물 병원',],
+  '반려동물 샵': ['애견 용품', ],
+  '산책로': ['공원', ],
 };
 
 let ps: kakao.maps.services.Places | null = null;

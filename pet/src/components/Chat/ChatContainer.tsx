@@ -7,12 +7,13 @@ import { userInfo } from '../../atom'; // 경로는 적절하게 수정하세요
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import basicProfileImg from '../../assets/images/logo.png'; // 기본 프로필 이미지 경로는 적절하게 수정하세요
 
-const socket = io('http://localhost:4000'); // 실제 서버 주소로 조정하세요
+const socket = io('https://nbc-pet-server-hyungjun.koyeb.app'); // 실제 서버 주소로 조정하세요
 
 // Styled Components
 const ChatContainer = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-between; /* 내용을 상단과 하단에 배치 */
   height: 80vh;
   max-width: 600px;
   margin: auto;
