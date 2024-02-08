@@ -8,8 +8,12 @@ export const ProfileContainer = styled.div`
   flex-direction: column;
   align-items: center;
 
+  
+  @media screen and (max-width: 1024px) {
+    align-items: flex-start;
+  }
+  
   @media screen and (max-width: 768px) {
-    /* 모바일 화면일 때의 스타일 */
     align-items: flex-start;
   }
 `;
@@ -26,7 +30,6 @@ export const ProfileImgShow = styled.img`
   cursor: pointer;
 
   @media screen and (max-width: 768px) {
-    /* 모바일 화면일 때의 스타일 */
     width: 150px;
     height: 150px;
   }
@@ -44,8 +47,9 @@ export const ProfileNickname = styled.h3`
   order: 1;
 
   @media screen and (max-width: 768px) {
-    /* 모바일 화면일 때의 스타일 */
     font-size: 20px;
+    width: 150px;
+    height: 150px;
   }
 `;
 
@@ -230,53 +234,6 @@ export const MyTitleTab = styled.h2`
   &.active {
     color: #405F4C;
     border-bottom: 2px solid #405F4C;
-  }
-`;
-
-
-//////////////////////////////////////////////
-export const MyBookmarkReportWrap = styled.div``;
-
-export const MyBookmarkReportContainer = styled.div``;
-
-export const MyBookmarkReportBox = styled.div`
-  /* background: gray;
-  border: 1px solid gray; */
-  border-radius: 0px 8px 8px 0px;
-  padding: 0 15px;
-`;
-
-export const MyBookmarkReportTabMenu = styled.ul`
-  padding: 0;
-  height: 50px;
-  display: flex;
-  /* flex-direction: row; */
-  /* justify-content: space-around; */
-  align-items: center;
-  /* border-bottom: 2px solid gray; */
-`;
-
-export const MyTitleTabTitleBox = styled.div``;
-
-export const MyTitleTabBtn = styled.button`
-  background-color: transparent;
-  font-family: 'Apple SD Gothic Neo';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 24px;
-  display: block;
-  border: none;
-  color: gray;
-  padding-bottom: 10px;
-  margin-top: 13px;
-  text-decoration: none;
-  cursor: pointer;
-  width: 50%;
-  &.active {
-    padding-bottom: 12.5px;
-    color: green;
-    border-bottom: 4px solid green;
   }
 `;
 

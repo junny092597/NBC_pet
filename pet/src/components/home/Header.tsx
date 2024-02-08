@@ -2,12 +2,9 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../../redux/modules/AuthSlice';
-
 import logoutbtn from '../../assets/images/logo3.png';
 import logo from '../../assets/images/logo.png';
-
 import styled from 'styled-components';
-import { BsSearchHeart } from 'react-icons/bs';
 import Swal from 'sweetalert2';
 import { RootState } from '../../redux/Store';
 import { Link } from 'react-router-dom';
@@ -40,19 +37,23 @@ const Header: React.FC = () => {
       <Navigation>
         <ul>
           <li>
-            <a href="/">Home</a>
+          <Link to="/">Home</Link>
           </li>
+          |
           <li>
-            <a href="/Community">커뮤니티</a>
+          <Link to="/Community">커뮤니티</Link>
           </li>
+          |
           <li>
-            <a href="/Shopping">쇼핑</a>
+          <Link to="/Shopping">쇼핑</Link>
           </li>
+          |
           <li>
-            <a href="/map">맵</a>
+          <Link to="/map">맵</Link>
           </li>
+          |
           <li>
-          <a href="/chat"> 실시간 채팅</a>
+          <Link to="/chat">실시간 채팅</Link>
           </li>
         </ul>
       </Navigation>
@@ -85,7 +86,6 @@ const Header: React.FC = () => {
           </>
         )}
       </Headerbtn>
-      {/* <BsSearchHeart /> */}
     </HeaderContainer>
   );
 };
@@ -156,17 +156,18 @@ const Navigation = styled.nav`
   }
 
   li {
-    margin-right: 40px;
+    margin-right: 10px;
 
     @media (max-width: 768px) {
-      margin-right: 20px;
+      margin-right: 10px;
     }
-
+/* 
     &:not(:last-child)::after {
       content: '|';
       margin-left: 85px;
-      font-weight: bold;
-    }
+      font-weight: bold;    
+    } */
+
   }
 
   a {

@@ -173,12 +173,19 @@ const BannerSlide = styled.div`
   width: 100%;
   height: 510px;
   overflow: hidden;
+
+  @media (max-width: 768px) {
+    height: auto; }
 `;
 
 const BannerImage = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
+
+  @media (max-width: 768px) {
+    display: none; /* 작은 화면에서는 이미지 숨김 */
+  }
 `;
 
 const BannerText = styled.div`
@@ -190,9 +197,9 @@ const BannerText = styled.div`
   color: black;
 
   @media (max-width: 768px) {
-    right: 0; // 모바일에서 가운데 정렬
-    left: 0;
-    text-align: center;
+    position: static;
+    transform: none;
+    width: 100%;
   }
 `;
 
@@ -216,13 +223,13 @@ const BannerDescription = styled.p`
 
 const ImageContainer = styled.div`
   flex: 0 0 auto; // 이미지 크기를 유지
-  margin-right: -250px; // 이미지와 텍스트 사이 간격
+  margin-right: 0px; // 이미지와 텍스트 사이 간격
   margin-bottom: 70px;
 
   img {
-    width: 300px; // 이미지 너비 조절
+    width: 100%; // 이미지 너비 조절
     height: auto; // 높이 자동 조절
-    margin-left: 270px;
+    /* margin-left: 270px; */
 
     @media (max-width: 768px) {
       margin-left: auto;
