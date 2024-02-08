@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import io from 'socket.io-client';
-import ChatInput from './ChatInput'; // Adjust the import path as needed
+import ChatInput from './ChatInput'; // 경로는 프로젝트에 맞게 조정하세요.
 import { useRecoilState } from 'recoil';
-import { userInfo } from '../../atom'; // Adjust the import path as needed
+import { userInfo } from '../../atom'; // 경로는 프로젝트에 맞게 조정하세요.
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import basicProfileImg from '../../assets/images/logo.png'; // Adjust the import path as needed
+import basicProfileImg from '../../assets/images/logo.png'; // 경로는 프로젝트에 맞게 조정하세요.
 
-const socket = io('https://nbc-pet-server-hyungjun.koyeb.app'); // Adjust the server URL as needed
+const socket = io('https://nbc-pet-server-hyungjun.koyeb.app'); // 서버 URL은 프로젝트에 맞게 조정하세요.
 
 // Styled Components
 const PageContainer = styled.div`
@@ -63,11 +63,11 @@ const MessageList = styled.ul`
 const MessageItem = styled.li<{ isMine: boolean }>`
   display: flex;
   justify-content: ${(props) => (props.isMine ? 'flex-end' : 'flex-start')};
-  flex-direction: row; // 추가: 메시지를 행 방향으로 정렬
+  flex-direction: row;
   padding: 5px;
   max-width: 60%;
-  margin-left: ${(props) => (props.isMine ? 'auto' : '0')}; // 사용자 메시지를 오른쪽 정렬
-  margin-right: ${(props) => (props.isMine ? '0' : 'auto')}; // 다른 사용자 메시지를 왼쪽 정렬
+  margin-left: ${(props) => (props.isMine ? 'auto' : '0')};
+  margin-right: ${(props) => (props.isMine ? '0' : 'auto')};
 `;
 
 const SenderInfo = styled.div`
@@ -123,6 +123,9 @@ const ChatContainerComponent: React.FC = () => {
             photoURL: firebaseUser.photoURL || basicProfileImg,
           },
         });
+
+        // 서버에 사용자 닉네임 전송
+        socket.emit('user nickname', firebaseUser.displayName || 'Anonymous');
       } else {
         setUserState(oldState => ({...oldState, isLogin: false}));
       }
@@ -133,7 +136,6 @@ const ChatContainerComponent: React.FC = () => {
     });
 
     socket.on('online users', (users: any[]) => {
-      // Assume server sends an array of objects with id and nickname
       setOnlineUsersInfo(users);
     });
 
