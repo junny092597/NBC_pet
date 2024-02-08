@@ -1,25 +1,52 @@
 import React, { useState, useEffect } from 'react';
-import io from 'socket.io-client';
 import styled from 'styled-components';
-import ChatInput from './ChatInput'; // 경로는 적절하게 수정하세요
+import io from 'socket.io-client';
+import ChatInput from './ChatInput'; // Adjust the import path as needed
 import { useRecoilState } from 'recoil';
-import { userInfo } from '../../atom'; // 경로는 적절하게 수정하세요
+import { userInfo } from '../../atom'; // Adjust the import path as needed
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import basicProfileImg from '../../assets/images/logo.png'; // 기본 프로필 이미지 경로는 적절하게 수정하세요
+import basicProfileImg from '../../assets/images/logo.png'; // Adjust the import path as needed
 
-const socket = io('https://nbc-pet-server-hyungjun.koyeb.app'); // 실제 서버 주소로 조정하세요
+const socket = io('https://nbc-pet-server-hyungjun.koyeb.app'); // Adjust the server URL as needed
 
 // Styled Components
+const PageContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  max-width: 1200px;
+  margin: auto;
+  height: 80vh;
+`;
+
+const ChatListContainer = styled.div`
+  flex: 2.4;
+  margin-right: 20px;
+  padding: 10px;
+  border: 1px solid #e1e1e1;
+  border-radius: 8px;
+  overflow-y: auto;
+  background-color: #fafafa;
+`;
+
 const ChatContainer = styled.div`
+  flex: 8;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* 내용을 상단과 하단에 배치 */
+  justify-content: space-between;
   height: 80vh;
-  max-width: 600px;
-  margin: auto;
   border: 1px solid #e1e1e1;
   border-radius: 8px;
   overflow: hidden;
+  background-color: #fafafa;
+`;
+
+const OnlineUsersContainer = styled.div`
+  flex: 1;
+  margin-left: 20px;
+  padding: 10px;
+  border: 1px solid #e1e1e1;
+  border-radius: 8px;
+  overflow-y: auto;
   background-color: #fafafa;
 `;
 
@@ -33,19 +60,16 @@ const MessageList = styled.ul`
 
 const MessageItem = styled.li<{ isMine: boolean }>`
   display: flex;
-  justify-content: ${(props) => (props.isMine ? 'flex-end' : 'flex-start')};
+  flex-direction: column;
+  align-items: ${(props) => (props.isMine ? 'flex-end' : 'flex-start')};
   padding: 5px;
-`;
-
-const MessageContent = styled.div<{ isMine: boolean }>`
   max-width: 60%;
-  padding: 10px;
-  border-radius: 20px;
-  background-color: ${(props) => (props.isMine ? "#dcf8c6" : "#ffffff")};
 `;
 
 const SenderInfo = styled.div`
-  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
 `;
 
 const SenderPhoto = styled.img`
@@ -59,9 +83,18 @@ const SenderName = styled.span`
   font-weight: bold;
 `;
 
+const MessageContent = styled.div<{ isMine: boolean }>`
+  padding: 10px;
+  border-radius: 20px;
+  background-color: ${(props) => (props.isMine ? "#dcf8c6" : "#ffffff")};
+  word-wrap: break-word;
+`;
+
 const ChatContainerComponent: React.FC = () => {
-  const [messages, setMessages] = useState<any[]>([]);
   const [userState, setUserState] = useRecoilState(userInfo);
+  const [messages, setMessages] = useState<any[]>([]);
+  const [onlineUsers, setOnlineUsers] = useState<string[]>([]);
+  const [chatRooms, setChatRooms] = useState<string[]>(['추가 채팅방은', '추후에', '업데이트됩니다']); // 예시 채팅방 목록
 
   useEffect(() => {
     const auth = getAuth();
@@ -85,8 +118,13 @@ const ChatContainerComponent: React.FC = () => {
       setMessages(prevMessages => [...prevMessages, message]);
     });
 
+    socket.on('online users', (users: string[]) => {
+      setOnlineUsers(users);
+    });
+
     return () => {
       socket.off('chat message');
+      socket.off('online users');
     };
   }, [setUserState]);
 
@@ -100,33 +138,45 @@ const ChatContainerComponent: React.FC = () => {
         sender: uid,
         senderName: nickName,
         senderPhotoURL: photoURL,
-        attachmentUrl, // 첨부 파일 URL 추가
+        attachmentUrl,
       });
     }
   };
 
   return (
-    <ChatContainer>
-      <MessageList>
-        {messages.map((message, index) => (
-          <MessageItem key={index} isMine={message.sender === userState.userInfomation.uid}>
-            <SenderInfo>
-              <SenderPhoto src={message.senderPhotoURL || basicProfileImg} alt="Profile" />
-              <SenderName>{message.senderName}</SenderName>
-            </SenderInfo>
-            <MessageContent isMine={message.sender === userState.userInfomation.uid}>
-              {message.text}
-              {message.attachmentUrl && message.attachmentUrl.endsWith('.mp4') ? (
-                <video src={message.attachmentUrl} controls />
-              ) : (
-                message.attachmentUrl && <img src={message.attachmentUrl} alt="Attached Image" />
-              )}
-            </MessageContent>
-          </MessageItem>
+    <PageContainer>
+      <ChatListContainer>
+        {chatRooms.map((room, index) => (
+          <div key={index}>{room}</div>
         ))}
-      </MessageList>
-      <ChatInput onSendMessage={handleSendMessage} />
-    </ChatContainer>
+      </ChatListContainer>
+      <ChatContainer>
+        <MessageList>
+          {messages.map((message, index) => (
+            <MessageItem key={index} isMine={message.sender === userState.userInfomation.uid}>
+              <SenderInfo>
+                <SenderPhoto src={message.senderPhotoURL || basicProfileImg} alt="Profile" />
+                <SenderName>{message.senderName}</SenderName>
+              </SenderInfo>
+              <MessageContent isMine={message.sender === userState.userInfomation.uid}>
+                {message.text}
+                {message.attachmentUrl && message.attachmentUrl.endsWith('.mp4') ? (
+                  <video src={message.attachmentUrl} controls style={{maxWidth: "100%", height: "auto"}} />
+                ) : (
+                  message.attachmentUrl && <img src={message.attachmentUrl} alt="Attached Image" style={{maxWidth: "100%", height: "auto"}} />
+                )}
+              </MessageContent>
+            </MessageItem>
+          ))}
+        </MessageList>
+        <ChatInput onSendMessage={handleSendMessage} />
+      </ChatContainer>
+      <OnlineUsersContainer>
+        {onlineUsers.map((user, index) => (
+          <div key={index}>{user}</div>
+        ))}
+      </OnlineUsersContainer>
+    </PageContainer>
   );
 };
 
