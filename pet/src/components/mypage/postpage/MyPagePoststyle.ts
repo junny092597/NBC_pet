@@ -59,6 +59,11 @@ export const PostImgContainer = styled.img`
   z-index: -2;
   border: none;
   border-radius: 9px;
+  @media only screen and (max-width: 600px) {
+    .App-header {
+      font-size: calc(8px + 2vmin);
+    }
+  }
 `;
 
 export const TextContainer = styled.div`
@@ -72,6 +77,11 @@ export const TextContainer = styled.div`
   background-color: rgba(255, 255, 255, 0.5);
   object-fit: cover;
 
+  @media only screen and (max-width: 600px) {
+    .App-header {
+      font-size: calc(8px + 2vmin);
+    }
+  }
 `;
 
 export const TextTitle = styled.div`
@@ -80,12 +90,22 @@ export const TextTitle = styled.div`
   font-size: 20px;
   font-weight: bold;
   color: #5c5c55;
+  @media only screen and (max-width: 600px) {
+    .App-header {
+      font-size: calc(8px + 2vmin);
+    }
+  }
 `;
 
 export const TextIndex = styled.div`
   margin: 10px;
   font-size: 14px;
   color: #5c5c55;
+  @media only screen and (max-width: 600px) {
+    .App-header {
+      font-size: calc(8px + 2vmin);
+    }
+  }
 `;
 
 export const PostContainerBtn = styled.button`
@@ -105,6 +125,12 @@ export const PostContainerBtn = styled.button`
   &:hover {
     transform: scale(1.05);
   }
+
+  @media only screen and (max-width: 600px) {
+    .App-header {
+      font-size: calc(8px + 2vmin);
+    }
+  }
 `;
 
 export const NoPostsContainer = styled.div`
@@ -117,6 +143,12 @@ export const NoPostsContainer = styled.div`
   font-weight: bold;
   font-family: GmarketSansMedium;
   color: #2e2e2b;
+
+  @media only screen and (max-width: 600px) {
+    .App-header {
+      font-size: calc(8px + 2vmin);
+    }
+  }
 `;
 
 export const NoPostsBtn = styled.button`
@@ -131,6 +163,12 @@ export const NoPostsBtn = styled.button`
   border: none;
   width: 135px;
   height: 45px;
+
+  @media only screen and (max-width: 600px) {
+    .App-header {
+      font-size: calc(8px + 2vmin);
+    }
+  }
 `;
 
 ///////////////////////////////////////////////////////////

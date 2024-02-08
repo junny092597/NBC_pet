@@ -173,12 +173,19 @@ const BannerSlide = styled.div`
   width: 100%;
   height: 510px;
   overflow: hidden;
+
+  @media (max-width: 768px) {
+    height: auto; }
 `;
 
 const BannerImage = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
+
+  @media (max-width: 768px) {
+    display: none; /* 작은 화면에서는 이미지 숨김 */
+  }
 `;
 
 const BannerText = styled.div`
@@ -190,9 +197,9 @@ const BannerText = styled.div`
   color: black;
 
   @media (max-width: 768px) {
-    right: 0; // 모바일에서 가운데 정렬
-    left: 0;
-    text-align: center;
+    position: static;
+    transform: none;
+    width: 100%;
   }
 `;
 
@@ -216,13 +223,12 @@ const BannerDescription = styled.p`
 
 const ImageContainer = styled.div`
   flex: 0 0 auto; // 이미지 크기를 유지
-  margin-right: -250px; // 이미지와 텍스트 사이 간격
-  margin-bottom: 70px;
-
+  margin-right: 30px; // 이미지와 텍스트 사이 간격
+  margin-bottom: 70px;    
   img {
-    width: 300px; // 이미지 너비 조절
+    width: 70%; // 이미지 너비 조절
     height: auto; // 높이 자동 조절
-    margin-left: 270px;
+    margin-left: 110px;
 
     @media (max-width: 768px) {
       margin-left: auto;
@@ -230,11 +236,12 @@ const ImageContainer = styled.div`
     }
   }
 `;
+
 const ContentSection = styled.section`
   display: flex;
   align-items: center;
   justify-content: start;
-  margin-top: 180px; // 필요에 따라 조절
+  margin-top: 180px; 
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -245,7 +252,7 @@ const ContentSection = styled.section`
 const TextContainer = styled.div`
   flex: 1; // 나머지 공간을 차지
   position: absolute;
-  left: 40.5rem;
+  left: 42.5rem;
   text-align: left;
 
   @media (max-width: 768px) {
@@ -257,12 +264,11 @@ const TextContainer = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 2.5em; // 제목의 크기를 크게 설정
-  font-weight: bold; // 제목을 두껍게 설정
-  margin-bottom: 1em; // 제목 아래의 여백 설정
+  font-size: 2.5em; 
+  font-weight: bold;
+  margin-bottom: 1em;
 `;
 const Description = styled.p`
-  font-size: 1.2em; // 본문 글자 크기 증가
-  // 추가적으로 원하는 본문 스타일
+  font-size: 1.2em; 
 `;
 export default Main;
