@@ -34,13 +34,15 @@
   
 1.React
 
-2.React-Router-Dom
+2.Typescript
 
-3.Redux-Tool-kit
+3.React-Router-Dom
 
-4.styled-Component
+4.Redux-Tool-kit
 
-5.firebase
+5.styled-Component
+
+6.firebase
 
 담당자
 코드 문의와 유지보수 문의는 아래 각 파트 담당자에게 부탁드립니다.
