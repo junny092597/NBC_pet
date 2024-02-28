@@ -1,4 +1,4 @@
-# 퍼펙트(For pets)
+![image](https://github.com/HONGSANGYOON/NBC_pet/assets/143682700/031462ab-13b0-464e-a3e8-626a4734fe08)# 퍼펙트(For pets)
 ##### 이 프로젝트는 스파르타 내일배움 캠프의 React 최종프로젝트입니다.
 
 
@@ -11,7 +11,12 @@
   
 ##### HomePage : 각 기능의 페이지로 갈 수 있는 메인페이지.
 
-##### Profile : 회원가입할때 작성한 닉네임과 이미지를 수정할 수 있으며, 자신이 작성한 게시글을 모아 불 수 있다.
+##### SignUp : ![image](https://github.com/junny092597/NBC_pet/assets/143682700/add3c533-f0d9-49d3-956b-25c74df30d3f)
+
+##### LogIn : ![image](https://github.com/junny092597/NBC_pet/assets/143682700/46eaf272-6038-44cc-a914-eb8c07d1e415)
+
+##### Profile : ![image](https://github.com/junny092597/NBC_pet/assets/143682700/596dc7bb-3277-40c6-89c2-2ac3b1bf187b)
+
 
 ##### Community : 애완동물 관련된 쇼츠와 질문,자랑 등 자신의 애완동물에 대한 게시글을 작성할 수 있다.
 
