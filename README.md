@@ -1,4 +1,4 @@
-![image](https://github.com/HONGSANGYOON/NBC_pet/assets/143682700/031462ab-13b0-464e-a3e8-626a4734fe08)# 퍼펙트(For pets)
+# 퍼펙트(For pets)
 ##### 이 프로젝트는 스파르타 내일배움 캠프의 React 최종프로젝트입니다.
 
 
@@ -11,22 +11,31 @@
   
 ##### HomePage : 각 기능의 페이지로 갈 수 있는 메인페이지.
 
-##### SignUp : ![image](https://github.com/junny092597/NBC_pet/assets/143682700/add3c533-f0d9-49d3-956b-25c74df30d3f)
+##### SignUp
+![image](https://github.com/junny092597/NBC_pet/assets/143682700/add3c533-f0d9-49d3-956b-25c74df30d3f)
 
-##### LogIn : ![image](https://github.com/junny092597/NBC_pet/assets/143682700/46eaf272-6038-44cc-a914-eb8c07d1e415)
+##### LogIn
+![image](https://github.com/junny092597/NBC_pet/assets/143682700/46eaf272-6038-44cc-a914-eb8c07d1e415)
 
-##### Profile : ![image](https://github.com/junny092597/NBC_pet/assets/143682700/596dc7bb-3277-40c6-89c2-2ac3b1bf187b)
+##### Profile
+![image](https://github.com/junny092597/NBC_pet/assets/143682700/596dc7bb-3277-40c6-89c2-2ac3b1bf187b)
 
+##### Community
+![image](https://github.com/junny092597/NBC_pet/assets/143682700/801c73d0-0a39-4d4a-bf08-1d8d30b5c54e)
 
-##### Community : 애완동물 관련된 쇼츠와 질문,자랑 등 자신의 애완동물에 대한 게시글을 작성할 수 있다.
+##### Shopping 
+![image](https://github.com/junny092597/NBC_pet/assets/143682700/74c9cad8-2b64-4ecf-8d0a-fde1dc21c04c)
 
-##### Shopping : 애완동물 관련 제품들을 카테고리 별로 볼 수 있다.
+##### ShoppingDetail 
+![image](https://github.com/HONGSANGYOON/NBC_pet/assets/143682700/2c45f435-8862-4c45-af55-7b689b54def1)
 
-##### ShoppingDetail : 각 제품들의 가격, 이름, 이미지 등 상세내용을 볼 수 있는 페이지로서 다른 유저들의 리뷰, Q&A를 보고 작성할 수 있다.
    
-##### Map : 애완동물병원을 자신이 원하는 위치를 기반으로 위치를 직접 보여주고, 유저들이 보기 쉽도록 맵에 마크로 표시가 된다.
+##### Map
+![image](https://github.com/junny092597/NBC_pet/assets/143682700/c61cf146-b8a2-441e-b61b-5a6763a1ada9)
 
-##### Chat : 로그인 중인 유저들끼리 실시간 채팅을 할 수 있다.
+
+##### Chat
+![image](https://github.com/junny092597/NBC_pet/assets/143682700/11efc0bd-e11d-4ff8-bbe4-36f406f9a482)
 
 
 ## Development Environment
