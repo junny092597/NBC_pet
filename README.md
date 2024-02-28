@@ -4,7 +4,7 @@
 
 ## 프로젝트 소개
   
-##### 애완동물들을 위한 커뮤니티,쇼핑 등 다양한 서비스르 제공하는 종합 웹사이트입니다.
+![image](https://github.com/junny092597/NBC_pet/assets/143682700/a42d6eb1-dc0d-4ef5-acc8-ae6f778f38c4)
 
 
 ## page별 설명
