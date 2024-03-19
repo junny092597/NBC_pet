@@ -94,17 +94,18 @@ function OrderButton({ selectedType, selectedCategory, renderData, setRenderData
 
 export default OrderButton;
 const SProductsButtonContainer = styled.div`
-  display: flex;
+  display: inline-flex;
   flex-direction: row;
+  justify-content: space-between;
   width: 80vw;
   height: 10vh;
-  gap: 5.5vw;
   height: 3vh;
   margin-left: 0.6vw;
   margin-top: 3vh;
 `;
 
 const SProductsButton = styled.button<{ active?: boolean }>`
+  font-family: GmarketSansMedium;
   margin-bottom: 10px;
   font-size: 20px;
   background-color: transparent;
@@ -115,7 +116,7 @@ const SProductsButton = styled.button<{ active?: boolean }>`
 
   &:hover {
     color: ${({ active }) => (active ? 'gray' : 'black')};
-    text-decoration: underline; /* 마우스 호버 시 텍스트에 밑줄 추가 */
+    color: gray; /* 마우스 호버 시 텍스트에 밑줄 추가 */
   }
 `;
 const SinputWrapper = styled.div`
