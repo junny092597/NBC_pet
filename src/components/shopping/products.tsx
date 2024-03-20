@@ -13,6 +13,7 @@ interface Item {
 interface ProductsProps {
   itemsData: Item[];
   selectedCategory: string;
+  setSelectedCategory: React.Dispatch<React.SetStateAction<string>>;
   selectedType: string;
   renderData: Item[];
   setRenderData: React.Dispatch<React.SetStateAction<Item[]>>;
@@ -22,15 +23,12 @@ interface ProductsProps {
 function Products({
   itemsData,
   selectedCategory,
+  setSelectedCategory,
   selectedType,
   renderData,
   setRenderData,
   page,
 }: ProductsProps): JSX.Element {
-  const handlePageChange = (page: React.SetStateAction<number>) => {
-    // setPage(page);
-  };
-
   const navigate = useNavigate();
   const moveToDeatailPageHandler = (item: any) => {
     if (renderData) navigate(`/ShoppingDetail/${item.name}`, { state: { item } });
@@ -43,6 +41,7 @@ function Products({
           <OrderButton
             itemsData={itemsData}
             selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
             selectedType={selectedType}
             renderData={renderData}
             setRenderData={setRenderData}

@@ -13,6 +13,7 @@ interface Item {
 interface OrderButtonProps {
   itemsData: Item[];
   selectedCategory: string;
+  setSelectedCategory: React.Dispatch<React.SetStateAction<string>>;
   selectedType: string;
   renderData: Item[];
   setRenderData: React.Dispatch<React.SetStateAction<Item[]>>;
@@ -22,6 +23,7 @@ function OrderButton({
   itemsData,
   selectedType,
   selectedCategory,
+  setSelectedCategory,
   renderData,
   setRenderData,
 }: OrderButtonProps): JSX.Element {
@@ -33,7 +35,7 @@ function OrderButton({
   useEffect(() => {
     setOriginalData(itemsData);
     setInputIndex('');
-  }, [renderData]);
+  }, [itemsData, renderData]);
 
   useEffect(() => {
     setActiveSort(null);
@@ -65,6 +67,7 @@ function OrderButton({
     setOriginalData(newFilteredData);
     setRenderData(newFilteredData);
     setInputIndex('');
+    setSelectedCategory('');
   };
 
   const handleEnterKey = (e: React.KeyboardEvent<HTMLInputElement>) => {

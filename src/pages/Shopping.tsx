@@ -70,6 +70,7 @@ function Shopping() {
           setSelectedType={setSelectedType}
         />
         <Products
+          setSelectedCategory={setSelectedCategory}
           itemsData={itemsData}
           renderData={renderData}
           setRenderData={setRenderData}
