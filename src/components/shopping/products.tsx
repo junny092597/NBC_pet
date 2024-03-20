@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import OrderButton from './OrderButton';
-import Pagination from 'react-js-pagination';
 import { useNavigate } from 'react-router-dom';
 
 interface Item {
@@ -12,6 +11,7 @@ interface Item {
   type: string;
 }
 interface ProductsProps {
+  itemsData: Item[];
   selectedCategory: string;
   selectedType: string;
   renderData: Item[];
@@ -19,7 +19,14 @@ interface ProductsProps {
   page: number;
 }
 
-function Products({ selectedCategory, selectedType, renderData, setRenderData, page }: ProductsProps): JSX.Element {
+function Products({
+  itemsData,
+  selectedCategory,
+  selectedType,
+  renderData,
+  setRenderData,
+  page,
+}: ProductsProps): JSX.Element {
   const handlePageChange = (page: React.SetStateAction<number>) => {
     // setPage(page);
   };
@@ -34,6 +41,7 @@ function Products({ selectedCategory, selectedType, renderData, setRenderData, p
         {/* UI에 제품이 보이게 해주는 코드 */}
         <OrderButtonBox>
           <OrderButton
+            itemsData={itemsData}
             selectedCategory={selectedCategory}
             selectedType={selectedType}
             renderData={renderData}
@@ -54,16 +62,6 @@ function Products({ selectedCategory, selectedType, renderData, setRenderData, p
             </SItemBox>
           ))}
         </SItemContainer>
-        {/* 페이지네이션 기능 추가중 */}
-        {/* <Pagination
-          activePage={page}
-          itemsCountPerPage={6}
-          totalItemsCount={27}
-          pageRangeDisplayed={5}
-          prevPageText={'‹'}
-          nextPageText={'›'}
-          onChange={handlePageChange}
-        /> */}
       </SItemBoxContainer>
     </>
   );

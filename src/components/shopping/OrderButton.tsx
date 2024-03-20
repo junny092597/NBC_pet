@@ -11,19 +11,27 @@ interface Item {
   type: string;
 }
 interface OrderButtonProps {
+  itemsData: Item[];
   selectedCategory: string;
   selectedType: string;
   renderData: Item[];
   setRenderData: React.Dispatch<React.SetStateAction<Item[]>>;
 }
 
-function OrderButton({ selectedType, selectedCategory, renderData, setRenderData }: OrderButtonProps): JSX.Element {
+function OrderButton({
+  itemsData,
+  selectedType,
+  selectedCategory,
+  renderData,
+  setRenderData,
+}: OrderButtonProps): JSX.Element {
   const [activeSort, setActiveSort] = useState<'new' | 'higePrice' | 'lowPrice' | null>(null);
   const [inputIndex, setInputIndex] = useState<string>('');
   const [originalData, setOriginalData] = useState<Item[]>([]);
 
+  console.log('originalData', originalData);
   useEffect(() => {
-    setOriginalData(renderData);
+    setOriginalData(itemsData);
     setInputIndex('');
   }, [renderData]);
 
