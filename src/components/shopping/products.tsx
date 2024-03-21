@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import OrderButton from './OrderButton';
-import Pagination from 'react-js-pagination';
 import { useNavigate } from 'react-router-dom';
 
 interface Item {
@@ -12,18 +11,28 @@ interface Item {
   type: string;
 }
 interface ProductsProps {
+  itemsData: Item[];
   selectedCategory: string;
+  setSelectedCategory: React.Dispatch<React.SetStateAction<string>>;
   selectedType: string;
   renderData: Item[];
   setRenderData: React.Dispatch<React.SetStateAction<Item[]>>;
   page: number;
+  isLoading: boolean;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function Products({ selectedCategory, selectedType, renderData, setRenderData, page }: ProductsProps): JSX.Element {
-  const handlePageChange = (page: React.SetStateAction<number>) => {
-    // setPage(page);
-  };
-
+function Products({
+  itemsData,
+  selectedCategory,
+  setSelectedCategory,
+  selectedType,
+  renderData,
+  setRenderData,
+  page,
+  isLoading,
+  setIsLoading,
+}: ProductsProps): JSX.Element {
   const navigate = useNavigate();
   const moveToDeatailPageHandler = (item: any) => {
     if (renderData) navigate(`/ShoppingDetail/${item.name}`, { state: { item } });
@@ -34,7 +43,9 @@ function Products({ selectedCategory, selectedType, renderData, setRenderData, p
         {/* UI에 제품이 보이게 해주는 코드 */}
         <OrderButtonBox>
           <OrderButton
+            itemsData={itemsData}
             selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
             selectedType={selectedType}
             renderData={renderData}
             setRenderData={setRenderData}
@@ -54,16 +65,6 @@ function Products({ selectedCategory, selectedType, renderData, setRenderData, p
             </SItemBox>
           ))}
         </SItemContainer>
-        {/* 페이지네이션 기능 추가중 */}
-        {/* <Pagination
-          activePage={page}
-          itemsCountPerPage={6}
-          totalItemsCount={27}
-          pageRangeDisplayed={5}
-          prevPageText={'‹'}
-          nextPageText={'›'}
-          onChange={handlePageChange}
-        /> */}
       </SItemBoxContainer>
     </>
   );

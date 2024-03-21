@@ -28,82 +28,85 @@ const Header: React.FC = () => {
   };
 
   return (
-    <HeaderContainer key={isLogin ? 'loggedIn' : 'loggedOut'}>
-      <Link to={'/'}>
-        <Image src={logo} alt={'logo image'} />
-      </Link>
-      <Navigation>
-        <ul>
-          <li>
-          <Link to="/">Home</Link>
-          </li>
-          |
-          <li>
-          <Link to="/Community">커뮤니티</Link>
-          </li>
-          |
-          <li>
-          <Link to="/Shopping">쇼핑</Link>
-          </li>
-          |
-          <li>
-          <Link to="/map">맵</Link>
-          </li>
-          |
-          <li>
-          <Link to="/chat">실시간 채팅</Link>
-          </li>
-        </ul>
-      </Navigation>
-      <Headerbtn>
-        {isLogin ? (
-          <>
-            <button
-              onClick={() => {
-                Swal.fire({
-                  title: '로그아웃',
-                  text: '로그아웃 되셨습니다.',
-                  confirmButtonColor: '#20b2aa',
-                  confirmButtonText: '확인',
-                  imageUrl: logoutbtn,
-                  imageWidth: 130,
-                  imageHeight: 130,
-                  imageAlt: 'Custom image',
-                });
-                dispatch(logout());
-                navigate('/');
-              }}>
-              로그아웃
-            </button>
-            <button onClick={navprofile}>마이페이지</button>
-          </>
-        ) : (
-          <>
-            <button onClick={navregister}>회원가입</button>
-            <button onClick={navlogin}>로그인</button>
-          </>
-        )}
-      </Headerbtn>
-    </HeaderContainer>
+    <Head>
+      <HeaderContainer key={isLogin ? 'loggedIn' : 'loggedOut'}>
+        <Link to={'/'}>
+          <Image src={logo} alt={'logo image'} />
+        </Link>
+        <Navigation>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            |
+            <li>
+              <Link to="/Community">커뮤니티</Link>
+            </li>
+            |
+            <li>
+              <Link to="/Shopping">쇼핑</Link>
+            </li>
+            |
+            <li>
+              <Link to="/map">맵</Link>
+            </li>
+            |
+            <li>
+              <Link to="/chat">실시간 채팅</Link>
+            </li>
+          </ul>
+        </Navigation>
+        <Headerbtn>
+          {isLogin ? (
+            <>
+              <button
+                onClick={() => {
+                  Swal.fire({
+                    title: '로그아웃',
+                    text: '로그아웃 되셨습니다.',
+                    confirmButtonColor: '#20b2aa',
+                    confirmButtonText: '확인',
+                    imageUrl: logoutbtn,
+                    imageWidth: 130,
+                    imageHeight: 130,
+                    imageAlt: 'Custom image',
+                  });
+                  dispatch(logout());
+                  navigate('/');
+                }}>
+                로그아웃
+              </button>
+              <button onClick={navprofile}>마이페이지</button>
+            </>
+          ) : (
+            <>
+              <button onClick={navregister}>회원가입</button>
+              <button onClick={navlogin}>로그인</button>
+            </>
+          )}
+        </Headerbtn>
+      </HeaderContainer>
+    </Head>
   );
 };
+const Head = styled.div``;
 
 const Headerbtn = styled.button`
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 5px;
+  gap: 10px;
   background: transparent;
   border: none;
   cursor: pointer;
 
   button {
     cursor: pointer;
-    width: 120px;
+    width: 105px;
     height: 40px;
     font-family: GmarketSansMedium;
-    font-size: 18px;
+    font-size: 15px;
     background-color: #c5abab;
     color: white;
     border: none;
@@ -138,7 +141,7 @@ const HeaderContainer = styled.header`
 const Image = styled.img`
   width: 17%;
   height: 10%;
-  margin-right: 0px;
+  display: inline-flex;
 `;
 
 const Navigation = styled.nav`
@@ -147,30 +150,22 @@ const Navigation = styled.nav`
   ul {
     padding: 0;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 5%;
     flex-direction: row;
     align-items: center;
     margin: 0;
   }
 
   li {
-    margin-right: 10px;
-
     @media (max-width: 768px) {
       margin-right: 10px;
     }
-/* 
-    &:not(:last-child)::after {
-      content: '|';
-      margin-left: 85px;
-      font-weight: bold;    
-    } */
-
   }
 
   a {
     text-decoration: none;
-    font-size: 21px;
+    font-size: 16px;
     font-family: GmarketSansMedium;
     gap: 20px;
     color: #312b2b;

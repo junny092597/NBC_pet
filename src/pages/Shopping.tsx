@@ -29,25 +29,6 @@ const fetchData = async () => {
   return firebaseData as any;
 };
 
-//페이지네이션 기능 추가중
-// const fetchData = async (page: number, pageSize = 6) => {
-//   const firebaseCollection = collection(db, 'shopping');
-//   const startindex = (page - 1) * pageSize;
-//   const finalindex = startindex + page;
-//   const paginationQuery = query(firebaseCollection, startAt(startindex), endBefore(finalindex));
-//   const firebaseSnapshot = await getDocs(paginationQuery);
-//   const firebaseData = firebaseSnapshot.docs.map(doc => ({
-//     id: doc.data().id,
-//     price: doc.data().price,
-//     name: doc.data().name,
-//     img: doc.data().img,
-//     category: doc.data().category,
-//     type: doc.data().type,
-//   }));
-
-//   return firebaseData as any;
-// };
-
 function Shopping() {
   //선택한 카테고리 정보
   const [selectedCategory, setSelectedCategory] = useState<string>('');
@@ -59,7 +40,14 @@ function Shopping() {
   const [page, setPage] = useState<number>(1);
   //가격순,최신순을 위한 정보(최신순,가격순을 필터릴을통해 나온 데이터를 다시 UI에 보여주기위해서 필요한 state)
   const [renderData, setRenderData] = useState<Item[]>([]);
+  //스켈레톤UI를 위한 정보
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
+  const skeletonUi = () => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+  };
   useEffect(() => {
     fetchData().then(setItemsData);
   }, [selectedCategory, selectedType]);
@@ -77,6 +65,10 @@ function Shopping() {
     setRenderData(filteredItmes);
   }, [selectedCategory, selectedType, itemsData]);
 
+  useEffect(() => {
+    skeletonUi();
+  }, []);
+
   return (
     <>
       <SComponentsContainer>
@@ -85,13 +77,19 @@ function Shopping() {
           setSelectedCategory={setSelectedCategory}
           selectedType={selectedType}
           setSelectedType={setSelectedType}
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
         />
         <Products
+          setSelectedCategory={setSelectedCategory}
+          itemsData={itemsData}
           renderData={renderData}
           setRenderData={setRenderData}
           page={page}
           selectedCategory={selectedCategory}
           selectedType={selectedType}
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
         />
       </SComponentsContainer>
     </>

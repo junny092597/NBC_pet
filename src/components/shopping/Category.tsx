@@ -7,6 +7,8 @@ interface CategoryProps {
   setSelectedCategory: React.Dispatch<React.SetStateAction<string>>;
   selectedType: string;
   setSelectedType: React.Dispatch<React.SetStateAction<string>>;
+  isLoading: boolean;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const CATEGORIES: string[] = ['강아지', '고양이', '그외'];
@@ -21,6 +23,8 @@ function Category({
   setSelectedCategory,
   selectedType,
   setSelectedType,
+  isLoading,
+  setIsLoading,
 }: CategoryProps): JSX.Element {
   const navigate = useNavigate();
 
@@ -80,6 +84,7 @@ const SCategoryContainer = styled.div`
 `;
 
 const SCatagoryButton = styled.button<{ active?: boolean }>`
+  font-family: GmarketSansMedium;
   margin-bottom: 5px;
   font-size: 20px;
   background-color: transparent;
@@ -88,7 +93,7 @@ const SCatagoryButton = styled.button<{ active?: boolean }>`
   color: ${({ active }) => (active ? 'gray' : 'black')};
 
   &:hover {
-    text-decoration: underline; /* 마우스 호버 시 텍스트에 밑줄 추가 */
+    color: gray; /* 마우스 호버 시 텍스트에 밑줄 추가 */
   }
 `;
 const SCategoryBox = styled.div`
@@ -104,15 +109,14 @@ const SButtonContainer = styled.div`
 
 const SItemButton = styled.button<{ active?: boolean }>`
   margin-bottom: 5px;
-  font-size: 20px;
+  font-size: 15px;
   background-color: transparent;
   border: none;
   cursor: pointer;
   color: ${({ active }) => (active ? 'gray' : 'black')};
-  text-decoration: ${({ active }) => (active ? 'underline' : 'none')};
 
   &:hover {
-    text-decoration: underline; /* 마우스 호버 시 텍스트에 밑줄 추가 */
+    color: gray; /* 마우스 호버 시 텍스트에 밑줄 추가 */
   }
 `;
 
