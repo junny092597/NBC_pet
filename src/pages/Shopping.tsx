@@ -40,9 +40,14 @@ function Shopping() {
   const [page, setPage] = useState<number>(1);
   //가격순,최신순을 위한 정보(최신순,가격순을 필터릴을통해 나온 데이터를 다시 UI에 보여주기위해서 필요한 state)
   const [renderData, setRenderData] = useState<Item[]>([]);
+  //스켈레톤UI를 위한 정보
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  console.log('itemsData', itemsData);
-
+  const skeletonUi = () => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+  };
   useEffect(() => {
     fetchData().then(setItemsData);
   }, [selectedCategory, selectedType]);
@@ -60,6 +65,10 @@ function Shopping() {
     setRenderData(filteredItmes);
   }, [selectedCategory, selectedType, itemsData]);
 
+  useEffect(() => {
+    skeletonUi();
+  }, []);
+
   return (
     <>
       <SComponentsContainer>
@@ -68,6 +77,8 @@ function Shopping() {
           setSelectedCategory={setSelectedCategory}
           selectedType={selectedType}
           setSelectedType={setSelectedType}
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
         />
         <Products
           setSelectedCategory={setSelectedCategory}
@@ -77,6 +88,8 @@ function Shopping() {
           page={page}
           selectedCategory={selectedCategory}
           selectedType={selectedType}
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
         />
       </SComponentsContainer>
     </>

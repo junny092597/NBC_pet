@@ -18,6 +18,8 @@ interface ProductsProps {
   renderData: Item[];
   setRenderData: React.Dispatch<React.SetStateAction<Item[]>>;
   page: number;
+  isLoading: boolean;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function Products({
@@ -28,6 +30,8 @@ function Products({
   renderData,
   setRenderData,
   page,
+  isLoading,
+  setIsLoading,
 }: ProductsProps): JSX.Element {
   const navigate = useNavigate();
   const moveToDeatailPageHandler = (item: any) => {
