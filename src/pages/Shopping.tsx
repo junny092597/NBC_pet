@@ -4,6 +4,7 @@ import Category from '../components/shopping/Category';
 import Products from '../components/shopping/products';
 import { collection, query, getDocs } from 'firebase/firestore';
 import { db } from '../Firebase';
+import Loading from './Loading';
 
 interface Item {
   id: number;
@@ -48,6 +49,11 @@ function Shopping() {
       setIsLoading(false);
     }, 3000);
   };
+
+  useEffect(() => {
+    skeletonUi();
+  }, []);
+
   useEffect(() => {
     fetchData().then(setItemsData);
   }, [selectedCategory, selectedType]);
@@ -69,6 +75,14 @@ function Shopping() {
     skeletonUi();
   }, []);
 
+  //스켈레톤UI 컴포넌트 갖고오기
+  if (isLoading) {
+    return (
+      <>
+        <Loading></Loading>
+      </>
+    );
+  }
   return (
     <>
       <SComponentsContainer>
