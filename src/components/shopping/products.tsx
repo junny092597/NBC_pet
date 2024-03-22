@@ -60,7 +60,6 @@ function Products({
               <STextBox>
                 <SProductName>{Product.name}</SProductName>
                 <SProductPrice>{`가격: ${Product.price.toLocaleString()}원`}</SProductPrice>
-                {/* <button onClick={() => moveToDeatailPageHandler(Product)}>구매하기</button> */}
               </STextBox>
             </SItemBox>
           ))}
